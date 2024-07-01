@@ -1,0 +1,121 @@
+body {
+    font-family: "Roboto", arial;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    max-width: 880px;
+    transform-origin: top left;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.column {
+    /*    flex: 1 1 10px;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.box {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    font-size: 36px;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+    cursor: pointer;
+    transition: opacity 0.4s;
+}
+
+.headline {
+    width: 100px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 5px;
+    text-align: center;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 12px;
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#lightbox-content {
+    position: relative;
+    margin: 5% auto;
+    padding: 20px 80px;
+    max-width: 350px;
+    color: #ffffff;
+}
+
+#lightbox-content h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 45%;
+    width: 30px;
+    height: 30px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.lightbox-nav.left {
+    left: 10px;
+    text-align: left;
+
+}
+
+.lightbox-nav.right {
+    right: 10px;
+    text-align: right;
+
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
