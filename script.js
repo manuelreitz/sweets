@@ -95,14 +95,13 @@ filterButtonLowCalories.on('click', () => {
         });
 });
 
-
 function updateScaleFactor() {
     const windowWidth = window.innerWidth;
     const maxWidth = 896;
 
     const scaleFactor = Math.min(1, (windowWidth / maxWidth));
 
-    container.style('transform', `scale(${scaleFactor} )`);
+    container.style('transform', `scale(${scaleFactor})`);
 }
 
 updateScaleFactor();
@@ -168,7 +167,6 @@ lightbox.on('click', (event) => {
     }
 });
 
-
 container.selectAll('.box')
     .on('click', (event, d) => {
         currentData = container.selectAll('.box').data();
@@ -179,14 +177,17 @@ container.selectAll('.box')
 
 // Touch-Event-Handler für Swiping
 let startX;
+let isSwiping = false;
 
 function handleTouchStart(event) {
+    console.log('start');
     const firstTouch = event.touches[0];
     startX = firstTouch.clientX;
+    isSwiping = true;
 }
 
 function handleTouchMove(event) {
-    if (!startX) {
+    if (!isSwiping) {
         return;
     }
 
@@ -196,16 +197,20 @@ function handleTouchMove(event) {
     // Swiping nach links
     if (diffX > 50) {
         showNext();
+        isSwiping = false; // Prevent multiple swipes
     }
 
     // Swiping nach rechts
     if (diffX < -50) {
         showPrevious();
+        isSwiping = false; // Prevent multiple swipes
     }
+}
 
-    // Reset startX nach erfolgreichem Swipe
-    startX = null;
+function handleTouchEnd() {
+    isSwiping = false; // Reset swipe state
 }
 
 lightbox.on('touchstart', handleTouchStart);
 lightbox.on('touchmove', handleTouchMove);
+lightbox.on('touchend', handleTouchEnd);
