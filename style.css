@@ -143,10 +143,15 @@ body {
 }
 
 .lightbox-image {
-    width: 510px;
-    height: auto;
-    padding-bottom: 50px;
-    margin: -50px -80px;
+    background-color: rgba(255,255,255,0.2);
+    border: 0px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button {
