@@ -8,7 +8,12 @@ const container = d3.select('#container1');
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
 
-
+container.selectAll('.box')
+    .on('click', (event, d) => {
+        currentData = container.selectAll('.box').data();
+        const index = currentData.findIndex(item => item.name === d.name);
+        showLightbox(index);
+    });
 
 // Funktion zum Anpassen der Box-Inhalte basierend auf der Containerbreite und dem aktiven Filter
 function adjustBoxContent() {

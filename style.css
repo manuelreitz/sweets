@@ -98,7 +98,7 @@ body {
 #lightbox-content {
     position: relative;
     margin: 5% auto;
-    padding: 20px 80px;
+    padding: 50px 80px;
     max-width: 350px;
     color: #ffffff;
 }
@@ -139,6 +139,13 @@ body {
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.lightbox-image {
+    width: 510px;
+    height: auto;
+    padding-bottom: 50px;
+    margin: -50px -80px;
 }
 
 button {

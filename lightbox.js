@@ -1,6 +1,7 @@
 const lightbox = d3.select('#lightbox');
 const lightboxContent = d3.select('#lightbox-content');
 const lightboxDetails = d3.select('#lightbox-details');
+const lightboxImage = d3.select('#lightbox-image');
 const closeButton = lightbox.select('.close');
 const leftNav = lightbox.select('.left');
 const rightNav = lightbox.select('.right');
@@ -28,6 +29,8 @@ function showLightbox(index) {
         Aftertaste: ${d.aftertaste}<br><br>
         <i>${d.notes}</i>
     `);
+
+    lightboxImage.attr('src', `media/${d.symbol.toLowerCase()}.jpg`);
 
     lightbox.style('display', 'block');
     lightboxContent.style('background-color', categoryColors[d.category]);
