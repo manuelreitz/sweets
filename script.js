@@ -1,4 +1,5 @@
-const MIN_OPACITY = 0.1;  // Globale Variable für die minimale Deckkraft
+const MAX_WIDTH = 879; // Maximale Breite für die erweiterte Ansicht
+const MIN_OPACITY = 0.1; // Globale Variable für die minimale Deckkraft
 
 const groupedData = d3.group(data, d => d.category);
 
@@ -18,13 +19,71 @@ const filterButtonAftertaste = d3.select('#filterButtonAftertaste');
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
 
+let activeFilter = null; // Variable, um den aktiven Filter zu verfolgen
+
+// Funktion zum Anpassen der Box-Inhalte basierend auf der Containerbreite und dem aktiven Filter
+function adjustBoxContent() {
+    const containerWidth = document.getElementById('container1').offsetWidth;
+    container.selectAll('.box').each(function(d) {
+        const box = d3.select(this);
+        // Entferne vorherigen Inhalt, falls vorhanden
+        box.selectAll('span').remove();
+        box.selectAll('.symbol').remove();
+        box.selectAll('.filter-value').remove();
+
+        // Füge den Namen und den Filterwert hinzu, wenn die Containerbreite größer als MAX_WIDTH ist
+        if (containerWidth > MAX_WIDTH) {
+            box.html(`<div class="symbol">${d.symbol}</div><span class="name">${d.name}</span>`);
+            if (activeFilter) {
+                let filterValue = '';
+                switch (activeFilter) {
+                    case 'prebiotic':
+                        filterValue = d.prebiotic;
+                        break;
+                    case 'calories':
+                        filterValue = d.calories;
+                        break;
+                    case 'tooth':
+                        filterValue = d.tooth;
+                        break;
+                    case 'sweetness':
+                        filterValue = d.sweetnes;
+                        break;
+                    case 'gi':
+                        filterValue = d.gi;
+                        break;
+                    case 'nutrients':
+                        filterValue = d.nutrients;
+                        break;
+                    case 'heat':
+                        filterValue = d.heat;
+                        break;
+                    case 'laxative':
+                        filterValue = d.laxative;
+                        break;
+                    case 'aftertaste':
+                        filterValue = d.aftertaste;
+                        break;
+                    default:
+                        filterValue = '';
+                }
+                box.append('span').attr('class', 'filter-value').text(filterValue);
+            }
+        } else {
+            // Andernfalls wird nur das Symbol angezeigt
+            box.html(`<div class="symbol">${d.symbol}</div>`);
+        }
+
+    });
+}
+
 groupedData.forEach((values, key) => {
     const column = container.append('div').attr('class', 'column');
 
     column.append('div')
         .attr('class', 'headline')
         .text(key)
-        .style('color', categoryColors[key]);
+        .style('color', categoryColors[key]); // Schriftfarbe der Headlines
 
     const row = column.append('div').attr('class', 'row');
     row.selectAll('.box')
@@ -32,13 +91,12 @@ groupedData.forEach((values, key) => {
         .enter()
         .append('div')
         .attr('class', 'box')
-        .style('background-color', categoryColors[key])
-        .text(d => d.symbol)
+        .style('background-color', categoryColors[key]) // Hintergrundfarbe der Boxen
+        .html(d => `<div class="symbol">${d.symbol}</div>`)
         .on('mouseover', (event, d) => {
             tooltip.style('opacity', 1)
                 .html(`
                     <strong>${d.name}</strong><br>
-                    <i>${d.othernames}</i><br><br>
                     Category: ${d.category}<br>
                     Sweetness: ${d.sweetnes}<br>
                     Calories: ${d.calories}<br>
@@ -61,14 +119,22 @@ groupedData.forEach((values, key) => {
         });
 });
 
+// Initialer Aufruf der Funktion beim Laden der Seite
+adjustBoxContent();
+
+// Event-Listener für die Fenstergrößenänderung
+window.addEventListener('resize', adjustBoxContent);
+
 // Funktion zum Zurücksetzen aller Filter
 function clearFilters() {
     container.selectAll('.box').style('opacity', 1);
     d3.selectAll('button').classed('active', false);
+    activeFilter = null;
+    adjustBoxContent(); // Aktualisiere die Box-Inhalte
 }
 
 // Funktionen zum Aktivieren/Deaktivieren von Filtern
-function toggleFilter(button, filterFn) {
+function toggleFilter(button, filterFn, filterName) {
     const isActive = button.classed('active');
     clearFilters();
     if (!isActive) {
@@ -77,6 +143,8 @@ function toggleFilter(button, filterFn) {
             .filter(filterFn)
             .style('opacity', 1);
         button.classed('active', true);
+        activeFilter = filterName;
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 }
 
@@ -92,7 +160,7 @@ function setOpacityByCalories(d) {
 
 // Funktion zum Setzen der Deckkraft basierend auf Sweetness (Logarithmische Skala)
 function setOpacityBySweetness(d) {
-    const minSweetness = 1;  // Minimaler Wert für Sweetness, um log(1) = 0 zu vermeiden
+    const minSweetness = 1; // Minimaler Wert für Sweetness, um log(1) = 0 zu vermeiden
     const maxSweetness = 300; // Beispielhaft, anpassen an tatsächliche Daten
     const maxOpacity = 1.0;
 
@@ -137,7 +205,7 @@ function setOpacityByAftertaste(d) {
 
 // Filter-Button-Events
 filterButtonPrebiotic.on('click', function() {
-    toggleFilter(d3.select(this), d => d.prebiotic === "yes");
+    toggleFilter(d3.select(this), d => d.prebiotic === "yes", 'prebiotic');
 });
 
 filterButtonLowCalories.on('click', function() {
@@ -146,11 +214,13 @@ filterButtonLowCalories.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityByCalories(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'calories';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
 filterButtonToothDecay.on('click', function() {
-    toggleFilter(d3.select(this), d => d.tooth === "yes");
+    toggleFilter(d3.select(this), d => d.tooth === "yes", 'tooth');
 });
 
 filterButtonSweetness.on('click', function() {
@@ -159,6 +229,8 @@ filterButtonSweetness.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityBySweetness(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'sweetness';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
@@ -168,6 +240,8 @@ filterButtonGI.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityByGI(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'gi';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
@@ -177,6 +251,8 @@ filterButtonNutrients.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityByNutrients(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'nutrients';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
@@ -186,6 +262,8 @@ filterButtonHeat.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityByHeat(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'heat';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
@@ -195,6 +273,8 @@ filterButtonLaxative.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityByLaxative(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'laxative';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
@@ -204,6 +284,8 @@ filterButtonAftertaste.on('click', function() {
     if (!isActive) {
         container.selectAll('.box').style('opacity', d => setOpacityByAftertaste(d));
         d3.select(this).classed('active', true);
+        activeFilter = 'aftertaste';
+        adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
 
