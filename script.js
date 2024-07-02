@@ -1,13 +1,4 @@
-const categoryColors = {
-    "Raw": "#6e4c9e",
-    "Cooked": "#f48989",
-    "Partly Refined": "#7a8d60",
-    "Other Refined": "#efa162",
-    "Refined Sugar": "#932969",
-    "Sugar Alcohol": "#7f7288",
-    "Synthetic Sugar": "#d1aaa8",
-    "Synthetic Sugar Alcohol": "#5685a5"
-};
+const MIN_OPACITY = 0.1;  // Globale Variable für die minimale Deckkraft
 
 const groupedData = d3.group(data, d => d.category);
 
@@ -16,6 +7,13 @@ const container = d3.select('#container1');
 const filterButtonAll = d3.select('#filterButtonAll');
 const filterButtonPrebiotic = d3.select('#filterButtonPrebiotic');
 const filterButtonLowCalories = d3.select('#filterButtonLowCalories');
+const filterButtonToothDecay = d3.select('#filterButtonToothDecay');
+const filterButtonSweetness = d3.select('#filterButtonSweetness'); // Neuer Button
+const filterButtonGI = d3.select('#filterButtonGI');
+const filterButtonNutrients = d3.select('#filterButtonNutrients');
+const filterButtonHeat = d3.select('#filterButtonHeat');
+const filterButtonLaxative = d3.select('#filterButtonLaxative');
+const filterButtonAftertaste = d3.select('#filterButtonAftertaste');
 
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
@@ -63,36 +61,154 @@ groupedData.forEach((values, key) => {
         });
 });
 
-filterButtonPrebiotic.on('click', () => {
-    container.selectAll('.box')
-        .each(function(d) {
-            const box = d3.select(this);
-            if (d.prebiotic === "no") {
-                box.style('opacity', 0.2);
-            } else {
-                box.style('opacity', 1);
-            }
-        });
+// Funktion zum Zurücksetzen aller Filter
+function clearFilters() {
+    container.selectAll('.box').style('opacity', 1);
+    d3.selectAll('button').classed('active', false);
+}
+
+// Funktionen zum Aktivieren/Deaktivieren von Filtern
+function toggleFilter(button, filterFn) {
+    const isActive = button.classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box')
+            .style('opacity', MIN_OPACITY)
+            .filter(filterFn)
+            .style('opacity', 1);
+        button.classed('active', true);
+    }
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf Kalorien
+function setOpacityByCalories(d) {
+    const minCalories = 0;
+    const maxCalories = 400;
+    const maxOpacity = 1.0;
+
+    const opacity = maxOpacity - (d.calories / maxCalories) * (maxOpacity - MIN_OPACITY);
+    return Math.max(opacity, MIN_OPACITY);
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf Sweetness (Logarithmische Skala)
+function setOpacityBySweetness(d) {
+    const minSweetness = 1;  // Minimaler Wert für Sweetness, um log(1) = 0 zu vermeiden
+    const maxSweetness = 300; // Beispielhaft, anpassen an tatsächliche Daten
+    const maxOpacity = 1.0;
+
+    const logSweetness = Math.log(d.sweetnes + 1); // Logarithmische Skalierung
+    const logMaxSweetness = Math.log(maxSweetness + 1);
+
+    const opacity = MIN_OPACITY + (logSweetness / logMaxSweetness) * (maxOpacity - MIN_OPACITY);
+    return Math.max(opacity, MIN_OPACITY);
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf GI (Glycemic Index)
+function setOpacityByGI(d) {
+    const minGI = 0;
+    const maxGI = 105;
+    const maxOpacity = 1.0;
+
+    const opacity = maxOpacity - (d.gi / maxGI) * (maxOpacity - MIN_OPACITY);
+    return Math.max(opacity, MIN_OPACITY);
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf Nutrients
+function setOpacityByNutrients(d) {
+    if (d.nutrients === "yes") return 1.0;
+    if (d.nutrients === "small") return 0.5;
+    return MIN_OPACITY;
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf Heat
+function setOpacityByHeat(d) {
+    return d.heat === "yes" ? 1.0 : MIN_OPACITY;
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf Laxative
+function setOpacityByLaxative(d) {
+    return d.laxative === "yes" ? 1.0 : MIN_OPACITY;
+}
+
+// Funktion zum Setzen der Deckkraft basierend auf Aftertaste
+function setOpacityByAftertaste(d) {
+    return d.aftertaste === "yes" ? 1.0 : MIN_OPACITY;
+}
+
+// Filter-Button-Events
+filterButtonPrebiotic.on('click', function() {
+    toggleFilter(d3.select(this), d => d.prebiotic === "yes");
 });
 
-filterButtonAll.on('click', () => {
-    container.selectAll('.box')
-        .each(function(d) {
-            const box = d3.select(this);
-            box.style('opacity', 1);
-        });
+filterButtonLowCalories.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityByCalories(d));
+        d3.select(this).classed('active', true);
+    }
 });
 
-filterButtonLowCalories.on('click', () => {
-    container.selectAll('.box')
-        .each(function(d) {
-            const box = d3.select(this);
-            if (d.calories < 100) {
-                box.style('opacity', 1);
-            } else {
-                box.style('opacity', 0.2);
-            }
-        });
+filterButtonToothDecay.on('click', function() {
+    toggleFilter(d3.select(this), d => d.tooth === "yes");
+});
+
+filterButtonSweetness.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityBySweetness(d));
+        d3.select(this).classed('active', true);
+    }
+});
+
+filterButtonGI.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityByGI(d));
+        d3.select(this).classed('active', true);
+    }
+});
+
+filterButtonNutrients.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityByNutrients(d));
+        d3.select(this).classed('active', true);
+    }
+});
+
+filterButtonHeat.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityByHeat(d));
+        d3.select(this).classed('active', true);
+    }
+});
+
+filterButtonLaxative.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityByLaxative(d));
+        d3.select(this).classed('active', true);
+    }
+});
+
+filterButtonAftertaste.on('click', function() {
+    const isActive = d3.select(this).classed('active');
+    clearFilters();
+    if (!isActive) {
+        container.selectAll('.box').style('opacity', d => setOpacityByAftertaste(d));
+        d3.select(this).classed('active', true);
+    }
+});
+
+filterButtonAll.on('click', function() {
+    clearFilters();
 });
 
 function updateScaleFactor() {
@@ -174,43 +290,30 @@ container.selectAll('.box')
         showLightbox(index);
     });
 
-
 // Touch-Event-Handler für Swiping
 let startX;
-let isSwiping = false;
 
 function handleTouchStart(event) {
-    console.log('start');
     const firstTouch = event.touches[0];
     startX = firstTouch.clientX;
-    isSwiping = true;
 }
 
 function handleTouchMove(event) {
-    if (!isSwiping) {
+    if (!startX) {
         return;
     }
 
     let currentX = event.touches[0].clientX;
     let diffX = startX - currentX;
 
-    // Swiping nach links
     if (diffX > 50) {
         showNext();
-        isSwiping = false; // Prevent multiple swipes
-    }
-
-    // Swiping nach rechts
-    if (diffX < -50) {
+    } else if (diffX < -50) {
         showPrevious();
-        isSwiping = false; // Prevent multiple swipes
     }
-}
 
-function handleTouchEnd() {
-    isSwiping = false; // Reset swipe state
+    startX = null;
 }
 
 lightbox.on('touchstart', handleTouchStart);
 lightbox.on('touchmove', handleTouchMove);
-lightbox.on('touchend', handleTouchEnd);
