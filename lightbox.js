@@ -25,7 +25,8 @@ function showLightbox(index) {
         Tooth: ${d.tooth}<br>
         Heat: ${d.heat}<br>
         Laxative: ${d.laxative}<br>
-        Aftertaste: ${d.aftertaste}
+        Aftertaste: ${d.aftertaste}<br><br>
+        <i>${d.notes}</i>
     `);
 
     lightbox.style('display', 'block');
