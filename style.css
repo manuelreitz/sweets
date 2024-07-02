@@ -1,5 +1,5 @@
 body {
-    font-family: "Roboto", arial;
+    font-family: "IBM Plex Sans", sans-serif;
 }
 
 .container {
@@ -41,6 +41,7 @@ body {
 
 .symbol {
     font-size: 36px;
+    font-family: "IBM Plex Serif", serif;
 }
 
 .name {
