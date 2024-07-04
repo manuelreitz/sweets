@@ -36,35 +36,44 @@ function toggleFilter(button, filterFn, filterName) {
 
 // Funktion zum Setzen der Deckkraft basierend auf Kalorien
 function setOpacityByCalories(d) {
-    const minCalories = 0;
-    const maxCalories = 400;
-    const maxOpacity = 1.0;
+    // const minCalories = 0;
+    // const maxCalories = 400;
+    // const maxOpacity = 1.0;
 
-    const opacity = maxOpacity - (d.calories / maxCalories) * (maxOpacity - MIN_OPACITY);
-    return Math.max(opacity, MIN_OPACITY);
+    // const opacity = maxOpacity - (d.calories / maxCalories) * (maxOpacity - MIN_OPACITY);
+    // return Math.max(opacity, MIN_OPACITY);
+    if (d.calories < 11) return 1.0;
+    if (d.calories > 11 && d.calories < 200) return 0.4;
+    return MIN_OPACITY;
 }
 
 // Funktion zum Setzen der Deckkraft basierend auf Sweetness (Logarithmische Skala)
 function setOpacityBySweetness(d) {
-    const minSweetness = 1; // Minimaler Wert für Sweetness, um log(1) = 0 zu vermeiden
-    const maxSweetness = 300; // Beispielhaft, anpassen an tatsächliche Daten
-    const maxOpacity = 1.0;
+    // const minSweetness = 1; // Minimaler Wert für Sweetness, um log(1) = 0 zu vermeiden
+    // const maxSweetness = 20000; // Beispielhaft, anpassen an tatsächliche Daten
+    // const maxOpacity = 1.0;
 
-    const logSweetness = Math.log(d.sweetnes + 1); // Logarithmische Skalierung
-    const logMaxSweetness = Math.log(maxSweetness + 1);
+    // const logSweetness = Math.log(d.sweetnes + 1); // Logarithmische Skalierung
+    // const logMaxSweetness = Math.log(maxSweetness + 1);
 
-    const opacity = MIN_OPACITY + (logSweetness / logMaxSweetness) * (maxOpacity - MIN_OPACITY);
-    return Math.max(opacity, MIN_OPACITY);
+    // const opacity = MIN_OPACITY + (logSweetness / logMaxSweetness) * (maxOpacity - MIN_OPACITY);
+    // return Math.max(opacity, MIN_OPACITY);
+    if (d.sweetnes > 49) return 1.0;
+    return MIN_OPACITY;
 }
 
 // Funktion zum Setzen der Deckkraft basierend auf GI (Glycemic Index)
 function setOpacityByGI(d) {
-    const minGI = 0;
-    const maxGI = 105;
-    const maxOpacity = 1.0;
+    // const minGI = 0;
+    // const maxGI = 105;
+    // const maxOpacity = 1.0;
 
-    const opacity = maxOpacity - (d.gi / maxGI) * (maxOpacity - MIN_OPACITY);
-    return Math.max(opacity, MIN_OPACITY);
+    // const opacity = maxOpacity - (d.gi / maxGI) * (maxOpacity - MIN_OPACITY);
+    // return Math.max(opacity, MIN_OPACITY);
+    if (d.gi < 56) return 1.0;
+    if (d.gi >= 56 && d.gi <= 69) return 0.4;
+    return MIN_OPACITY;
+
 }
 
 // Funktion zum Setzen der Deckkraft basierend auf Nutrients

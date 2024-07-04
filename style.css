@@ -47,6 +47,8 @@ body {
 .symbol {
     font-size: 36px;
     font-family: "IBM Plex Serif", serif;
+    position: relative;
+    top: -7px;
 }
 
 .name {
