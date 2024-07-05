@@ -177,3 +177,10 @@ button.active {
     background-color: #333;
     color: #fff;
 }
+
+#radarChart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
