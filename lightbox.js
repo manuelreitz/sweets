@@ -17,6 +17,7 @@ function createRadarChart(data, highlightedIndex) {
     const height = 300;
     const radius = Math.min(width, height) / 2 * 0.8;
     const angleSlice = Math.PI * 2 / data[0].attributes.length;
+    const labelOffset = 10; // Abstand der Labels von den Ecken des RadarStrokes
 
     const radarChartSvg = radarChart.append("svg")
         .attr("width", width + 50)
@@ -39,16 +40,17 @@ function createRadarChart(data, highlightedIndex) {
     const axisGrid = radarChartSvg.append("g").attr("class", "axisWrapper");
 
     // Hintergrundkreise für die Eigenschaften
-    for (let level = 0; level <= 5; level++) {
-        const levelFactor = radius * (level / 5);
+    const circleRadii = [0.3, 0.44, 0.58, 0.72, 0.86, 1.0];
+    circleRadii.forEach(level => {
+        const levelFactor = radius * level;
         axisGrid.append("circle")
             .attr("class", "gridCircle")
             .attr("r", levelFactor)
             .style("fill", "none")
             .style("stroke", "#CDCDCD")
             .style("stroke-width", "1px")
-            .style("opacity", 0.2);
-    }
+            .style("opacity", 0.1);
+    });
 
     // Achsen hinzufügen
     const axis = axisGrid.selectAll(".axis")
@@ -58,13 +60,13 @@ function createRadarChart(data, highlightedIndex) {
         .attr("class", "axis");
 
     axis.append("line")
-        .attr("x1", 0)
-        .attr("y1", 0)
+        .attr("x1", (d, i) => radius * 0.3 * Math.cos(angleSlice * i - Math.PI / 2))
+        .attr("y1", (d, i) => radius * 0.3 * Math.sin(angleSlice * i - Math.PI / 2))
         .attr("x2", (d, i) => radius * Math.cos(angleSlice * i - Math.PI / 2))
         .attr("y2", (d, i) => radius * Math.sin(angleSlice * i - Math.PI / 2))
         .style("stroke", "#000")
         .style("stroke-width", "1px")
-        .style("opacity", 0.2);
+        .style("opacity", 0.1);
 
     axis.append("text")
         .attr("class", "legend")
@@ -78,10 +80,9 @@ function createRadarChart(data, highlightedIndex) {
             if (d.axis === "Calories") return x + 25; // Für Linksbindung
             return x;
         })
-        .attr("y", (d, i) => (radius +40) * Math.sin(angleSlice * i - Math.PI / 2))
+        .attr("y", (d, i) => (radius + 40) * Math.sin(angleSlice * i - Math.PI / 2))
         .attr("text-anchor", d => d.axis === "Calories" ? "end" : "middle")
         .text(d => d.axis)
-        .call(wrap, 60);
 
     // Daten hinzufügen
     data.forEach((d, index) => {
@@ -113,10 +114,9 @@ function createRadarChart(data, highlightedIndex) {
                 .enter()
                 .append("text")
                 .attr("class", "valueLabel")
-                .attr("x", d => d[0])
-                .attr("y", d => d[1])
+                .attr("x", (d, i) => d[0] + labelOffset * Math.cos(angleSlice * i - Math.PI / 2))
+                .attr("y", (d, i) => d[1] + labelOffset * Math.sin(angleSlice * i - Math.PI / 2))
                 .attr("dy", "0.35em")
-                .attr("dx", d => (d[0] < 0 ? -5 : 5))
                 .style("font-size", "12px")
                 .style("fill", "#000")
                 .attr("text-anchor", "middle")
@@ -130,34 +130,6 @@ function createRadarChart(data, highlightedIndex) {
                     }
                     return data[highlightedIndex].attributes[i].value;
                 });
-        }
-    });
-}
-
-// Funktion zum Umbruch von Textlabels
-function wrap(text, width) {
-    text.each(function() {
-        const text = d3.select(this),
-            words = text.text().split(/\s+/).reverse(),
-            lineHeight = 1.1, // ems
-            x = text.attr("x"),
-            y = text.attr("y"),
-            dy = parseFloat(text.attr("dy"));
-
-        let word,
-            line = [],
-            lineNumber = 0,
-            tspan = text.text(null).append("tspan").attr("x", x).attr("y", y).attr("dy", dy + "em");
-
-        while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(" "));
-            if (tspan.node().getComputedTextLength() > width) {
-                line.pop();
-                tspan.text(line.join(" "));
-                line = [word];
-                tspan = text.append("tspan").attr("x", x).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-            }
         }
     });
 }
