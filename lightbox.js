@@ -27,6 +27,7 @@ function createRadarChart(data, highlightedIndex) {
         .append("g")
         .attr("transform", `translate(${(width + 50) / 2}, ${(height + 50) / 2})`);
 
+
     // Skalen für die numerischen und kategorischen Werte
     const numericScale = d3.scaleLinear()
         .domain([0, 1])
@@ -47,7 +48,7 @@ function createRadarChart(data, highlightedIndex) {
             .attr("class", "gridCircle")
             .attr("r", levelFactor)
             .style("fill", "none")
-            .style("stroke", "#CDCDCD")
+            .style("stroke", "#000")
             .style("stroke-width", "1px")
             .style("opacity", 0.1);
     });
@@ -139,14 +140,15 @@ function showLightbox(index) {
     const d = currentData[currentIndex];
 
     lightboxDetails.html(`
-        <h1>${d.name}</h1>
-        <i>${d.othernames}</i><br><br>
-        Category: ${d.category}<br>
-        Sweetness: ${d.sweetnes}<br>
-        Calories: ${d.calories}<br>
-        GI: ${d.gi}<br><br>
-        <i>${d.notes}</i>
-    `);
+    <h1>${d.name}</h1>
+    <i>${d.othernames}</i><br><br>
+    Category: ${d.category}<br>
+    Sweetness: ${d.sweetnes}<br>
+    Calories: ${d.calories}<br>
+    GI: ${d.gi}<br><br>
+    <i>${d.notes}</i>
+`);
+
 
     // Umwandlung der Daten für das Radar-Chart
     const radarData = currentData.map(item => ({
@@ -182,6 +184,9 @@ function showPrevious() {
 
 function showNext() {
     if (currentIndex < currentData.length - 1) {
+        if (currentIndex >= 33) {
+            currentIndex = 0;
+        }
         showLightbox(currentIndex + 1);
     }
 }
