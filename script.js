@@ -77,7 +77,7 @@ groupedData.forEach((values, key) => {
     column.append('div')
         .attr('class', 'headline')
         .text(key)
-        .style('color', categoryColors[key]); // Schriftfarbe der Headlines
+        .style('text-decoration', categoryColors[key] + ' underline 3px'); // Schriftfarbe der Headlines
 
     const row = column.append('div').attr('class', 'row');
     row.selectAll('.box')

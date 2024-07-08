@@ -62,22 +62,23 @@ function createRadarChart(data, highlightedIndex) {
         .attr("y1", 0)
         .attr("x2", (d, i) => radius * Math.cos(angleSlice * i - Math.PI / 2))
         .attr("y2", (d, i) => radius * Math.sin(angleSlice * i - Math.PI / 2))
-        .style("stroke", "white")
+        .style("stroke", "#000")
         .style("stroke-width", "1px")
         .style("opacity", 0.2);
 
     axis.append("text")
         .attr("class", "legend")
-        .style("font-size", "11px")
-        .style("fill", "white")
+        .style("font-size", "14px")
+        .style("font-weight", "bold")
+        .style("fill", "#000")
         .attr("text-anchor", "middle")
         .attr("dy", "0.35em")
         .attr("x", (d, i) => {
-            const x = (radius + 20) * Math.cos(angleSlice * i - Math.PI / 2);
+            const x = (radius + 40) * Math.cos(angleSlice * i - Math.PI / 2);
             if (d.axis === "Calories") return x + 25; // Für Linksbindung
             return x;
         })
-        .attr("y", (d, i) => (radius + 20) * Math.sin(angleSlice * i - Math.PI / 2))
+        .attr("y", (d, i) => (radius +40) * Math.sin(angleSlice * i - Math.PI / 2))
         .attr("text-anchor", d => d.axis === "Calories" ? "end" : "middle")
         .text(d => d.axis)
         .call(wrap, 60);
@@ -101,8 +102,8 @@ function createRadarChart(data, highlightedIndex) {
         radarChartSvg.append("path")
             .attr("class", "radarStroke")
             .attr("d", d3.line()(dataValues.map(d => [d[0], d[1]])) + "Z")
-            .style("fill", index === highlightedIndex ? "#FFFFFF" : "none")
-            .style("fill-opacity", index === highlightedIndex ? 0.3 : 0)
+            .style("fill", index === highlightedIndex ? categoryColors[d.category] : "none")
+            .style("fill-opacity", index === highlightedIndex ? 0.8 : 0)
             .style("opacity", index === highlightedIndex ? 1 : 0.7);
 
         // Labels für die Werte hinzufügen
@@ -116,8 +117,8 @@ function createRadarChart(data, highlightedIndex) {
                 .attr("y", d => d[1])
                 .attr("dy", "0.35em")
                 .attr("dx", d => (d[0] < 0 ? -5 : 5))
-                .style("font-size", "10px")
-                .style("fill", "white")
+                .style("font-size", "12px")
+                .style("fill", "#000")
                 .attr("text-anchor", "middle")
                 .text((d, i) => {
                     if (data[highlightedIndex].attributes[i].axis === "Sweetness") {
@@ -135,7 +136,7 @@ function createRadarChart(data, highlightedIndex) {
 
 // Funktion zum Umbruch von Textlabels
 function wrap(text, width) {
-    text.each(function () {
+    text.each(function() {
         const text = d3.select(this),
             words = text.text().split(/\s+/).reverse(),
             lineHeight = 1.1, // ems
@@ -189,7 +190,12 @@ function showLightbox(index) {
     createRadarChart(radarData, index);
 
     lightbox.style('display', 'block');
-    lightboxContent.style('background-color', categoryColors[d.category]);
+
+    // lightbox.style('background-color', categoryColors[d.category]);
+
+    lightboxContent.style('border', '20px solid ' + categoryColors[d.category])
+
+
 }
 
 function hideLightbox() {
