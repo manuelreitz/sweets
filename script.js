@@ -1,9 +1,10 @@
-const MAX_WIDTH = 879; // Maximale Breite für die erweiterte Ansicht
+const MAX_WIDTH = 930; // Maximale Breite für die erweiterte Ansicht
 const MIN_OPACITY = 0.1; // Globale Variable für die minimale Deckkraft
+let activeFilter = null; // Variable, um den aktiven Filter zu verfolgen
 
 const groupedData = d3.group(data, d => d.category);
 
-// const container = d3.select('#container1');
+const container = d3.select('#container1');
 
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
@@ -31,31 +32,31 @@ function adjustBoxContent() {
             if (activeFilter) {
                 let filterValue = '';
                 switch (activeFilter) {
-                    case 'prebiotic':
+                    case 'Prebiotic':
                         filterValue = d.prebiotic;
                         break;
-                    case 'calories':
+                    case 'Low Calories':
                         filterValue = d.calories;
                         break;
-                    case 'tooth':
+                    case 'Tooth Decay':
                         filterValue = d.tooth;
                         break;
-                    case 'sweetness':
+                    case 'Sweetness':
                         filterValue = d.sweetnes;
                         break;
-                    case 'gi':
+                    case 'Glycemic Index':
                         filterValue = d.gi;
                         break;
-                    case 'nutrients':
+                    case 'Nutrients':
                         filterValue = d.nutrients;
                         break;
-                    case 'heat':
+                    case 'Heat':
                         filterValue = d.heat;
                         break;
-                    case 'laxative':
+                    case 'Laxative':
                         filterValue = d.laxative;
                         break;
-                    case 'aftertaste':
+                    case 'Aftertaste':
                         filterValue = d.aftertaste;
                         break;
                     default:
@@ -121,10 +122,7 @@ window.addEventListener('resize', adjustBoxContent);
 
 function updateScaleFactor() {
     const windowWidth = window.innerWidth;
-    const maxWidth = 896;
-
-    const scaleFactor = Math.min(1, (windowWidth / maxWidth));
-
+    const scaleFactor = Math.min(1, (windowWidth / MAX_WIDTH));
     container.style('transform', `scale(${scaleFactor})`);
 }
 

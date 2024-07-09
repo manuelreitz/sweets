@@ -6,7 +6,7 @@ body {
 .container {
     display: flex;
     flex-direction: row;
-    max-width: 880px;
+    max-width: 931px;
     transform-origin: top left;
     box-sizing: border-box;
 }
