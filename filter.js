@@ -32,7 +32,8 @@ function clearFilters() {
     selectedFilterDiv.text('');
     filterDescriptionDiv.text('');
     clearFilterButton.style('display', 'none');
-    adjustBoxContent(); // Aktualisiere die Box-Inhalte
+    adjustBoxContent();
+    updateHeaderBackground('All');
 }
 
 // Funktionen zum Aktivieren/Deaktivieren von Filtern
@@ -49,9 +50,14 @@ function toggleFilter(button, filterFn, filterName) {
         selectedFilterDiv.text(filterName);
         filterDescriptionDiv.text(filterDescriptions[filterName]);
         clearFilterButton.style('display', 'inline-block');
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
+        adjustBoxContent();
+        updateHeaderBackground(filterName);
     }
 }
+
+
+
+
 
 // Filter-Option-Events
 filterButtonPrebiotic.on('click', function() {
@@ -68,6 +74,7 @@ filterButtonLowCalories.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -86,6 +93,7 @@ filterButtonSweetness.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -100,6 +108,7 @@ filterButtonGI.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -115,6 +124,7 @@ filterButtonNutrients.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -129,6 +139,7 @@ filterButtonHeat.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -143,6 +154,7 @@ filterButtonLaxative.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -157,6 +169,7 @@ filterButtonAftertaste.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
 });
@@ -204,3 +217,23 @@ function setOpacityByAftertaste(d) {
 
 // Lade die Filterbeschreibungen beim Laden der Seite
 loadFilterDescriptions();
+
+const header = d3.select('header');
+
+function updateHeaderBackground(filterName) {
+    const filterImages = {
+        "All": "media/all.jpg",
+        "Prebiotic": "media/prebiotic.jpg",
+        "Low Calories": "media/low-calories.jpg",
+        "Tooth Decay": "media/tooth-decay.jpg",
+        "Sweetness": "media/sweetness.jpg",
+        "Glycemic Index": "media/glycemic-index.jpg",
+        "Nutrients": "media/nutrients.jpg",
+        "Heat": "media/heat.jpg",
+        "Laxative": "media/laxative.jpg",
+        "Aftertaste": "media/aftertaste.jpg"
+    };
+
+    const imageUrl = filterImages[filterName] || "media/all.jpg";
+    header.style('background-image', `url(${imageUrl})`);
+}

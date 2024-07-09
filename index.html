@@ -18,25 +18,30 @@
     <button id="filterButtonHeat">Heat</button>
     <button id="filterButtonLaxative">Laxative</button>
     <button id="filterButtonAftertaste">Aftertaste</button> -->
-    <div class="dropdown">
-        <button class="dropbtn">Filter</button>
-        <div class="dropdown-content">
-            <a href="#" id="filterAll">All</a>
-            <a href="#" id="filterPrebiotic">Prebiotic</a>
-            <a href="#" id="filterLowCalories">Low Calories</a>
-            <a href="#" id="filterToothDecay">Tooth Decay</a>
-            <a href="#" id="filterSweetness">Sweetness</a>
-            <a href="#" id="filterGI">Glycemic Index</a>
-            <a href="#" id="filterNutrients">Nutrients</a>
-            <a href="#" id="filterHeat">Heat</a>
-            <a href="#" id="filterLaxative">Laxative</a>
-            <a href="#" id="filterAftertaste">Aftertaste</a>
+    <header>
+        <div class="header-content">
+            <div class="dropdown">
+                <button class="dropbtn">Filter</button>
+                <div class="dropdown-content">
+                    <a href="#" id="filterAll">All</a>
+                    <a href="#" id="filterPrebiotic">Prebiotic</a>
+                    <a href="#" id="filterLowCalories">Low Calories</a>
+                    <a href="#" id="filterToothDecay">Tooth Decay</a>
+                    <a href="#" id="filterSweetness">Sweetness</a>
+                    <a href="#" id="filterGI">Glycemic Index</a>
+                    <a href="#" id="filterNutrients">Nutrients</a>
+                    <a href="#" id="filterHeat">Heat</a>
+                    <a href="#" id="filterLaxative">Laxative</a>
+                    <a href="#" id="filterAftertaste">Aftertaste</a>
+                </div>
+            </div>
+            <div class="filter-content">
+                <div id="selectedFilter" class="selected-filter"></div>
+                <button id="clearFilterButton" class="clear-filter-button" style="display:none;">X</button>
+                <div id="filterDescription" class="filter-description"></div>
+            </div>
         </div>
-    </div>
-    <div id="selectedFilter" class="selected-filter"></div>
-    <button id="clearFilterButton" class="clear-filter-button" style="display:none;">X</button>
-    <div id="filterDescription" class="filter-description"></div>
-    
+    </header>
     <div id="container1" class="container"></div>
     <div id="lightbox" class="lightbox">
         <div id="lightbox-content">
