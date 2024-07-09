@@ -170,6 +170,9 @@ body {
     margin-right: auto;
 }
 
+
+/* Filter-Buttons
+
 button {
     padding: 10px 20px;
     margin: 5px;
@@ -189,7 +192,93 @@ button.active {
     background-color: #f5a0a6;
     color: #fff;
     border: 2px solid #e6689a;
+}*/
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #f5a0a6;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    left: 10px;
 }
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+    background-color: #888;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.selected-filter {
+    display: inline-block;
+    margin-left: 10px;
+    font-size: 32px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.clear-filter-button {
+    background-color: #a9a9a9; /* Hellgrau */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    cursor: pointer;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.clear-filter-button:hover {
+    background-color: #d3d3d3; /* Dunkleres Grau */
+}
+
+.filter-description {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
 
 #radarChart {
     display: flex;

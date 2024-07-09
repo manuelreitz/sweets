@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <button id="filterButtonAll">All</button>
+    <!-- <button id="filterButtonAll">All</button>
     <button id="filterButtonPrebiotic">Prebiotic</button>
     <button id="filterButtonLowCalories">Low Calories</button>
     <button id="filterButtonToothDecay">Tooth Decay</button>
@@ -17,7 +17,26 @@
     <button id="filterButtonNutrients">Nutrients</button>
     <button id="filterButtonHeat">Heat</button>
     <button id="filterButtonLaxative">Laxative</button>
-    <button id="filterButtonAftertaste">Aftertaste</button>
+    <button id="filterButtonAftertaste">Aftertaste</button> -->
+    <div class="dropdown">
+        <button class="dropbtn">Filter</button>
+        <div class="dropdown-content">
+            <a href="#" id="filterAll">All</a>
+            <a href="#" id="filterPrebiotic">Prebiotic</a>
+            <a href="#" id="filterLowCalories">Low Calories</a>
+            <a href="#" id="filterToothDecay">Tooth Decay</a>
+            <a href="#" id="filterSweetness">Sweetness</a>
+            <a href="#" id="filterGI">Glycemic Index</a>
+            <a href="#" id="filterNutrients">Nutrients</a>
+            <a href="#" id="filterHeat">Heat</a>
+            <a href="#" id="filterLaxative">Laxative</a>
+            <a href="#" id="filterAftertaste">Aftertaste</a>
+        </div>
+    </div>
+    <div id="selectedFilter" class="selected-filter"></div>
+    <button id="clearFilterButton" class="clear-filter-button" style="display:none;">X</button>
+    <div id="filterDescription" class="filter-description"></div>
+    
     <div id="container1" class="container"></div>
     <div id="lightbox" class="lightbox">
         <div id="lightbox-content">
@@ -35,9 +54,7 @@
     <script src="colors.js"></script>
     <script src="filter.js"></script>
     <script src="script.js"></script>
-    
     <script src="lightbox.js"></script>
-    
 </body>
 
 </html>

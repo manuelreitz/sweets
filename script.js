@@ -3,7 +3,7 @@ const MIN_OPACITY = 0.1; // Globale Variable für die minimale Deckkraft
 
 const groupedData = d3.group(data, d => d.category);
 
-const container = d3.select('#container1');
+// const container = d3.select('#container1');
 
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
