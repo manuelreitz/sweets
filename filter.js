@@ -14,7 +14,7 @@ const filterButtonAftertaste = d3.select('#filterAftertaste');
 const selectedFilterDiv = d3.select('#selectedFilter');
 const filterDescriptionDiv = d3.select('#filterDescription');
 const clearFilterButton = d3.select('#clearFilterButton');
-// const container = d3.select('#container1');
+const filterDropdownButton = d3.select('#filterDropdownButton');
 
 // Funktion zum Laden der Filterbeschreibungen aus der JSON-Datei
 function loadFilterDescriptions() {
@@ -32,6 +32,7 @@ function clearFilters() {
     selectedFilterDiv.text('');
     filterDescriptionDiv.text('');
     clearFilterButton.style('display', 'none');
+    filterDropdownButton.html('Lots of Sweeteners  <i class="fas fa-chevron-down"></i>'); // Setze den Dropdown-Button-Text zurück
     adjustBoxContent();
     updateHeaderBackground('All');
 }
@@ -50,14 +51,11 @@ function toggleFilter(button, filterFn, filterName) {
         selectedFilterDiv.text(filterName);
         filterDescriptionDiv.text(filterDescriptions[filterName]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html(`${filterName} <i class="fas fa-chevron-down"></i>`); // Ändere den Dropdown-Button-Text
         adjustBoxContent();
         updateHeaderBackground(filterName);
     }
 }
-
-
-
-
 
 // Filter-Option-Events
 filterButtonPrebiotic.on('click', function() {
@@ -74,6 +72,7 @@ filterButtonLowCalories.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Low Calories <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -93,6 +92,7 @@ filterButtonSweetness.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Sweetness <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -108,6 +108,7 @@ filterButtonGI.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Glycemic Index <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -124,6 +125,7 @@ filterButtonNutrients.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Nutrients <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -139,6 +141,7 @@ filterButtonHeat.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Heat <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -154,6 +157,7 @@ filterButtonLaxative.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Laxative <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -169,6 +173,7 @@ filterButtonAftertaste.on('click', function() {
         selectedFilterDiv.text(activeFilter);
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
+        filterDropdownButton.html('Aftertaste <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
@@ -222,11 +227,11 @@ const header = d3.select('header');
 
 function updateHeaderBackground(filterName) {
     const filterImages = {
-        "All": "media/all.jpg",
+        "All": "media/all.webp",
         "Prebiotic": "media/prebiotic.jpg",
-        "Low Calories": "media/low-calories.jpg",
-        "Tooth Decay": "media/tooth-decay.jpg",
-        "Sweetness": "media/sweetness.jpg",
+        "Low Calories": "media/low-calories.webp",
+        "Tooth Decay": "media/tooth-decay.webp",
+        "Sweetness": "media/sweetness.webp",
         "Glycemic Index": "media/glycemic-index.jpg",
         "Nutrients": "media/nutrients.jpg",
         "Heat": "media/heat.jpg",

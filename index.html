@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sweetener</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -21,7 +22,7 @@
     <header>
         <div class="header-content">
             <div class="dropdown">
-                <button class="dropbtn">Filter</button>
+                <button id="filterDropdownButton" class="dropbtn">Lots of Sweeteners <i class="fas fa-chevron-down"></i></button>
                 <div class="dropdown-content">
                     <a href="#" id="filterAll">All</a>
                     <a href="#" id="filterPrebiotic">Prebiotic</a>
@@ -36,9 +37,9 @@
                 </div>
             </div>
             <div class="filter-content">
-                <div id="selectedFilter" class="selected-filter"></div>
-                <button id="clearFilterButton" class="clear-filter-button" style="display:none;">X</button>
-                <div id="filterDescription" class="filter-description"></div>
+                <!-- <div id="selectedFilter" class="selected-filter"></div> -->
+                <!-- <button id="clearFilterButton" class="clear-filter-button" style="display:none;">X</button> -->
+                <div id="filterDescription" class="filter-description">Excessive sugar harms health by rotting teeth, building fat, damaging blood vessels, and stressing the blood sugar regulation system. Artificial sweeteners are suspected of causing metabolic issues like diabetes and obesity.</div>
             </div>
         </div>
     </header>
