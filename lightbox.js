@@ -145,7 +145,14 @@ function showLightbox(index) {
     Category: ${d.category}<br>
     Sweetness: ${d.sweetnes}<br>
     Calories: ${d.calories}<br>
-    GI: ${d.gi}<br><br>
+    GI: ${d.gi}<br>
+    Nutrients: ${d.nutrients}<br>
+    Prebiotic: ${d.prebiotic}<br>
+    Metabolic: ${d.metabolic}<br>
+    Tooth: ${d.tooth}<br>
+    Heat: ${d.heat}<br>
+    Laxative: ${d.laxative}<br>
+    Aftertaste: ${d.aftertaste}<br><br>
     <i>${d.notes}</i>
 `);
 
@@ -177,15 +184,18 @@ function hideLightbox() {
 }
 
 function showPrevious() {
-    if (currentIndex > 0) {
+    // if (currentIndex > 0) {
+            console.log(currentIndex);
+
         showLightbox(currentIndex - 1);
-    }
+    // }
 }
 
 function showNext() {
     if (currentIndex < currentData.length - 1) {
-        if (currentIndex >= 33) {
-            currentIndex = 0;
+        console.log(currentIndex);
+        if (currentIndex >= 34) {
+            currentIndex = 1;
         }
         showLightbox(currentIndex + 1);
     }
