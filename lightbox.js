@@ -8,134 +8,103 @@ const rightNav = lightbox.select('.right');
 
 let currentIndex = 0;
 let currentData = [];
+const maxCalories = 400;
+const maxSweetness = 20000;
+const maxGI = 105;
 
-function createRadarChart(data, highlightedIndex) {
-    // Bereinigen des Radar-Chart-Containers
-    radarChart.selectAll("*").remove();
+// function createPolarChart(data, highlightedIndex) {
+//     radarChart.selectAll("*").remove();
 
-    const width = 300;
-    const height = 300;
-    const radius = Math.min(width, height) / 2 * 0.8;
-    const angleSlice = Math.PI * 2 / data[0].attributes.length;
-    const labelOffset = 10; // Abstand der Labels von den Ecken des RadarStrokes
+//     const width = 300;
+//     const height = 300;
+//     const radius = Math.min(width, height) / 2 * 0.8;
+//     const color = categoryColors[data[highlightedIndex].category];
 
-    const radarChartSvg = radarChart.append("svg")
-        .attr("width", width + 50)
-        .attr("height", height + 50)
-        .style("display", "block")
-        .style("margin", "0 auto")
-        .append("g")
-        .attr("transform", `translate(${(width + 50) / 2}, ${(height + 50) / 2})`);
+//     const polarChartSvg = radarChart.append("svg")
+//         .attr("width", width + 50)
+//         .attr("height", height + 50)
+//         .style("display", "block")
+//         .style("margin", "0 auto")
+//         .append("g")
+//         .attr("transform", `translate(${(width + 50) / 2}, ${(height + 50) / 2})`);
+
+//     const scales = {
+//         calories: d3.scaleLinear().domain([0, maxCalories]).range([0, radius]),
+//         sweetness: d3.scaleLog().domain([1, maxSweetness]).range([0, radius]),
+//         gi: d3.scaleLinear().domain([0, maxGI]).range([0, radius]),
+//     };
+
+//     const angles = {
+//         sweetness: { start: 0, end: 2 * Math.PI / 3 }, // 0 bis 120 Grad
+//         gi: { start: 2 * Math.PI / 3, end: 4 * Math.PI / 3 }, // 120 bis 240 Grad
+//         calories: { start: 4 * Math.PI / 3, end: 2 * Math.PI }, // 240 bis 360 Grad (0 Grad)
+//     };
+
+//     const attributes = ['sweetness', 'gi', 'calories'];
+
+//     const sucrose = {
+//         calories: 387,
+//         sweetness: 1,
+//         gi: 65,
+//     };
 
 
-    // Skalen für die numerischen und kategorischen Werte
-    const numericScale = d3.scaleLinear()
-        .domain([0, 1])
-        .range([radius * 0.3, radius]);
 
-    const logScale = d3.scaleLog()
-        .domain([1, 20000])
-        .range([radius * 0.3, radius]);
+//     attributes.forEach(attr => {
+//         const scale = scales[attr];
+//         const angle = angles[attr];
+//         const value = data[highlightedIndex][attr];
+//         const sucroseValue = sucrose[attr];
 
-    // Hintergrundgitter und Achsen
-    const axisGrid = radarChartSvg.append("g").attr("class", "axisWrapper");
+//         // Ausgewähltes Element
+//         polarChartSvg.append("path")
+//             .attr("d", d3.arc()
+//                 .innerRadius(0)
+//                 .outerRadius(scale(value))
+//                 .startAngle(angle.start)
+//                 .endAngle(angle.end))
+//             .attr("fill", color)
+//             .attr("opacity", 0.8);
 
-    // Hintergrundkreise für die Eigenschaften
-    const circleRadii = [0.3, 0.44, 0.58, 0.72, 0.86, 1.0];
-    circleRadii.forEach(level => {
-        const levelFactor = radius * level;
-        axisGrid.append("circle")
-            .attr("class", "gridCircle")
-            .attr("r", levelFactor)
-            .style("fill", "none")
-            .style("stroke", "#000")
-            .style("stroke-width", "1px")
-            .style("opacity", 0.1);
-    });
+//         // Vergleichswert (Sucrose)
+//         polarChartSvg.append("path")
+//             .attr("d", d3.arc()
+//                 .innerRadius(0)
+//                 .outerRadius(scale(sucroseValue))
+//                 .startAngle(angle.start)
+//                 .endAngle(angle.end))
+//             .attr("stroke", "#000")
+//             .attr("stroke-width", "2px")
+//             .attr("fill", "none")
+//             .attr("opacity", 0.6);
 
-    // Achsen hinzufügen
-    const axis = axisGrid.selectAll(".axis")
-        .data(data[0].attributes)
-        .enter()
-        .append("g")
-        .attr("class", "axis");
+//         // Hinzufügen der Labels
+//         const angleMiddle = ((angle.start + angle.end) / 2) - (Math.PI / 2);
+//         polarChartSvg.append("text")
+//             .attr("x", (attr === 'gi' ? radius + 20 : radius + 80) * Math.cos(angleMiddle))
+//             .attr("y", (attr === 'gi' ? radius + 20 : radius + 80) * Math.sin(angleMiddle))
+//             .attr("text-anchor", attr === 'sweetness' ? 'end' : (attr === 'calories' ? 'start' : 'middle'))
+//             .attr("alignment-baseline", "top")
+//             .attr("fill", "#000")
+//             .style("font-size", "14px")
+//             .text(attr.toUpperCase());
 
-    axis.append("line")
-        .attr("x1", (d, i) => radius * 0.3 * Math.cos(angleSlice * i - Math.PI / 2))
-        .attr("y1", (d, i) => radius * 0.3 * Math.sin(angleSlice * i - Math.PI / 2))
-        .attr("x2", (d, i) => radius * Math.cos(angleSlice * i - Math.PI / 2))
-        .attr("y2", (d, i) => radius * Math.sin(angleSlice * i - Math.PI / 2))
-        .style("stroke", "#000")
-        .style("stroke-width", "1px")
-        .style("opacity", 0.1);
+//         polarChartSvg.append("text")
+//             .attr("x", (attr === 'gi' ? radius + 20 : radius + 80) * Math.cos(angleMiddle))
+//             .attr("y", (attr === 'gi' ? radius + 20 : radius + 80) * Math.sin(angleMiddle) + 20)
+//             .attr("text-anchor", attr === 'sweetness' ? 'end' : (attr === 'calories' ? 'start' : 'middle'))
+//             .attr("alignment-baseline", "bottom")
+//             .attr("fill", color)
+//             .style("font-size", "18px")
+//             .style("font-weight", "bold")
+//             .text(`${value} | ${sucroseValue}`);
+//     });
+// }
 
-    axis.append("text")
-        .attr("class", "legend")
-        .style("font-size", "14px")
-        .style("font-weight", "bold")
-        .style("fill", "#000")
-        .attr("text-anchor", "middle")
-        .attr("dy", "0.35em")
-        .attr("x", (d, i) => {
-            const x = (radius + 40) * Math.cos(angleSlice * i - Math.PI / 2);
-            if (d.axis === "Calories") return x + 25; // Für Linksbindung
-            return x;
-        })
-        .attr("y", (d, i) => (radius + 40) * Math.sin(angleSlice * i - Math.PI / 2))
-        .attr("text-anchor", d => d.axis === "Calories" ? "end" : "middle")
-        .text(d => d.axis)
-
-    // Daten hinzufügen
-    data.forEach((d, index) => {
-        const dataValues = d.attributes.map((attr, i) => {
-            let scaledValue;
-            if (attr.axis === "Sweetness") {
-                scaledValue = logScale(attr.value + 1);
-            } else {
-                const value = attr.value;
-                scaledValue = numericScale(value);
-            }
-            return [
-                scaledValue * Math.cos(angleSlice * i - Math.PI / 2),
-                scaledValue * Math.sin(angleSlice * i - Math.PI / 2)
-            ];
-        });
-
-        radarChartSvg.append("path")
-            .attr("class", "radarStroke")
-            .attr("d", d3.line()(dataValues.map(d => [d[0], d[1]])) + "Z")
-            .style("fill", index === highlightedIndex ? categoryColors[d.category] : "none")
-            .style("fill-opacity", index === highlightedIndex ? 0.8 : 0)
-            .style("opacity", index === highlightedIndex ? 1 : 0.7);
-
-        // Labels für die Werte hinzufügen
-        if (index === highlightedIndex) {
-            radarChartSvg.selectAll(".valueLabel")
-                .data(dataValues)
-                .enter()
-                .append("text")
-                .attr("class", "valueLabel")
-                .attr("x", (d, i) => d[0] + labelOffset * Math.cos(angleSlice * i - Math.PI / 2))
-                .attr("y", (d, i) => d[1] + labelOffset * Math.sin(angleSlice * i - Math.PI / 2))
-                .attr("dy", "0.35em")
-                .style("font-size", "12px")
-                .style("fill", "#000")
-                .attr("text-anchor", "middle")
-                .text((d, i) => {
-                    if (data[highlightedIndex].attributes[i].axis === "Sweetness") {
-                        return data[highlightedIndex].attributes[i].value;
-                    } else if (data[highlightedIndex].attributes[i].axis === "Calories") {
-                        return data[highlightedIndex].attributes[i].value * 400;
-                    } else if (data[highlightedIndex].attributes[i].axis === "GI") {
-                        return data[highlightedIndex].attributes[i].value * 105;
-                    }
-                    return data[highlightedIndex].attributes[i].value;
-                });
-        }
-    });
-}
+let previousIndex = -1;
 
 function showLightbox(index) {
+    const previousData = previousIndex >= 0 ? currentData[previousIndex] : null;
     currentIndex = index;
     const d = currentData[currentIndex];
 
@@ -156,47 +125,193 @@ function showLightbox(index) {
     <i>${d.notes}</i>
 `);
 
-
-    // Umwandlung der Daten für das Radar-Chart
     const radarData = currentData.map(item => ({
         category: item.category,
-        attributes: [
-            { axis: "Sweetness", value: item.sweetnes },
-            { axis: "Calories", value: item.calories / 400 },
-            { axis: "GI", value: item.gi / 105 }
-        ]
+        calories: item.calories,
+        sweetness: item.sweetnes,
+        gi: item.gi
     }));
 
-    // Radar-Chart erstellen
-    createRadarChart(radarData, index);
+    createPolarChart(radarData, index, previousData);
 
     lightbox.style('display', 'block');
 
-    // lightbox.style('background-color', categoryColors[d.category]);
+    lightboxContent.style('border', '20px solid ' + categoryColors[d.category]);
 
-    lightboxContent.style('border', '20px solid ' + categoryColors[d.category])
-
-
+    previousIndex = index; // Update the previousIndex to current index
 }
+
+
+
+function createPolarChart(data, highlightedIndex, previousData) {
+    const width = 300;
+    const height = 300;
+    const radius = Math.min(width, height) / 2 * 0.8;
+    const color = categoryColors[data[highlightedIndex].category];
+
+    const scales = {
+        calories: d3.scaleLinear().domain([0, maxCalories]).range([0, radius]),
+        sweetness: d3.scaleLog().domain([1, maxSweetness]).range([0, radius]),
+        gi: d3.scaleLinear().domain([0, maxGI]).range([0, radius]),
+    };
+
+    const angles = {
+        sweetness: { start: 0, end: 2 * Math.PI / 3 }, // 0 bis 120 Grad
+        gi: { start: 2 * Math.PI / 3, end: 4 * Math.PI / 3 }, // 120 bis 240 Grad
+        calories: { start: 4 * Math.PI / 3, end: 2 * Math.PI }, // 240 bis 360 Grad (0 Grad)
+    };
+
+    const attributes = ['sweetness', 'gi', 'calories'];
+
+    const sucrose = {
+        calories: 387,
+        sweetness: 1,
+        gi: 65,
+    };
+
+    radarChart.selectAll("*").remove();
+
+    const polarChartSvg = radarChart.append("svg")
+        .attr("width", width + 50)
+        .attr("height", height + 50)
+        .style("display", "block")
+        .style("margin", "0 auto")
+        .append("g")
+        .attr("transform", `translate(${(width + 50) / 2}, ${(height + 50) / 2})`);
+
+    attributes.forEach(attr => {
+        const scale = scales[attr];
+        const angle = angles[attr];
+        const value = data[highlightedIndex][attr];
+        const previousValue = previousData ? previousData[attr] : value;
+
+        const arc = d3.arc()
+            .innerRadius(0)
+            .outerRadius(d => scale(d.value))
+            .startAngle(angle.start)
+            .endAngle(angle.end);
+
+        const path = polarChartSvg.append("path")
+            .datum({ value: value })
+            .attr("fill", color)
+            .attr("opacity", 0.8)
+            .attr("d", arc);
+
+        // Animate the transition from previousValue to new value
+        path.transition()
+            .duration(300)
+            .attrTween("d", function(d) {
+                const interpolate = d3.interpolate({ value: previousValue }, d);
+                return function(t) {
+                    return arc(interpolate(t));
+                };
+            });
+
+        // Vergleichswert (Sucrose)
+        polarChartSvg.append("path")
+            .attr("d", d3.arc()
+                .innerRadius(0)
+                .outerRadius(scale(sucrose[attr]))
+                .startAngle(angle.start)
+                .endAngle(angle.end))
+            .attr("stroke", "#000")
+            .attr("stroke-width", "2px")
+            .attr("fill", "none")
+            .attr("opacity", 0.6);
+
+        // Hinzufügen der Labels
+        const angleMiddle = ((angle.start + angle.end) / 2) - (Math.PI / 2);
+        const labelX = (attr === 'gi' ? radius + 20 : radius + 80) * Math.cos(angleMiddle);
+        const labelY = (attr === 'gi' ? radius + 20 : radius + 80) * Math.sin(angleMiddle);
+
+        polarChartSvg.append("text")
+            .attr("x", labelX)
+            .attr("y", labelY)
+            .attr("text-anchor", attr === 'sweetness' ? 'end' : (attr === 'calories' ? 'start' : 'middle'))
+            .attr("alignment-baseline", "top")
+            .attr("fill", "#000")
+            .style("font-size", "14px")
+            .text(attr.toUpperCase());
+
+        const valueLabel = polarChartSvg.append("text")
+            .attr("x", labelX)
+            .attr("y", labelY + 20)
+            .attr("text-anchor", attr === 'sweetness' ? 'end' : (attr === 'calories' ? 'start' : 'middle'))
+            .attr("alignment-baseline", "bottom")
+            .attr("fill", color)
+            .style("font-size", "18px")
+            .style("font-weight", "bold");
+
+        // Animate the label transition with special handling for sweetness
+        valueLabel.transition()
+            .duration(300)
+            .tween("text", function() {
+                if (attr === 'sweetness') {
+                    const interpolate = d3.interpolate(Math.log10(previousValue), Math.log10(value));
+                    return function(t) {
+                        const interpolatedValue = Math.pow(10, interpolate(t));
+                        d3.select(this).text(interpolatedValue.toFixed(2));
+                    };
+                } else {
+                    const interpolate = d3.interpolate(previousValue, value);
+                    return function(t) {
+                        const interpolatedValue = interpolate(t);
+                        d3.select(this).text(Math.round(interpolatedValue));
+                    };
+                }
+            });
+    });
+
+    // Hintergrundringe
+    const numCircles = 1;
+    const circleRadius = radius / numCircles;
+
+    for (let i = 1; i <= numCircles; i++) {
+        polarChartSvg.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", i * circleRadius)
+            .style("fill", "none")
+            .style("stroke", "#ccc");
+    }
+
+    const numLines = 3;
+    const angleStep = (2 * Math.PI) / numLines;
+
+    for (let i = 0; i < numLines; i++) {
+        const angle = (i * angleStep) - (Math.PI / 2);
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        polarChartSvg.append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", x)
+            .attr("y2", y)
+            .style("stroke", "#ccc");
+    }
+}
+
+
+
+
+
+
+
+
 
 function hideLightbox() {
     lightbox.style('display', 'none');
 }
 
 function showPrevious() {
-    // if (currentIndex > 0) {
-            console.log(currentIndex);
-
+    if (currentIndex > 0) {
         showLightbox(currentIndex - 1);
-    // }
+    }
 }
 
 function showNext() {
     if (currentIndex < currentData.length - 1) {
-        console.log(currentIndex);
-        if (currentIndex >= 34) {
-            currentIndex = 1;
-        }
         showLightbox(currentIndex + 1);
     }
 }
@@ -218,7 +333,6 @@ container.selectAll('.box')
         showLightbox(index);
     });
 
-// Touch-Event-Handler für Swiping
 let startX;
 
 function handleTouchStart(event) {
