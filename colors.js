@@ -12,11 +12,11 @@
 
 const categoryColors = {
     "Background": "#e84310",
-    "Raw": "#54b23b",          
-    "Cooked": "#f0e73b",       
-    "Partly Refined": "#e6689a", 
-    "Other Refined": "#42b4dd", 
-    "Refined Sugar": "#ea2d5a",  
+    "Naturstoff roh": "#54b23b",          
+    "Naturstoff verarbeitet": "#f0e73b",       
+    "Zucker": "#e6689a", 
+    "Zuckeralkohol": "#42b4dd", 
+    "synthetischer Süßstoff": "#ea2d5a",  
     "Sugar Alcohol": "#b573e0",  
     "Synthetic Sugar": "#6dbfa6",
     "Synthetic Sugar Alcohol": "#f78c2d"
