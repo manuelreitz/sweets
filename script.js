@@ -1,5 +1,5 @@
 const MAX_WIDTH = 930; // Maximale Breite für die erweiterte Ansicht
-const MIN_OPACITY = 0.1; // Globale Variable für die minimale Deckkraft
+const MIN_OPACITY = 0.25; // Globale Variable für die minimale Deckkraft
 let activeFilter = null; // Variable, um den aktiven Filter zu verfolgen
 
 const groupedData = d3.group(data, d => d.category);
@@ -15,6 +15,88 @@ container.selectAll('.box')
         const index = currentData.findIndex(item => item.name === d.name);
         showLightbox(index);
     });
+
+groupedData.forEach((values, key) => {
+    // Erstelle einen Container für die Kategorie
+    const categoryContainer = container.append('div').attr('class', 'category-container');
+
+    // Berechnung der benötigten Anzahl an Spalten
+    const numColumns = Math.ceil(values.length / 4);
+
+
+    function getCategoryNumber(category) {
+        const categoryNumbers = {
+            "Zucker": "I",
+            "Naturstoff (roh)": "II",
+            "Naturstoff (verarbeitet)": "III",
+            "Zuckeralkohol": "IV",
+            "Synthetischer Süßstoff": "V"
+        };
+
+        return categoryNumbers[category] || "Unbekannte Kategorie";
+    }
+
+    categoryContainer.append('div')
+        .attr('class', 'headlineNumber')
+        .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
+        .text(getCategoryNumber(key))
+        .style('color', categoryColors[key]);
+
+
+
+
+    const columns = categoryContainer.append('div').attr('class', 'columns');
+
+
+    // Erstelle die Spalten und verteile die Boxen
+    for (let i = 0; i < numColumns; i++) {
+        const column = columns.append('div').attr('class', 'column');
+
+        // Slice die Daten für die aktuelle Spalte
+        const columnData = values.slice(i * 4, (i + 1) * 4);
+
+        // Erstelle die Boxen in der aktuellen Spalte
+        column.selectAll('.box')
+            .data(columnData)
+            .enter()
+            .append('div')
+            .attr('class', 'box')
+            .style('background-color', categoryColors[key]) // Hintergrundfarbe der Boxen
+            .html(d => `<div class="symbol">${d.symbol}</div>`)
+            .on('mouseover', (event, d) => {
+                tooltip.style('opacity', 1)
+                    .html(`
+                        <strong>${d.name}</strong><br>
+                        Category: ${d.category}<br>
+                        Sweetness: ${d.sweetnes}<br>
+                        Calories: ${d.calories}<br>
+                        GI: ${d.gi}<br>
+                        Nutrients: ${d.nutrients}<br>
+                        Prebiotic: ${d.prebiotic}<br>
+                        Metabolic: ${d.metabolic}<br>
+                        Tooth: ${d.tooth}<br>
+                        Heat: ${d.heat}<br>
+                        Laxative: ${d.laxative}<br>
+                        Aftertaste: ${d.aftertaste}
+                    `);
+            })
+            .on('mousemove', (event) => {
+                tooltip.style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY + 10) + 'px');
+            })
+            .on('mouseout', () => {
+                tooltip.style('opacity', 0);
+            });
+    }
+
+    // Zentriere die Headline unter den Spalten
+    categoryContainer.append('div')
+        .attr('class', 'headline')
+        .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
+        .text(key)
+        .style('color', categoryColors[key]);
+});
+
 
 // Funktion zum Anpassen der Box-Inhalte basierend auf der Containerbreite und dem aktiven Filter
 function adjustBoxContent() {
@@ -72,47 +154,8 @@ function adjustBoxContent() {
     });
 }
 
-groupedData.forEach((values, key) => {
-    const column = container.append('div').attr('class', 'column');
 
-    column.append('div')
-        .attr('class', 'headline')
-        .text(key)
-        .style('text-decoration', categoryColors[key] + ' underline 3px'); // Schriftfarbe der Headlines
 
-    const row = column.append('div').attr('class', 'row');
-    row.selectAll('.box')
-        .data(values)
-        .enter()
-        .append('div')
-        .attr('class', 'box')
-        .style('background-color', categoryColors[key]) // Hintergrundfarbe der Boxen
-        .html(d => `<div class="symbol">${d.symbol}</div>`)
-        .on('mouseover', (event, d) => {
-            tooltip.style('opacity', 1)
-                .html(`
-                    <strong>${d.name}</strong><br>
-                    Category: ${d.category}<br>
-                    Sweetness: ${d.sweetnes}<br>
-                    Calories: ${d.calories}<br>
-                    GI: ${d.gi}<br>
-                    Nutrients: ${d.nutrients}<br>
-                    Prebiotic: ${d.prebiotic}<br>
-                    Metabolic: ${d.metabolic}<br>
-                    Tooth: ${d.tooth}<br>
-                    Heat: ${d.heat}<br>
-                    Laxative: ${d.laxative}<br>
-                    Aftertaste: ${d.aftertaste}
-                `);
-        })
-        .on('mousemove', (event) => {
-            tooltip.style('left', (event.pageX + 10) + 'px')
-                .style('top', (event.pageY + 10) + 'px');
-        })
-        .on('mouseout', () => {
-            tooltip.style('opacity', 0);
-        });
-});
 
 // Initialer Aufruf der Funktion beim Laden der Seite
 adjustBoxContent();
