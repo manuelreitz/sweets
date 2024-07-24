@@ -11,35 +11,40 @@
 <body>
     <header></header>
     <div class="filter-container">
-            <div class="dropdown">
-                <button id="filterDropdownButton" class="dropbtn">Finde deinen Zuckerersatz <i class="fas fa-chevron-down"></i></button>
-                <div class="dropdown-content">
-                    <a href="#" id="filterAll">Alle</a>
-                    <a href="#" id="filterPrebiotic">Prebiotic</a>
-                    <a href="#" id="filterLowCalories">Low Calories</a>
-                    <a href="#" id="filterToothDecay">Tooth Decay</a>
-                    <a href="#" id="filterSweetness">Sweetness</a>
-                    <a href="#" id="filterGI">Glycemic Index</a>
-                    <a href="#" id="filterNutrients">Nutrients</a>
-                    <a href="#" id="filterHeat">Heat</a>
-                    <a href="#" id="filterLaxative">Laxative</a>
-                    <a href="#" id="filterAftertaste">Aftertaste</a>
-                </div>
-            </div>
-            <div class="filter-content">
-                <div id="filterDescription" class="filter-description">Neben Zucker gibt es zahlreiche Süßungsmittel mit unterschiedlichen Eigenschaften. Sie bieten verschiedene Vorteile und Nachteile, wodurch sie sich für unterschiedliche Anwendungsfälle eignen. Diese Vielfalt ermöglicht es, je nach Bedarf und Präferenz das passende Süßungsmittel zu wählen.</div>
+        <div class="dropdown">
+            <button id="filterDropdownButton" class="dropbtn">Finde deinen Zuckerersatz <i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content">
+                <a href="#" id="filterAll">Alle</a>
+                <a href="#" id="filterPrebiotic">Prebiotic</a>
+                <a href="#" id="filterLowCalories">Low Calories</a>
+                <a href="#" id="filterToothDecay">Tooth Decay</a>
+                <a href="#" id="filterSweetness">Sweetness</a>
+                <a href="#" id="filterGI">Glycemic Index</a>
+                <a href="#" id="filterNutrients">Nutrients</a>
+                <a href="#" id="filterHeat">Heat</a>
+                <a href="#" id="filterLaxative">Laxative</a>
+                <a href="#" id="filterAftertaste">Aftertaste</a>
             </div>
         </div>
-    <div id="container1" class="container"></div>
-    <div id="lightbox" class="lightbox">
-        <div id="lightbox-content">
-            <span class="close">&times;</span>
-            <div class="lightbox-nav left">&lt;</div>
-            <div class="lightbox-nav right">&gt;</div>
-            <div id="radarChart"></div>
-            <div id="lightbox-details"></div>
+        <div class="filter-content">
+            <div id="filterDescription" class="filter-description">Neben Zucker gibt es zahlreiche Süßungsmittel mit unterschiedlichen Eigenschaften. Sie bieten verschiedene Vorteile und Nachteile, wodurch sie sich für unterschiedliche Anwendungsfälle eignen. Diese Vielfalt ermöglicht es, je nach Bedarf und Präferenz das passende Süßungsmittel zu wählen.</div>
         </div>
     </div>
+    <div id="tableContainer" class="table-container"></div>
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-header">
+                <span class="close">&times;</span>
+            </div>
+            <div id="radarChart"></div>
+            <div class="lightbox-details"></div>
+            <div class="lightbox-footer">
+                <div class="lightbox-nav left">&lt;</div>
+                <div class="lightbox-nav right">&gt;</div>
+            </div>
+        </div>
+    </div>
+    <div class="info-container"></div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="style.css" rel="stylesheet" />
     <script src="data-sweets.js"></script>

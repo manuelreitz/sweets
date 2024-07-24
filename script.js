@@ -4,21 +4,21 @@ let activeFilter = null; // Variable, um den aktiven Filter zu verfolgen
 
 const groupedData = d3.group(data, d => d.category);
 
-const container = d3.select('#container1');
+const tableContainer = d3.select('#tableContainer');
 
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
 
-container.selectAll('.box')
+tableContainer.selectAll('.box')
     .on('click', (event, d) => {
-        currentData = container.selectAll('.box').data();
+        currentData = tableContainer.selectAll('.box').data();
         const index = currentData.findIndex(item => item.name === d.name);
         showLightbox(index);
     });
 
 groupedData.forEach((values, key) => {
     // Erstelle einen Container für die Kategorie
-    const categoryContainer = container.append('div').attr('class', 'category-container');
+    const categoryContainer = tableContainer.append('div').attr('class', 'category-container');
 
     // Berechnung der benötigten Anzahl an Spalten
     const numColumns = Math.ceil(values.length / 4);
@@ -42,11 +42,7 @@ groupedData.forEach((values, key) => {
         .text(getCategoryNumber(key))
         .style('color', categoryColors[key]);
 
-
-
-
     const columns = categoryContainer.append('div').attr('class', 'columns');
-
 
     // Erstelle die Spalten und verteile die Boxen
     for (let i = 0; i < numColumns; i++) {
@@ -63,30 +59,30 @@ groupedData.forEach((values, key) => {
             .attr('class', 'box')
             .style('background-color', categoryColors[key]) // Hintergrundfarbe der Boxen
             .html(d => `<div class="symbol">${d.symbol}</div>`)
-            .on('mouseover', (event, d) => {
-                tooltip.style('opacity', 1)
-                    .html(`
-                        <strong>${d.name}</strong><br>
-                        Category: ${d.category}<br>
-                        Sweetness: ${d.sweetnes}<br>
-                        Calories: ${d.calories}<br>
-                        GI: ${d.gi}<br>
-                        Nutrients: ${d.nutrients}<br>
-                        Prebiotic: ${d.prebiotic}<br>
-                        Metabolic: ${d.metabolic}<br>
-                        Tooth: ${d.tooth}<br>
-                        Heat: ${d.heat}<br>
-                        Laxative: ${d.laxative}<br>
-                        Aftertaste: ${d.aftertaste}
-                    `);
-            })
-            .on('mousemove', (event) => {
-                tooltip.style('left', (event.pageX + 10) + 'px')
-                    .style('top', (event.pageY + 10) + 'px');
-            })
-            .on('mouseout', () => {
-                tooltip.style('opacity', 0);
-            });
+            // .on('mouseover', (event, d) => {
+            //     tooltip.style('opacity', 1)
+            //         .html(`
+            //             <strong>${d.name}</strong><br>
+            //             Category: ${d.category}<br>
+            //             Sweetness: ${d.sweetnes}<br>
+            //             Calories: ${d.calories}<br>
+            //             GI: ${d.gi}<br>
+            //             Nutrients: ${d.nutrients}<br>
+            //             Prebiotic: ${d.prebiotic}<br>
+            //             Metabolic: ${d.metabolic}<br>
+            //             Tooth: ${d.tooth}<br>
+            //             Heat: ${d.heat}<br>
+            //             Laxative: ${d.laxative}<br>
+            //             Aftertaste: ${d.aftertaste}
+            //         `);
+            // })
+            // .on('mousemove', (event) => {
+            //     tooltip.style('left', (event.pageX + 10) + 'px')
+            //         .style('top', (event.pageY + 10) + 'px');
+            // })
+            // .on('mouseout', () => {
+            //     tooltip.style('opacity', 0);
+            // });
     }
 
     // Zentriere die Headline unter den Spalten
@@ -100,8 +96,8 @@ groupedData.forEach((values, key) => {
 
 // Funktion zum Anpassen der Box-Inhalte basierend auf der Containerbreite und dem aktiven Filter
 function adjustBoxContent() {
-    const containerWidth = document.getElementById('container1').offsetWidth;
-    container.selectAll('.box').each(function(d) {
+    const containerWidth = document.getElementById('tableContainer').offsetWidth;
+    tableContainer.selectAll('.box').each(function(d) {
         const box = d3.select(this);
         // Entferne vorherigen Inhalt, falls vorhanden
         box.selectAll('span').remove();
@@ -110,7 +106,7 @@ function adjustBoxContent() {
 
         // Füge den Namen und den Filterwert hinzu, wenn die Containerbreite größer als MAX_WIDTH ist
         if (containerWidth > MAX_WIDTH) {
-            box.html(`<div class="symbol">${d.symbol}</div><span class="name">${d.name}</span>`);
+            box.html(`<div class="symbol">${d.symbol}</div><span class="name">${d.name}</span><span class="e-number">${d.enumber}</span>`);
             if (activeFilter) {
                 let filterValue = '';
                 switch (activeFilter) {
@@ -149,7 +145,15 @@ function adjustBoxContent() {
         } else {
             // Andernfalls wird nur das Symbol angezeigt
             box.html(`<div class="symbol">${d.symbol}</div>`);
-        }
+        };
+
+        if (d.symbol === "Sa") {
+            box.attr('id', 'box-highlight');
+        } else {
+            box.attr('id', null);
+        };
+
+
 
     });
 }
@@ -166,7 +170,7 @@ window.addEventListener('resize', adjustBoxContent);
 function updateScaleFactor() {
     const windowWidth = window.innerWidth;
     const scaleFactor = Math.min(1, (windowWidth / MAX_WIDTH));
-    container.style('transform', `scale(${scaleFactor})`);
+    tableContainer.style('transform', `scale(${scaleFactor})`);
 }
 
 updateScaleFactor();

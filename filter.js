@@ -25,8 +25,8 @@ function loadFilterDescriptions() {
 
 // Funktion zum Zurücksetzen aller Filter
 function clearFilters() {
-    container.selectAll('.box').style('opacity', 1);
-    container.selectAll('.filter-value').remove(); // Entferne vorherige Filterwerte
+    tableContainer.selectAll('.box').style('opacity', 1);
+    tableContainer.selectAll('.filter-value').remove(); // Entferne vorherige Filterwerte
     d3.selectAll('.dropdown-content a').classed('active', false);
     activeFilter = null;
     selectedFilterDiv.text('');
@@ -42,7 +42,7 @@ function toggleFilter(button, filterFn, filterName) {
     const isActive = button.classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box')
+        tableContainer.selectAll('.box')
             .style('opacity', MIN_OPACITY)
             .filter(filterFn)
             .style('opacity', 1);
@@ -66,7 +66,7 @@ filterButtonLowCalories.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityByCalories(d));
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityByCalories(d));
         d3.select(this).classed('active', true);
         activeFilter = 'Low Calories';
         selectedFilterDiv.text(activeFilter);
@@ -86,7 +86,7 @@ filterButtonSweetness.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityBySweetness(d));
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityBySweetness(d));
         d3.select(this).classed('active', true);
         activeFilter = 'Sweetness';
         selectedFilterDiv.text(activeFilter);
@@ -102,7 +102,7 @@ filterButtonGI.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityByGI(d));
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityByGI(d));
         d3.select(this).classed('active', true);
         activeFilter = 'Glycemic Index';
         selectedFilterDiv.text(activeFilter);
@@ -118,8 +118,8 @@ filterButtonNutrients.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityByNutrients(d));
-        container.selectAll('.box').append('span').attr('class', 'filter-value').text(d => d.nutrients);
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityByNutrients(d));
+        tableContainer.selectAll('.box').append('span').attr('class', 'filter-value').text(d => d.nutrients);
         d3.select(this).classed('active', true);
         activeFilter = 'Nutrients';
         selectedFilterDiv.text(activeFilter);
@@ -135,7 +135,7 @@ filterButtonHeat.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityByHeat(d));
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityByHeat(d));
         d3.select(this).classed('active', true);
         activeFilter = 'Heat';
         selectedFilterDiv.text(activeFilter);
@@ -151,7 +151,7 @@ filterButtonLaxative.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityByLaxative(d));
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityByLaxative(d));
         d3.select(this).classed('active', true);
         activeFilter = 'Laxative';
         selectedFilterDiv.text(activeFilter);
@@ -167,7 +167,7 @@ filterButtonAftertaste.on('click', function() {
     const isActive = d3.select(this).classed('active');
     clearFilters();
     if (!isActive) {
-        container.selectAll('.box').style('opacity', d => setOpacityByAftertaste(d));
+        tableContainer.selectAll('.box').style('opacity', d => setOpacityByAftertaste(d));
         d3.select(this).classed('active', true);
         activeFilter = 'Aftertaste';
         selectedFilterDiv.text(activeFilter);

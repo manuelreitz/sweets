@@ -1,6 +1,6 @@
 const lightbox = d3.select('#lightbox');
-const lightboxContent = d3.select('#lightbox-content');
-const lightboxDetails = d3.select('#lightbox-details');
+const lightboxContent = d3.select('.lightbox-content');
+const lightboxDetails = d3.select('.lightbox-details');
 const radarChart = d3.select('#radarChart');
 const closeButton = lightbox.select('.close');
 const leftNav = lightbox.select('.left');
@@ -46,8 +46,6 @@ function showLightbox(index) {
     createPolarChart(radarData, index, previousData);
 
     lightbox.style('display', 'block');
-
-    lightboxContent.style('border', '20px solid ' + categoryColors[d.category]);
 
     previousIndex = index; // Update the previousIndex to current index
 }
@@ -237,9 +235,9 @@ lightbox.on('click', (event) => {
     }
 });
 
-container.selectAll('.box')
+tableContainer.selectAll('.box')
     .on('click', (event, d) => {
-        currentData = container.selectAll('.box').data();
+        currentData = tableContainer.selectAll('.box').data();
         const index = currentData.findIndex(item => item.name === d.name);
         showLightbox(index);
     });
