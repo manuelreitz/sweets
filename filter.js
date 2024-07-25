@@ -1,12 +1,11 @@
 let filterDescriptions = {}; // Objekt zur Speicherung der Filterbeschreibungen
 
 const filterButtonAll = d3.select('#filterAll');
-const filterButtonPrebiotic = d3.select('#filterPrebiotic');
+
 const filterButtonLowCalories = d3.select('#filterLowCalories');
 const filterButtonToothDecay = d3.select('#filterToothDecay');
 const filterButtonSweetness = d3.select('#filterSweetness');
 const filterButtonGI = d3.select('#filterGI');
-const filterButtonNutrients = d3.select('#filterNutrients');
 const filterButtonHeat = d3.select('#filterHeat');
 const filterButtonLaxative = d3.select('#filterLaxative');
 const filterButtonAftertaste = d3.select('#filterAftertaste');
@@ -57,10 +56,6 @@ function toggleFilter(button, filterFn, filterName) {
     }
 }
 
-// Filter-Option-Events
-filterButtonPrebiotic.on('click', function() {
-    toggleFilter(d3.select(this), d => d.prebiotic === "yes", 'Prebiotic');
-});
 
 filterButtonLowCalories.on('click', function() {
     const isActive = d3.select(this).classed('active');
@@ -109,23 +104,6 @@ filterButtonGI.on('click', function() {
         filterDescriptionDiv.text(filterDescriptions[activeFilter]);
         clearFilterButton.style('display', 'inline-block');
         filterDropdownButton.html('Glycemic Index <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
-});
-
-filterButtonNutrients.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityByNutrients(d));
-        tableContainer.selectAll('.box').append('span').attr('class', 'filter-value').text(d => d.nutrients);
-        d3.select(this).classed('active', true);
-        activeFilter = 'Nutrients';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Nutrients <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
         updateHeaderBackground(activeFilter);
         adjustBoxContent(); // Aktualisiere die Box-Inhalte
     }
