@@ -1,6 +1,8 @@
 const lightbox = d3.select('#lightbox');
 const lightboxContent = d3.select('.lightbox-content');
+const lightboxBody = d3.select('.lightbox-body');
 const lightboxDetails = d3.select('.lightbox-details');
+const lightboxHeader = d3.select('.lightbox-header');
 const radarChart = d3.select('#radarChart');
 const closeButton = lightbox.select('.close');
 const leftNav = lightbox.select('.left');
@@ -9,12 +11,14 @@ const rightNav = lightbox.select('.right');
 let currentIndex = 0;
 let currentData = [];
 const maxCalories = 400;
-const maxSweetness = 50;
+const maxSweetness = 10;
 const maxGI = 105;
 
 let previousIndex = -1;
 
 function showLightbox(index) {
+    d3.select()
+
     const previousData = previousIndex >= 0 ? currentData[previousIndex] : null;
     currentIndex = index;
     const d = currentData[currentIndex];
@@ -30,11 +34,7 @@ function showLightbox(index) {
 
     lightboxDetails.html(`
         <span class="detail-headline">KATEGORIE</span>
-        <span class="detail-value">${d.category}</span>
-        <span class="detail-headline">TYPISCHE PRODUKTE</span>
-        <span class="detail-value">${d.containedin}</span>
-        <span class="detail-headline">BESCHREIBUNG</span>
-        <span class="detail-value">${d.notes}</span>
+        <span class="detail-value detail-category">${d.category}</span>
         <span class="detail-headline">EIGENSCHAFTEN</span>
         <div class="properties">
             ${createPropertyElement("Prebiotic", d.prebiotic === "ja", d.category)}
@@ -46,14 +46,23 @@ function showLightbox(index) {
             ${createPropertyElement("Heat", d.heat === "ja", d.category)}
             ${createPropertyElement("Laxative", d.laxative === "ja", d.category)}
             ${createPropertyElement("Aftertaste", d.aftertaste === "ja", d.category)}
-        </div>
+        </div><br>
+
+        <span class="detail-headline">TYPISCHE PRODUKTE</span>
+        <span class="detail-value">${d.containedin}</span>
+        <span class="detail-headline">BESCHREIBUNG</span>
+        <span class="detail-value">${d.notes}</span>
     `);
 
+    d3.select(".detail-category")
+        .style('color', categoryColors[d.category])
+        .style("font-weight", "bold");
+
     function createPropertyElement(propertyName, condition, category) {
-    const color = categoryColors[category];
-    const opacity = condition ? 1 : 0.25;
-    return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${propertyName}</span>`;
-}
+        const color = categoryColors[category];
+        const opacity = condition ? 1 : 0.25;
+        return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${propertyName}</span>`;
+    }
 
 
     const radarData = currentData.map(item => ({
@@ -66,6 +75,7 @@ function showLightbox(index) {
     createPolarChart(radarData, index, previousData);
 
     lightbox.style('display', 'block');
+    d3.select('body').classed('no-scroll', true); // Deaktiviert das Scrollen der Seite
 
     previousIndex = index;
 }
@@ -76,14 +86,15 @@ function showLightbox(index) {
 
 
 function createPolarChart(data, highlightedIndex, previousData) {
-    const width = 250;
-    const height = 250;
-    const radius = Math.min(width, height) / 2 * 0.8;
+    const width = 350;
+    const height = 350;
+    const radius = Math.min(width, height) / 2 * 0.6;
     const color = categoryColors[data[highlightedIndex].category];
 
     const scales = {
         calories: d3.scaleLinear().domain([0, maxCalories]).range([0, radius]),
-        sweetness: d3.scaleLog().domain([1, maxSweetness]).range([0, radius]).clamp(true),
+        // sweetness: d3.scaleLog().domain([1, maxSweetness]).range([0, radius]).clamp(true),
+        sweetness: d3.scaleLinear().domain([0, maxSweetness]).range([0, radius]).clamp(true),
         gi: d3.scaleLinear().domain([0, maxGI]).range([0, radius]),
     };
 
@@ -106,19 +117,19 @@ function createPolarChart(data, highlightedIndex, previousData) {
     radarChart.style("background-color", color);
 
     const polarChartSvg = radarChart.append("svg")
-        .attr("width", width + 50)
-        .attr("height", height + 50)
+        .attr("width", width)
+        .attr("height", height)
         .style("display", "block")
         .style("margin", "0 auto")
         .append("g")
-        .attr("transform", `translate(${(width + 50) / 2}, ${(height + 50) / 2})`);
+        .attr("transform", `translate(${(width) / 2}, ${(height) / 2 -15})`);
 
     polarChartSvg.append("text")
-        .attr("y", 170)
+        .attr("y", 180)
         .attr("fill", "#000")
         .style("font-size", "14px")
         .attr("text-anchor", "middle")
-        .text("verglichen mit Haushaltszucker")
+        .text("verglichen mit Haushaltszucker");
 
     attributes.forEach(attr => {
         const scale = scales[attr];
@@ -135,17 +146,24 @@ function createPolarChart(data, highlightedIndex, previousData) {
         const path = polarChartSvg.append("path")
             .datum({ value: value })
             .attr("fill", "#FFF")
+            .attr("opacity", 1)
             .attr("d", arc);
 
         // Animate the transition from previousValue to new value
         path.transition()
             .duration(500)
             .attrTween("d", function(d) {
-                if (attr === 'sweetness') {
-                    const interpolate = d3.interpolate(Math.log10(Math.max(previousValue, 1)), Math.log10(Math.max(value, 1)));
+                if (attr === 'sweetnesss') {
+                    const interpolate = d3.interpolate(previousValue, value);
                     return function(t) {
-                        const interpolatedValue = Math.pow(10, interpolate(t));
-                        return arc({ value: interpolatedValue });
+                        const interpolatedValue = interpolate(t);
+                        if (interpolatedValue < 1) {
+                            const linearScale = d3.scaleLinear().domain([0, 1]).range([0, scale(1)]);
+                            return arc({ value: linearScale(interpolatedValue) });
+                            console.log(value)
+                        } else {
+                            return arc({ value: scale(interpolatedValue) });
+                        }
                     };
                 } else {
                     const interpolate = d3.interpolate({ value: previousValue }, d);
@@ -155,22 +173,86 @@ function createPolarChart(data, highlightedIndex, previousData) {
                 }
             });
 
+        // Additional white arc for sweetness values over 50
+        if (attr === 'sweetness' && value > 10) {
+            const extraArc1 = d3.arc()
+                .innerRadius(scale(maxSweetness) + 3)
+                .outerRadius(scale(maxSweetness) + 3)
+                .startAngle(angle.start)
+                .endAngle(angle.end);
+
+            polarChartSvg.append("path")
+                .attr("stroke", "#FFF")
+                .attr("stroke-width", "3px")
+                .attr("opacity", 0)
+                .attr("d", extraArc1)
+                .transition()
+                .delay(0) // No delay for the first arc
+                .duration(250)
+                .attr("opacity", 0.7);
+
+            const extraArc2 = d3.arc()
+                .innerRadius(scale(maxSweetness) + 6)
+                .outerRadius(scale(maxSweetness) + 6)
+                .startAngle(angle.start)
+                .endAngle(angle.end);
+
+            polarChartSvg.append("path")
+                .attr("stroke", "#FFF")
+                .attr("stroke-width", "2px")
+                .attr("opacity", 0)
+                .attr("d", extraArc2)
+                .transition()
+                .delay(125) // Delay for the second arc
+                .duration(250)
+                .attr("opacity", 0.5);
+
+            const extraArc3 = d3.arc()
+                .innerRadius(scale(maxSweetness) + 9)
+                .outerRadius(scale(maxSweetness) + 9)
+                .startAngle(angle.start)
+                .endAngle(angle.end);
+
+            polarChartSvg.append("path")
+                .attr("stroke", "#FFF")
+                .attr("stroke-width", "1px")
+                .attr("opacity", 0)
+                .attr("d", extraArc3)
+                .transition()
+                .delay(250) // Delay for the third arc
+                .duration(250)
+                .attr("opacity", 0.3);
+        }
+
         // Vergleichswert (Sucrose)
         polarChartSvg.append("path")
-            .attr("d", d3.arc()
-                .innerRadius(scale(sucrose[attr]))
-                .outerRadius(scale(sucrose[attr]))
-                .startAngle(angle.start)
-                .endAngle(angle.end))
+            .attr("d", function(d) {
+                if (attr === 'sweetnesss') {
+                    const linearScale = d3.scaleLinear().domain([0, 2]).range([0, scale(2)]);
+                    const sucroseArc = d3.arc()
+                        .innerRadius(linearScale(sucrose[attr]))
+                        .outerRadius(linearScale(sucrose[attr]))
+                        .startAngle(angle.start)
+                        .endAngle(angle.end);
+                    return sucroseArc();
+                } else {
+                    const sucroseArc = d3.arc()
+                        .innerRadius(scale(sucrose[attr]))
+                        .outerRadius(scale(sucrose[attr]))
+                        .startAngle(angle.start)
+                        .endAngle(angle.end);
+                    return sucroseArc();
+                }
+            })
             .attr("stroke", "#000")
-            .attr("stroke-width", "2px")
+            .attr("stroke-width", "3px")
             .attr("fill", "none")
             .attr("opacity", 0.6);
 
         // Hinzufügen der Labels
         const angleMiddle = ((angle.start + angle.end) / 2) - (Math.PI / 2);
-        const labelX = (attr === 'gi' ? radius + 20 : radius + 70) * Math.cos(angleMiddle);
-        const labelY = (attr === 'gi' ? radius + 20 : radius + 140) * Math.sin(angleMiddle);
+        const labelX = (attr === 'gi' ? width / 2 : width / 2 + 10) * Math.cos(angleMiddle);
+        const labelY = (attr === 'gi' ? height / 2 - 50 : height / 2 + 100) * Math.sin(angleMiddle);
 
         function translateAttribute(attr) {
             switch (attr) {
@@ -196,10 +278,10 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
         const valueLabel = polarChartSvg.append("text")
             .attr("x", labelX)
-            .attr("y", labelY + 20)
+            .attr("y", labelY + 25)
             .attr("text-anchor", attr === 'sweetness' ? 'end' : (attr === 'calories' ? 'start' : 'middle'))
             .attr("alignment-baseline", "bottom")
-            .style("font-size", "18px")
+            .style("font-size", "22px")
             .style("font-weight", "bold");
 
         const sucroseValue = sucrose[attr];
@@ -210,10 +292,22 @@ function createPolarChart(data, highlightedIndex, previousData) {
             .tween("text", function() {
                 const self = this;
                 if (attr === 'sweetness') {
-                    const interpolate = d3.interpolate(Math.log10(Math.max(previousValue, 1)), Math.log10(Math.max(value, 1)));
+                    const interpolate = d3.interpolate(previousValue, value);
                     return function(t) {
-                        const interpolatedValue = Math.pow(10, interpolate(t));
-                        d3.select(self).html(`<tspan fill="#FFF">${interpolatedValue.toFixed(2)}</tspan><tspan fill="#000" font-weight="normal"> | ${sucroseValue}</tspan>`);
+                        const interpolatedValue = interpolate(t);
+                        let displayValue = interpolatedValue.toFixed(2);
+
+                        // Entferne Nachkommastellen, wenn sie null sind
+                        if (displayValue.endsWith('.00')) {
+                            displayValue = displayValue.slice(0, -3);
+                        } else if (displayValue.endsWith('0')) {
+                            displayValue = displayValue.slice(0, -1);
+                        }
+
+                        // Ersetze den Punkt durch ein Komma
+                        displayValue = displayValue.replace('.', ',');
+
+                        d3.select(self).html(`<tspan fill="#FFF">${displayValue}</tspan><tspan fill="#000" font-weight="normal"> | ${sucroseValue}</tspan>`);
                     };
                 } else {
                     const interpolate = d3.interpolate(previousValue, value);
@@ -223,12 +317,10 @@ function createPolarChart(data, highlightedIndex, previousData) {
                     };
                 }
             });
-
-
     });
 
     // Hintergrundringe
-    const numCircles = 1;
+    const numCircles = 4;
     const circleRadius = radius / numCircles;
 
     for (let i = 1; i <= numCircles; i++) {
@@ -237,7 +329,16 @@ function createPolarChart(data, highlightedIndex, previousData) {
             .attr("cy", 0)
             .attr("r", i * circleRadius)
             .style("fill", "none")
-            .style("stroke", "#ccc");
+            .style("stroke", "#CCC")
+            .attr("opacity", 0.5);
+
+        polarChartSvg.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", i * circleRadius+1)
+            .style("fill", "none")
+            .style("stroke", "#000")
+            .attr("opacity", 0);
     }
 
     const numLines = 3;
@@ -245,23 +346,30 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
     for (let i = 0; i < numLines; i++) {
         const angle = (i * angleStep) - (Math.PI / 2);
-        const x = radius * Math.cos(angle);
-        const y = radius * Math.sin(angle);
+        const x = (radius +20) * Math.cos(angle);
+        const y = (radius +20) * Math.sin(angle);
 
         polarChartSvg.append("line")
             .attr("x1", 0)
             .attr("y1", 0)
             .attr("x2", x)
             .attr("y2", y)
-            .style("stroke", "#ccc");
+            .style("stroke", "#CCC")
+            .attr("opacity", 0.5);
     }
 }
 
 
-
-
-
-
+// Hinzufügen von Scroll-Ereignis für den Header-Schatten
+lightboxBody.on('scroll', () => {
+    if (lightboxBody.node().scrollTop > 0) {
+        lightboxHeader.classed('shadow', true);
+        console.log("on")
+    } else {
+        lightboxHeader.classed('shadow', false);
+        console.log("off")
+    }
+});
 
 
 
@@ -270,17 +378,22 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
 function hideLightbox() {
     lightbox.style('display', 'none');
+    d3.select('body').classed('no-scroll', false);
 }
 
 function showPrevious() {
     if (currentIndex > 0) {
         showLightbox(currentIndex - 1);
+    } else {
+        showLightbox(currentData.length - 1);
     }
 }
 
 function showNext() {
     if (currentIndex < currentData.length - 1) {
         showLightbox(currentIndex + 1);
+    } else {
+        showLightbox(0);
     }
 }
 
@@ -301,29 +414,12 @@ tableContainer.selectAll('.box')
         showLightbox(index);
     });
 
-let startX;
-
-function handleTouchStart(event) {
-    const firstTouch = event.touches[0];
-    startX = firstTouch.clientX;
-}
-
-function handleTouchMove(event) {
-    if (!startX) {
-        return;
-    }
-
-    let currentX = event.touches[0].clientX;
-    let diffX = startX - currentX;
-
-    if (diffX > 50) {
-        showNext();
-    } else if (diffX < -50) {
+d3.select('body').on('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
         showPrevious();
+    } else if (event.key === 'ArrowRight') {
+        showNext();
+    } else if (event.key === 'Escape') {
+        hideLightbox()
     }
-
-    startX = null;
-}
-
-lightbox.on('touchstart', handleTouchStart);
-lightbox.on('touchmove', handleTouchMove);
+});

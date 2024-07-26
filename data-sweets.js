@@ -429,7 +429,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "nein",
     "fructose-intolerance": "bedingt",
-    "notes": "Gut für die Zähne; Studien zufolge sollen große Mengen Xylit das Risiko für schwere Herzerkrankungen und Schlaganfälle deutlich erhöhen (https://academic.oup.com/eurheartj/advance-article-abstract/doi/10.1093/eurheartj/ehae244/7683453?redirectedFrom=fulltext&login=false)"
+    "notes": "Gut für die Zähne; Studien zufolge sollen große Mengen Xylit das Risiko für schwere Herzerkrankungen und Schlaganfälle deutlich erhöhen"
   },
   {
     "name": "Sorbit",
