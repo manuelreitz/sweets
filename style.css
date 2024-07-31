@@ -67,23 +67,27 @@ header {
 .dropdown-content .fa-solid,
 .fa-regular,
 .fa-brands {
-    margin-right: 15px;
+    margin-right: 20px;
     width: 15px;
+    color: #e97986;
 }
 
 .dropdown-content {
-    display: none;
+/*    display: none;*/
     position: absolute;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     margin-top: 73px;
     margin-left: 10px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
 }
 
 .dropdown-content a {
     color: black;
-    padding: 12px 16px;
+    padding: 12px 22px;
     text-decoration: none;
     display: block;
     margin: 0;
@@ -97,7 +101,9 @@ header {
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+/*    display: block;*/
+    max-height: 500px; /* Adjust based on content height */
+    transition: max-height 0.2s ease-in;
 }
 
 .selected-filter {
@@ -111,13 +117,13 @@ header {
 
 .filter-description {
     font-size: 18px;
-    font-weight: 350;
+    font-weight: 400;
     letter-spacing: 0.1px;
     line-height: 140%;
     color: #000;
-    margin-top: 85px;
+    margin-top: 95px;
     margin-left: 0px;
-    max-width: 440px;
+    max-width: 550px;
     z-index: -1;
 }
 
@@ -196,21 +202,21 @@ header {
 }
 
 @property --angle {
-  syntax: '<angle>';
-  initial-value: 90deg;
-  inherits: true;
+    syntax: '<angle>';
+    initial-value: 90deg;
+    inherits: true;
 }
 
 @property --gradX {
-  syntax: '<percentage>';
-  initial-value: 50%;
-  inherits: true;
+    syntax: '<percentage>';
+    initial-value: 50%;
+    inherits: true;
 }
 
 @property --gradY {
-  syntax: '<percentage>';
-  initial-value: 0%;
-  inherits: true;
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: true;
 }
 
 #box-highlight:hover {
@@ -476,7 +482,79 @@ header {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    height: 500px;
-    padding: 0 137px;
+    padding: 50px 84px;
     box-sizing: border-box;
+}
+
+.accordion {
+    background-color: #f8cacb;
+    color: #000;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    border-top: #000 solid 1px;
+    outline: none;
+    transition: background-color 0.4s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 600;
+}
+
+#accordionQ {
+    border-bottom: #000 solid 1px;
+}
+
+.accordion.active {}
+
+
+.accordion:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.accordion-header {
+    margin-left: 15px;
+}
+
+.accordion-number {
+    margin-right: 15px;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: #f8cacb;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+}
+
+.panel.show {
+    padding: 18px 18px 0 18px;
+    max-height: 500px;
+}
+
+.chevron {
+    transition: transform 0.4s ease;
+}
+
+.chevron.rotate {
+    transform: rotate(180deg);
+}
+
+.footer {
+    background-color: #f8cacb;
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 84px;
+    box-sizing: border-box;
+    color: #444;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    line-height: 160%;
 }

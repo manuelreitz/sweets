@@ -16,6 +16,18 @@ tableContainer.selectAll('.box')
         showLightbox(index);
     });
 
+function getCategoryNumber(category) {
+    const categoryNumbers = {
+        "Zucker (raffiniert)": "I",
+        "Naturstoff (roh)": "II",
+        "Naturstoff (verarbeitet)": "III",
+        "Zuckeralkohol": "IV",
+        "Synthetischer Süßstoff": "V"
+    };
+
+    return categoryNumbers[category] || "Unbekannte Kategorie";
+}
+
 groupedData.forEach((values, key) => {
     // Erstelle einen Container für die Kategorie
     const categoryContainer = tableContainer.append('div').attr('class', 'category-container');
@@ -26,19 +38,6 @@ groupedData.forEach((values, key) => {
     // Berechnung der benötigten Anzahl an Spalten
     const numColumns = Math.ceil(values.length / numBoxes);
 
-
-    function getCategoryNumber(category) {
-        const categoryNumbers = {
-            "Zucker (raffiniert)": "I",
-            "Naturstoff (roh)": "II",
-            "Naturstoff (verarbeitet)": "III",
-            "Zuckeralkohol": "IV",
-            "Synthetischer Süßstoff": "V"
-        };
-
-        return categoryNumbers[category] || "Unbekannte Kategorie";
-    }
-
     categoryContainer.append('div')
         .attr('class', 'headlineNumber')
         .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
@@ -47,25 +46,25 @@ groupedData.forEach((values, key) => {
 
     // Zentriere die Headline unter den Spalten
     categoryContainer.append('div')
-    .attr('class', 'headline')
-    .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
-    .text(function() {
-        var words = key.split(' ');
-        if (words.length == 2) {
-            return words[0] + '<br>' + words[1];
-        } else {
-            return key;
-        }
-    })
-    .style('color', categoryColors[key])
-    .html(function() {
-        var words = key.split(' ');
-        if (words.length == 2) {
-            return words[0] + '<br>' + words[1];
-        } else {
-            return key;
-        }
-    });
+        .attr('class', 'headline')
+        .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
+        .text(function() {
+            var words = key.split(' ');
+            if (words.length == 2) {
+                return words[0] + '<br>' + words[1];
+            } else {
+                return key;
+            }
+        })
+        .style('color', categoryColors[key])
+        .html(function() {
+            var words = key.split(' ');
+            if (words.length == 2) {
+                return words[0] + '<br>' + words[1];
+            } else {
+                return key;
+            }
+        });
 
     const columns = categoryContainer.append('div').attr('class', 'columns');
 
@@ -84,30 +83,30 @@ groupedData.forEach((values, key) => {
             .attr('class', 'box')
             .style('background-color', categoryColors[key]) // Hintergrundfarbe der Boxen
             .html(d => `<div class="symbol">${d.symbol}</div>`)
-            // .on('mouseover', (event, d) => {
-            //     tooltip.style('opacity', 1)
-            //         .html(`
-            //             <strong>${d.name}</strong><br>
-            //             Category: ${d.category}<br>
-            //             Sweetness: ${d.sweetnes}<br>
-            //             Calories: ${d.calories}<br>
-            //             GI: ${d.gi}<br>
-            //             Nutrients: ${d.nutrients}<br>
-            //             Prebiotic: ${d.prebiotic}<br>
-            //             Metabolic: ${d.metabolic}<br>
-            //             Tooth: ${d.tooth}<br>
-            //             Heat: ${d.heat}<br>
-            //             Laxative: ${d.laxative}<br>
-            //             Aftertaste: ${d.aftertaste}
-            //         `);
-            // })
-            // .on('mousemove', (event) => {
-            //     tooltip.style('left', (event.pageX + 10) + 'px')
-            //         .style('top', (event.pageY + 10) + 'px');
-            // })
-            // .on('mouseout', () => {
-            //     tooltip.style('opacity', 0);
-            // });
+        // .on('mouseover', (event, d) => {
+        //     tooltip.style('opacity', 1)
+        //         .html(`
+        //             <strong>${d.name}</strong><br>
+        //             Category: ${d.category}<br>
+        //             Sweetness: ${d.sweetnes}<br>
+        //             Calories: ${d.calories}<br>
+        //             GI: ${d.gi}<br>
+        //             Nutrients: ${d.nutrients}<br>
+        //             Prebiotic: ${d.prebiotic}<br>
+        //             Metabolic: ${d.metabolic}<br>
+        //             Tooth: ${d.tooth}<br>
+        //             Heat: ${d.heat}<br>
+        //             Laxative: ${d.laxative}<br>
+        //             Aftertaste: ${d.aftertaste}
+        //         `);
+        // })
+        // .on('mousemove', (event) => {
+        //     tooltip.style('left', (event.pageX + 10) + 'px')
+        //         .style('top', (event.pageY + 10) + 'px');
+        // })
+        // .on('mouseout', () => {
+        //     tooltip.style('opacity', 0);
+        // });
     }
 });
 
@@ -174,6 +173,75 @@ function adjustBoxContent() {
 
 
     });
+}
+
+
+const accordions = d3.selectAll('.accordion');
+const panels = d3.selectAll('.panel');
+
+function closePanel(panel) {
+    d3.select(panel)
+        .classed('show', false)
+        .style('max-height', '0px')
+        .style('padding', '0px 18px');
+    setTimeout(() => {
+        d3.select(panel).style('display', 'none');
+    }, 400); // Gleiche Zeit wie die Transition-Dauer
+}
+
+function closeAllPanels(exceptPanel) {
+    accordions.classed('active', false);
+    panels.each(function() {
+        if (this !== exceptPanel) {
+            closePanel(this);
+        }
+    });
+    d3.selectAll('.chevron').classed('rotate', false);
+}
+
+accordions.on('click', function(event, d) {
+    const accordion = d3.select(this);
+    const panel = accordion.node().nextElementSibling;
+    const chevron = accordion.select('.chevron');
+
+    const isActive = accordion.classed('active');
+
+    closeAllPanels(panel);
+
+    // Wenn das geklickte Accordion nicht aktiv war, öffne es
+    if (!isActive) {
+        accordion.classed('active', true);
+        d3.select(panel).classed('show', true).style('display', 'block').style('max-height', panel.scrollHeight + 'px').style('padding', '18px').style('display', 'block');
+        chevron.classed('rotate', true);
+        console.log(panel.scrollHeight);
+    } else {
+        
+    }
+});
+
+// Das erste Segment zum Start ausgeklappt
+const firstAccordion = d3.select('.accordion').node();
+const firstPanel = firstAccordion.nextElementSibling;
+d3.select(firstAccordion).classed('active', true);
+d3.select(firstPanel).classed('show', true).style('max-height', firstPanel.scrollHeight + 'px').style('padding', '18px').style('display', 'block');
+d3.select(firstAccordion).select('.chevron').classed('rotate', true);
+
+const headerColors = {
+    "headerI": categoryColors["Zucker (raffiniert)"],
+    "headerII": categoryColors["Naturstoff (roh)"],
+    "headerIII": categoryColors["Naturstoff (verarbeitet)"],
+    "headerIV": categoryColors["Zuckeralkohol"],
+    "headerV": categoryColors["Synthetischer Süßstoff"],
+    "headerQ": "#000"
+};
+
+for (const [key, value] of Object.entries(headerColors)) {
+    d3.select(`#${key}`)
+        .style('color', value);
+
+    const numId = key.replace("header", "accordion");
+    d3.select(`#${numId} .accordion-number`)
+        .style('color', value);
 }
 
 
