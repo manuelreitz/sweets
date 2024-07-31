@@ -20,13 +20,16 @@ groupedData.forEach((values, key) => {
     // Erstelle einen Container für die Kategorie
     const categoryContainer = tableContainer.append('div').attr('class', 'category-container');
 
+    // Boxen pro Spalte
+    const numBoxes = 5;
+
     // Berechnung der benötigten Anzahl an Spalten
-    const numColumns = Math.ceil(values.length / 4);
+    const numColumns = Math.ceil(values.length / numBoxes);
 
 
     function getCategoryNumber(category) {
         const categoryNumbers = {
-            "Zucker": "I",
+            "Zucker (raffiniert)": "I",
             "Naturstoff (roh)": "II",
             "Naturstoff (verarbeitet)": "III",
             "Zuckeralkohol": "IV",
@@ -42,6 +45,28 @@ groupedData.forEach((values, key) => {
         .text(getCategoryNumber(key))
         .style('color', categoryColors[key]);
 
+    // Zentriere die Headline unter den Spalten
+    categoryContainer.append('div')
+    .attr('class', 'headline')
+    .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
+    .text(function() {
+        var words = key.split(' ');
+        if (words.length == 2) {
+            return words[0] + '<br>' + words[1];
+        } else {
+            return key;
+        }
+    })
+    .style('color', categoryColors[key])
+    .html(function() {
+        var words = key.split(' ');
+        if (words.length == 2) {
+            return words[0] + '<br>' + words[1];
+        } else {
+            return key;
+        }
+    });
+
     const columns = categoryContainer.append('div').attr('class', 'columns');
 
     // Erstelle die Spalten und verteile die Boxen
@@ -49,7 +74,7 @@ groupedData.forEach((values, key) => {
         const column = columns.append('div').attr('class', 'column');
 
         // Slice die Daten für die aktuelle Spalte
-        const columnData = values.slice(i * 4, (i + 1) * 4);
+        const columnData = values.slice(i * numBoxes, (i + 1) * numBoxes);
 
         // Erstelle die Boxen in der aktuellen Spalte
         column.selectAll('.box')
@@ -84,13 +109,6 @@ groupedData.forEach((values, key) => {
             //     tooltip.style('opacity', 0);
             // });
     }
-
-    // Zentriere die Headline unter den Spalten
-    categoryContainer.append('div')
-        .attr('class', 'headline')
-        .attr('colspan', numColumns) // Attribut für die CSS-Zentrierung
-        .text(key)
-        .style('color', categoryColors[key]);
 });
 
 
@@ -165,13 +183,13 @@ function adjustBoxContent() {
 adjustBoxContent();
 
 // Event-Listener für die Fenstergrößenänderung
-window.addEventListener('resize', adjustBoxContent);
+// window.addEventListener('resize', adjustBoxContent);
 
-function updateScaleFactor() {
-    const windowWidth = window.innerWidth;
-    const scaleFactor = Math.min(1, (windowWidth / MAX_WIDTH));
-    tableContainer.style('transform', `scale(${scaleFactor})`);
-}
+// function updateScaleFactor() {
+//     const windowWidth = window.innerWidth;
+//     const scaleFactor = Math.min(1, (windowWidth / MAX_WIDTH));
+//     tableContainer.style('transform', `scale(${scaleFactor})`);
+// }
 
-updateScaleFactor();
-window.addEventListener('resize', updateScaleFactor);
+// updateScaleFactor();
+// window.addEventListener('resize', updateScaleFactor);

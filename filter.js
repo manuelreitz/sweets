@@ -1,7 +1,6 @@
 let filterDescriptions = {}; // Objekt zur Speicherung der Filterbeschreibungen
 
 const filterButtonAll = d3.select('#filterAll');
-
 const filterButtonLowCalories = d3.select('#filterLowCalories');
 const filterButtonToothDecay = d3.select('#filterToothDecay');
 const filterButtonSweetness = d3.select('#filterSweetness');
@@ -9,6 +8,7 @@ const filterButtonGI = d3.select('#filterGI');
 const filterButtonHeat = d3.select('#filterHeat');
 const filterButtonLaxative = d3.select('#filterLaxative');
 const filterButtonAftertaste = d3.select('#filterAftertaste');
+const filterButtonFructose = d3.select('#filterFructose');
 
 const selectedFilterDiv = d3.select('#selectedFilter');
 const filterDescriptionDiv = d3.select('#filterDescription');
@@ -18,7 +18,9 @@ const filterDropdownButton = d3.select('#filterDropdownButton');
 // Funktion zum Laden der Filterbeschreibungen aus der JSON-Datei
 function loadFilterDescriptions() {
     d3.json('filter-descriptions.json').then(data => {
-        filterDescriptions = data;
+        data.forEach(item => {
+            filterDescriptions[item.id] = item;
+        });
     });
 }
 
@@ -29,11 +31,11 @@ function clearFilters() {
     d3.selectAll('.dropdown-content a').classed('active', false);
     activeFilter = null;
     selectedFilterDiv.text('');
-    filterDescriptionDiv.text('');
+    filterDescriptionDiv.text(filterDescriptions["all"].description);
     clearFilterButton.style('display', 'none');
-    filterDropdownButton.html('Lots of Sweeteners  <i class="fas fa-chevron-down"></i>'); // Setze den Dropdown-Button-Text zurück
+    filterDropdownButton.html(`${filterDescriptions["all"].title} <i class="fas fa-chevron-down"></i>`); // Setze den Dropdown-Button-Text zurück
     adjustBoxContent();
-    updateHeaderBackground('All');
+    updateHeaderBackground('all');
 }
 
 // Funktionen zum Aktivieren/Deaktivieren von Filtern
@@ -47,114 +49,45 @@ function toggleFilter(button, filterFn, filterName) {
             .style('opacity', 1);
         button.classed('active', true);
         activeFilter = filterName;
-        selectedFilterDiv.text(filterName);
-        filterDescriptionDiv.text(filterDescriptions[filterName]);
+        selectedFilterDiv.text(filterDescriptions[filterName].title);
+        filterDescriptionDiv.text(filterDescriptions[filterName].description);
         clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html(`${filterName} <i class="fas fa-chevron-down"></i>`); // Ändere den Dropdown-Button-Text
+        filterDropdownButton.html(`${filterDescriptions[filterName].title} <i class="fas fa-chevron-down"></i>`); // Ändere den Dropdown-Button-Text
         adjustBoxContent();
         updateHeaderBackground(filterName);
     }
 }
 
-
 filterButtonLowCalories.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityByCalories(d));
-        d3.select(this).classed('active', true);
-        activeFilter = 'Low Calories';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Low Calories <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
+    toggleFilter(d3.select(this), d => d.calories < 11, 'lowCalories');
 });
 
 filterButtonToothDecay.on('click', function() {
-    toggleFilter(d3.select(this), d => d.tooth === "yes", 'Tooth Decay');
+    toggleFilter(d3.select(this), d => d.tooth === "yes", 'toothDecay');
 });
 
 filterButtonSweetness.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityBySweetness(d));
-        d3.select(this).classed('active', true);
-        activeFilter = 'Sweetness';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Sweetness <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
+    toggleFilter(d3.select(this), d => d.sweetness > 1, 'sweetness');
 });
 
 filterButtonGI.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityByGI(d));
-        d3.select(this).classed('active', true);
-        activeFilter = 'Glycemic Index';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Glycemic Index <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
+    toggleFilter(d3.select(this), d => d.gi < 56, 'glycemicIndex');
 });
 
 filterButtonHeat.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityByHeat(d));
-        d3.select(this).classed('active', true);
-        activeFilter = 'Heat';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Heat <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
+    toggleFilter(d3.select(this), d => d.heat === "yes", 'heat');
 });
 
 filterButtonLaxative.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityByLaxative(d));
-        d3.select(this).classed('active', true);
-        activeFilter = 'Laxative';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Laxative <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
+    toggleFilter(d3.select(this), d => d.laxative === "yes", 'laxative');
 });
 
 filterButtonAftertaste.on('click', function() {
-    const isActive = d3.select(this).classed('active');
-    clearFilters();
-    if (!isActive) {
-        tableContainer.selectAll('.box').style('opacity', d => setOpacityByAftertaste(d));
-        d3.select(this).classed('active', true);
-        activeFilter = 'Aftertaste';
-        selectedFilterDiv.text(activeFilter);
-        filterDescriptionDiv.text(filterDescriptions[activeFilter]);
-        clearFilterButton.style('display', 'inline-block');
-        filterDropdownButton.html('Aftertaste <i class="fas fa-chevron-down"></i>'); // Ändere den Dropdown-Button-Text
-        updateHeaderBackground(activeFilter);
-        adjustBoxContent(); // Aktualisiere die Box-Inhalte
-    }
+    toggleFilter(d3.select(this), d => d.aftertaste === "yes", 'aftertaste');
+});
+
+filterButtonFructose.on('click', function() {
+    toggleFilter(d3.select(this), d => d.fructose === "yes", 'fructose');
 });
 
 filterButtonAll.on('click', function() {
@@ -163,58 +96,22 @@ filterButtonAll.on('click', function() {
 
 clearFilterButton.on('click', clearFilters);
 
-function setOpacityByCalories(d) {
-    if (d.calories < 11) return 1.0;
-    if (d.calories > 11 && d.calories < 200) return 0.4;
-    return MIN_OPACITY;
-}
-
-function setOpacityBySweetness(d) {
-    if (d.sweetnes > 49) return 1.0;
-    return MIN_OPACITY;
-}
-
-function setOpacityByGI(d) {
-    if (d.gi < 56) return 1.0;
-    if (d.gi >= 56 && d.gi <= 69) return 0.4;
-    return MIN_OPACITY;
-}
-
-function setOpacityByNutrients(d) {
-    if (d.nutrients === "yes") return 1.0;
-    if (d.nutrients === "small") return 0.5;
-    return MIN_OPACITY;
-}
-
-function setOpacityByHeat(d) {
-    return d.heat === "yes" ? 1.0 : MIN_OPACITY;
-}
-
-function setOpacityByLaxative(d) {
-    return d.laxative === "yes" ? 1.0 : MIN_OPACITY;
-}
-
-function setOpacityByAftertaste(d) {
-    return d.aftertaste === "yes" ? 1.0 : MIN_OPACITY;
-}
-
-// Lade die Filterbeschreibungen beim Laden der Seite
 loadFilterDescriptions();
 
 const header = d3.select('header');
 
 function updateHeaderBackground(filterName) {
     const filterImages = {
-        "All": "media/all.webp",
-        "Prebiotic": "media/prebiotic.jpg",
-        "Low Calories": "media/low-calories.webp",
-        "Tooth Decay": "media/tooth-decay.webp",
-        "Sweetness": "media/sweetness.webp",
-        "Glycemic Index": "media/glycemic-index.jpg",
-        "Nutrients": "media/nutrients.jpg",
-        "Heat": "media/heat.jpg",
-        "Laxative": "media/laxative.jpg",
-        "Aftertaste": "media/aftertaste.jpg"
+        "all": "media/all.webp",
+        "lowCalories": "media/low-calories.webp",
+        "toothDecay": "media/tooth-decay.webp",
+        "sweetness": "media/sweetness.webp",
+        "glycemicIndex": "media/glycemic-index.jpg",
+        "nutrients": "media/nutrients.jpg",
+        "heat": "media/heat.jpg",
+        "laxative": "media/laxative.jpg",
+        "aftertaste": "media/aftertaste.jpg",
+        "fructose": "media/fructose.jpg"
     };
 
     const imageUrl = filterImages[filterName] || "media/all.jpg";

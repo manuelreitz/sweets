@@ -1,11 +1,47 @@
-{
-    "Prebiotic": "A healthy gut is good for the whole body, so a sweetener that promotes desirable intestinal bacteria can also alleviate some of the guilt associated with enjoying dessert.",
-    "Low Calories": "We need calories to drive our metabolism, but too many calories can lead to trouble. People seeking to reduce calories from sweeteners might turn to some of these.",
-    "Tooth Decay": "Most natural sugars fuel bacteria, which release acid that causes tooth decay. But some sweeteners are actually good for teeth.",
-    "Sweetness": "Sweetness compared with table sugar, which has a sweetness value of 1.",
-    "Glycemic Index": "There are more natural alternatives than artificial ones for diabetics and hyperglycemics who want to satisfy a sweet tooth without raising blood glucose levels.",
-    "Nutrients": "Vitamins, minerals, enzymes and other healthful compounds are more likely to be found in raw or slightly processed sweeteners, all of which are derived from plants.",
-    "Heat": "The last thing a baker wants is for a recipe’s sweetener to break down into undesirable or dangerous substances while in the oven.",
-    "Laxative": "Less-digestible sweeteners might be good for some bacteria in the gut, but too much of a good thing can lead to nausea or diarrhea.",
-    "Aftertaste": "Some compounds can trick our tongues into firing sweet signals, but in high concentrations they can yield a bitter experience."
-}
+[
+    {
+        "id": "all",
+        "title": "Finde das passende Süßungsmittel!",
+        "description": "Zucker ist verpönt. Er macht dick und soll – in rauen Mengen konsumiert – diverse Erkrankungen begünstigen. Deshalb kommen immer neue Alternativen auf den Markt. Welche Eigenschaften haben sie? Und wie gesund sind sie wirklich?"
+    },
+    {
+        "id": "lowCalories",
+        "title": "Kalorienarm",
+        "description": "Haushaltszucker hat einen hohen Brennwert – er versorgt den Körper mit viel Energie, macht aber nicht lange satt. Andere Süßungsmittel liefern deutlich weniger Kalorien, manche sogar gar keine."
+    },
+    {
+        "id": "toothDecay",
+        "title": "Schädlich für die Zähne",
+        "description": "Die meisten natürlichen Zucker fördern Karies, weil sie das Wachstum von säurebildenden Bakterien im Mund begünstigen. Manche Süßungsmittel tun dies nicht, einige wenige sollen sogar vor Zahnfäule schützen. "
+    },
+    {
+        "id": "sweetness",
+        "title": "Süßer als Zucker",
+        "description": "Die Süßkraft eines Zuckerersatzstoffs bemisst sich relativ zu jener von Haushaltszucker (Süßkraft = 1). Beträgt sie beispielsweise 2, ist der Stoff doppelt so süß wie Zucker."
+    },
+    {
+        "id": "glycemicIndex",
+        "title": "Niedriger glykämischer Index",
+        "description": "Kohlenhydrate wie Zucker lassen den Blutzuckerspiegel ansteigen. Wie schnell und weit er steigt, hängt vom glykämischen Index (GI) des Stoffs ab. Insbesondere Diabetiker sollten Süßungsmittel mit niedrigem GI wählen."
+    },
+    {
+        "id": "heat",
+        "title": "Zum Backen geeignet",
+        "description": "Manche Süßungsmittel vertragen keine Hitze. Sie verlieren dann ihre Süßkraft oder entwickeln einen unangenehmen Beigeschmack. Die folgenden Stoffe eignen sich zum Backen."
+    },
+    {
+        "id": "laxative",
+        "title": "Kann abführend wirken",
+        "description": "Einige Zuckerersatzstoffe regen die Verdauung an. Wer zu viel von ihnen einnimmt, bekommt Durchfall. Deshalb steht auf vielen Packungen von Kaugummis und zuckerfreien Bonbons: »Kann bei übermäßigem Verzehr abführend wirken«."
+    },
+    {
+        "id": "aftertaste",
+        "title": "Unangenehmer Nachgeschmack",
+        "description": "Viele Süßungsmittel schmecken vor allem süß und haben mitunter noch einen leichten Beigeschmack, etwa nach Karamell oder Lakritz. Bei einigen wenigen bleibt jedoch ein unangenehmer Nachgeschmack auf der Zunge. "
+    },
+    {
+        "id": "fructose",
+        "title": "Geeignet bei Fruktoseunverträglichkeit",
+        "description": "Rund ein Drittel aller Erwachsenen können Fruktose (Fruchtzucker) über den Darm nicht richtig aufnehmen. Sie wandert weiter in den Dickdarm, wo Bakterien sie unter anderem zu Gasen verstoffwechseln. Die Folge sind Blähungen und Durchfall."
+    }
+]

@@ -17,8 +17,6 @@ const maxGI = 105;
 let previousIndex = -1;
 
 function showLightbox(index) {
-    d3.select()
-
     const previousData = previousIndex >= 0 ? currentData[previousIndex] : null;
     currentIndex = index;
     const d = currentData[currentIndex];
@@ -75,7 +73,6 @@ function showLightbox(index) {
     createPolarChart(radarData, index, previousData);
 
     lightbox.style('display', 'block');
-    d3.select('body').classed('no-scroll', true); // Deaktiviert das Scrollen der Seite
 
     previousIndex = index;
 }
@@ -295,17 +292,24 @@ function createPolarChart(data, highlightedIndex, previousData) {
                     const interpolate = d3.interpolate(previousValue, value);
                     return function(t) {
                         const interpolatedValue = interpolate(t);
-                        let displayValue = interpolatedValue.toFixed(2);
+                        let displayValue;
 
-                        // Entferne Nachkommastellen, wenn sie null sind
-                        if (displayValue.endsWith('.00')) {
-                            displayValue = displayValue.slice(0, -3);
-                        } else if (displayValue.endsWith('0')) {
-                            displayValue = displayValue.slice(0, -1);
+                        // Bei Werten über 2 nur ganze Zahlen anzeigen
+                        if (interpolatedValue > 2) {
+                            displayValue = Math.round(interpolatedValue).toString();
+                        } else {
+                            displayValue = interpolatedValue.toFixed(2);
+
+                            // Entferne Nachkommastellen, wenn sie null sind
+                            if (displayValue.endsWith('.00')) {
+                                displayValue = displayValue.slice(0, -3);
+                            } else if (displayValue.endsWith('0')) {
+                                displayValue = displayValue.slice(0, -1);
+                            }
+
+                            // Ersetze den Punkt durch ein Komma
+                            displayValue = displayValue.replace('.', ',');
                         }
-
-                        // Ersetze den Punkt durch ein Komma
-                        displayValue = displayValue.replace('.', ',');
 
                         d3.select(self).html(`<tspan fill="#FFF">${displayValue}</tspan><tspan fill="#000" font-weight="normal"> | ${sucroseValue}</tspan>`);
                     };
@@ -317,6 +321,7 @@ function createPolarChart(data, highlightedIndex, previousData) {
                     };
                 }
             });
+
     });
 
     // Hintergrundringe
@@ -335,7 +340,7 @@ function createPolarChart(data, highlightedIndex, previousData) {
         polarChartSvg.append("circle")
             .attr("cx", 0)
             .attr("cy", 0)
-            .attr("r", i * circleRadius+1)
+            .attr("r", i * circleRadius + 1)
             .style("fill", "none")
             .style("stroke", "#000")
             .attr("opacity", 0);
@@ -346,8 +351,8 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
     for (let i = 0; i < numLines; i++) {
         const angle = (i * angleStep) - (Math.PI / 2);
-        const x = (radius +20) * Math.cos(angle);
-        const y = (radius +20) * Math.sin(angle);
+        const x = (radius + 20) * Math.cos(angle);
+        const y = (radius + 20) * Math.sin(angle);
 
         polarChartSvg.append("line")
             .attr("x1", 0)
@@ -378,7 +383,6 @@ lightboxBody.on('scroll', () => {
 
 function hideLightbox() {
     lightbox.style('display', 'none');
-    d3.select('body').classed('no-scroll', false);
 }
 
 function showPrevious() {

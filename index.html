@@ -4,29 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sweetener</title>
+    <title>Sweet! </title>
     <script src="https://kit.fontawesome.com/5d69f19cf7.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="media/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="media/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <header></header>
     <div class="filter-container">
         <div class="dropdown">
-            <button id="filterDropdownButton" class="dropbtn">Finde deinen Zuckerersatz <i class="fa-solid fa-chevron-down"></i></button>
+            <button id="filterDropdownButton" class="dropbtn">Finde das passende Süßungsmittel! <i class="fa-solid fa-chevron-down"></i></button>
             <div class="dropdown-content">
-                <a href="#" id="filterAll"><i class="fa-solid fa-border-all"></i>Alle</a>
-                <a href="#" id="filterLowCalories"><i class="fa-brands fa-creative-commons-zero"></i>Low Calories</a>
-                <a href="#" id="filterToothDecay"><i class="fa-solid fa-tooth"></i>Tooth Decay</a>
-                <a href="#" id="filterSweetness"><i class="fa-solid fa-cubes-stacked"></i>Sweetness</a>
-                <a href="#" id="filterGI"><i class="fa-solid fa-syringe"></i>Glycemic Index</a>
-                <a href="#" id="filterHeat"><i class="fa-solid fa-temperature-three-quarters"></i>Heat</a>
-                <a href="#" id="filterLaxative"><i class="fa-solid fa-restroom"></i>Laxative</a>
-                <a href="#" id="filterAftertaste"><i class="fa-regular fa-face-grin-tongue"></i>Aftertaste</a>
+                <a href="#" id="filterAll"><i class="fa-solid fa-border-all"></i>Alle Süßungsmittel</a>
+                <a href="#" id="filterLowCalories"><i class="fa-brands fa-creative-commons-zero"></i>Kalorienarm</a>
+                <a href="#" id="filterToothDecay"><i class="fa-solid fa-tooth"></i>Schädlich für die Zähne</a>
+                <a href="#" id="filterSweetness"><i class="fa-solid fa-cubes-stacked"></i>Süßer als Zucker</a>
+                <a href="#" id="filterGI"><i class="fa-solid fa-syringe"></i>Niedriger glykämischer Index</a>
+                <a href="#" id="filterHeat"><i class="fa-solid fa-fire"></i>Zum Backen geeignet</a>
+                <a href="#" id="filterLaxative"><i class="fa-solid fa-restroom"></i>Kann abführend wirken</a>
+                <a href="#" id="filterAftertaste"><i class="fa-regular fa-face-grin-tongue"></i>Unangenehmer Nachgeschmack</a>
+                <a href="#" id="filterFructose"><i class="fa-regular fa-lemon"></i>Geeignet bei Fruktoseunverträglichkeit</a>
             </div>
         </div>
         <div class="filter-content">
-            <div id="filterDescription" class="filter-description">Neben Zucker gibt es zahlreiche Süßungsmittel mit unterschiedlichen Eigenschaften. Sie bieten verschiedene Vorteile und Nachteile, wodurch sie sich für unterschiedliche Anwendungsfälle eignen. Diese Vielfalt ermöglicht es, je nach Bedarf und Präferenz das passende Süßungsmittel zu wählen.</div>
+            <div id="filterDescription" class="filter-description">Zucker ist verpönt. Er macht dick und soll – in rauen Mengen konsumiert – diverse Erkrankungen begünstigen. Deshalb kommen immer neue Alternativen auf den Markt. Welche Eigenschaften haben sie? Und wie gesund sind sie wirklich?</div>
         </div>
+        <div class="box-key"><img src="media/key.svg" alt="Legende"></div>
     </div>
     <div id="tableContainer" class="table-container"></div>
     <div id="lightbox" class="lightbox">
@@ -37,15 +44,27 @@
                     <h1 class="lightbox-title"></h1>
                     <div class="lightbox-subtitle"></div>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle close"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle close">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
             </div>
             <div class="lightbox-body">
                 <div id="radarChart"><span>test test</span></div>
                 <div class="lightbox-details"></div>
             </div>
             <div class="lightbox-footer">
-                <div class="lightbox-nav left"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg></div>
-                <div class="lightbox-nav right"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg></div>
+                <div class="lightbox-nav left"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 8 8 12 12 16"></polyline>
+                        <line x1="16" y1="12" x2="8" y2="12"></line>
+                    </svg></div>
+                <div class="lightbox-nav right"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 16 16 12 12 8"></polyline>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg></div>
             </div>
         </div>
     </div>
