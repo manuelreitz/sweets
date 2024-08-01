@@ -26,13 +26,12 @@ function loadFilterDescriptions() {
 
 // Funktion zum Zurücksetzen aller Filter
 function clearFilters() {
-    tableContainer.selectAll('.box').style('opacity', 1);
+    tableContainer.selectAll('.box').style('opacity', 1).style('border', '2px solid #000'); // Setzt die Rahmenfarbe zurück
     tableContainer.selectAll('.filter-value').remove(); // Entferne vorherige Filterwerte
     d3.selectAll('.dropdown-content a').classed('active', false);
     activeFilter = null;
     selectedFilterDiv.text('');
     filterDescriptionDiv.text(filterDescriptions["all"].description);
-    clearFilterButton.style('display', 'none');
     filterDropdownButton.html(`${filterDescriptions["all"].title} <i class="fas fa-chevron-down"></i>`); // Setze den Dropdown-Button-Text zurück
     adjustBoxContent();
     updateHeaderBackground('all');
@@ -47,6 +46,20 @@ function toggleFilter(button, filterFn, filterName) {
             .style('opacity', MIN_OPACITY)
             .filter(filterFn)
             .style('opacity', 1);
+        
+        // Zusätzliche Bedingungen für "bedingt" und "gut"
+        if (filterName === 'heat' || filterName === 'fructose') {
+            tableContainer.selectAll('.box')
+                .filter(d => d[filterName] === "bedingt")
+                .style('opacity', 0.6);
+        }
+        
+        if (filterName === 'toothDecay') {
+            tableContainer.selectAll('.box')
+                .filter(d => d.tooth === "gut")
+                .style('border', '2px solid #fff');
+        }
+
         button.classed('active', true);
         activeFilter = filterName;
         selectedFilterDiv.text(filterDescriptions[filterName].title);
@@ -58,39 +71,48 @@ function toggleFilter(button, filterFn, filterName) {
     }
 }
 
-filterButtonLowCalories.on('click', function() {
+filterButtonLowCalories.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
     toggleFilter(d3.select(this), d => d.calories < 11, 'lowCalories');
 });
 
-filterButtonToothDecay.on('click', function() {
-    toggleFilter(d3.select(this), d => d.tooth === "yes", 'toothDecay');
+filterButtonToothDecay.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    toggleFilter(d3.select(this), d => d.tooth === "ja" || d.tooth === "gut", 'toothDecay');
 });
 
-filterButtonSweetness.on('click', function() {
-    toggleFilter(d3.select(this), d => d.sweetness > 1, 'sweetness');
+filterButtonSweetness.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    toggleFilter(d3.select(this), d => d.sweetness > 2, 'sweetness');
 });
 
-filterButtonGI.on('click', function() {
+filterButtonGI.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
     toggleFilter(d3.select(this), d => d.gi < 56, 'glycemicIndex');
 });
 
-filterButtonHeat.on('click', function() {
-    toggleFilter(d3.select(this), d => d.heat === "yes", 'heat');
+filterButtonHeat.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    toggleFilter(d3.select(this), d => d.heat === "ja" || d.heat === "bedingt", 'heat');
 });
 
-filterButtonLaxative.on('click', function() {
-    toggleFilter(d3.select(this), d => d.laxative === "yes", 'laxative');
+filterButtonLaxative.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    toggleFilter(d3.select(this), d => d.laxative === "ja", 'laxative');
 });
 
-filterButtonAftertaste.on('click', function() {
-    toggleFilter(d3.select(this), d => d.aftertaste === "yes", 'aftertaste');
+filterButtonAftertaste.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    toggleFilter(d3.select(this), d => d.aftertaste === "ja", 'aftertaste');
 });
 
-filterButtonFructose.on('click', function() {
-    toggleFilter(d3.select(this), d => d.fructose === "yes", 'fructose');
+filterButtonFructose.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
+    toggleFilter(d3.select(this), d => d.fructose === "ja" || d.fructose === "bedingt", 'fructose');
 });
 
-filterButtonAll.on('click', function() {
+filterButtonAll.on('click', function(event) {
+    event.preventDefault(); // Verhindert das Standardverhalten
     clearFilters();
 });
 

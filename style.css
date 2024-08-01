@@ -73,7 +73,7 @@ header {
 }
 
 .dropdown-content {
-/*    display: none;*/
+    /*    display: none;*/
     position: absolute;
     background-color: #f9f9f9;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -100,9 +100,14 @@ header {
     /*    font-weight: bold;*/
 }
 
+.active {
+    font-weight: 600;
+}
+
 .dropdown:hover .dropdown-content {
-/*    display: block;*/
-    max-height: 500px; /* Adjust based on content height */
+    /*    display: block;*/
+    max-height: 500px;
+    /* Adjust based on content height */
     transition: max-height 0.2s ease-in;
 }
 
@@ -198,24 +203,6 @@ header {
     opacity: 80%;
     transform: translate(-3px, -3px);
     box-shadow: #f5a0a6 6px 6px;
-}
-
-@property --angle {
-    syntax: '<angle>';
-    initial-value: 90deg;
-    inherits: true;
-}
-
-@property --gradX {
-    syntax: '<percentage>';
-    initial-value: 50%;
-    inherits: true;
-}
-
-@property --gradY {
-    syntax: '<percentage>';
-    initial-value: 0%;
-    inherits: true;
 }
 
 #box-highlight:hover {

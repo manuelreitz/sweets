@@ -11,7 +11,7 @@
     },
     {
         "id": "toothDecay",
-        "title": "Schädlich für die Zähne",
+        "title": "Nicht schädlich für die Zähne",
         "description": "Die meisten natürlichen Zucker fördern Karies, weil sie das Wachstum von säurebildenden Bakterien im Mund begünstigen. Manche Süßungsmittel tun dies nicht, einige wenige sollen sogar vor Zahnfäule schützen. "
     },
     {
@@ -31,12 +31,12 @@
     },
     {
         "id": "laxative",
-        "title": "Kann abführend wirken",
+        "title": "Wirkt nicht abführend",
         "description": "Einige Zuckerersatzstoffe regen die Verdauung an. Wer zu viel von ihnen einnimmt, bekommt Durchfall. Deshalb steht auf vielen Packungen von Kaugummis und zuckerfreien Bonbons: »Kann bei übermäßigem Verzehr abführend wirken«."
     },
     {
         "id": "aftertaste",
-        "title": "Unangenehmer Nachgeschmack",
+        "title": "Kein unangenehmer Nachgeschmack",
         "description": "Viele Süßungsmittel schmecken vor allem süß und haben mitunter noch einen leichten Beigeschmack, etwa nach Karamell oder Lakritz. Bei einigen wenigen bleibt jedoch ein unangenehmer Nachgeschmack auf der Zunge. "
     },
     {

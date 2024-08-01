@@ -1,5 +1,5 @@
 const MAX_WIDTH = 930; // Maximale Breite für die erweiterte Ansicht
-const MIN_OPACITY = 0.25; // Globale Variable für die minimale Deckkraft
+const MIN_OPACITY = 0.3; // Globale Variable für die minimale Deckkraft
 let activeFilter = null; // Variable, um den aktiven Filter zu verfolgen
 
 const groupedData = d3.group(data, d => d.category);
@@ -111,7 +111,6 @@ groupedData.forEach((values, key) => {
 });
 
 
-// Funktion zum Anpassen der Box-Inhalte basierend auf der Containerbreite und dem aktiven Filter
 function adjustBoxContent() {
     const containerWidth = document.getElementById('tableContainer').offsetWidth;
     tableContainer.selectAll('.box').each(function(d) {
@@ -127,32 +126,29 @@ function adjustBoxContent() {
             if (activeFilter) {
                 let filterValue = '';
                 switch (activeFilter) {
-                    case 'Prebiotic':
-                        filterValue = d.prebiotic;
-                        break;
-                    case 'Low Calories':
+                    case 'lowCalories':
                         filterValue = d.calories;
                         break;
-                    case 'Tooth Decay':
+                    case 'toothDecay':
                         filterValue = d.tooth;
                         break;
-                    case 'Sweetness':
-                        filterValue = d.sweetnes;
+                    case 'sweetness':
+                        filterValue = d.sweetness;
                         break;
-                    case 'Glycemic Index':
+                    case 'glycemicIndex':
                         filterValue = d.gi;
                         break;
-                    case 'Nutrients':
-                        filterValue = d.nutrients;
-                        break;
-                    case 'Heat':
+                    case 'heat':
                         filterValue = d.heat;
                         break;
-                    case 'Laxative':
+                    case 'laxative':
                         filterValue = d.laxative;
                         break;
-                    case 'Aftertaste':
+                    case 'aftertaste':
                         filterValue = d.aftertaste;
+                        break;
+                    case 'fructose':
+                        filterValue = d.fructose;
                         break;
                     default:
                         filterValue = '';
@@ -162,18 +158,48 @@ function adjustBoxContent() {
         } else {
             // Andernfalls wird nur das Symbol angezeigt
             box.html(`<div class="symbol">${d.symbol}</div>`);
-        };
+            if (activeFilter) {
+                let filterValue = '';
+                switch (activeFilter) {
+                    case 'lowCalories':
+                        filterValue = d.calories;
+                        break;
+                    case 'toothDecay':
+                        filterValue = d.tooth;
+                        break;
+                    case 'sweetness':
+                        filterValue = d.sweetness;
+                        break;
+                    case 'glycemicIndex':
+                        filterValue = d.gi;
+                        break;
+                    case 'heat':
+                        filterValue = d.heat;
+                        break;
+                    case 'laxative':
+                        filterValue = d.laxative;
+                        break;
+                    case 'aftertaste':
+                        filterValue = d.aftertaste;
+                        break;
+                    case 'fructose':
+                        filterValue = d.fructose;
+                        break;
+                    default:
+                        filterValue = '';
+                }
+                box.append('span').attr('class', 'filter-value').text(filterValue);
+            }
+        }
 
         if (d.symbol === "Sa") {
             box.attr('id', 'box-highlight');
         } else {
             box.attr('id', null);
-        };
-
-
-
+        }
     });
 }
+
 
 
 const accordions = d3.selectAll('.accordion');

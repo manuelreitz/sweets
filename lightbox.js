@@ -35,15 +35,12 @@ function showLightbox(index) {
         <span class="detail-value detail-category">${d.category}</span>
         <span class="detail-headline">EIGENSCHAFTEN</span>
         <div class="properties">
-            ${createPropertyElement("Prebiotic", d.prebiotic === "ja", d.category)}
-            ${createPropertyElement("Low Calories", d.calories < 11, d.category)}
-            ${createPropertyElement("Tooth Decay", d.tooth === "ja", d.category)}
-            ${createPropertyElement("Sweetness", d.sweetness > 1, d.category)}
-            ${createPropertyElement("Glycemic Index", d.gi < 56, d.category)}
-            ${createPropertyElement("Nutrients", d.nutrients === "ja", d.category)}
-            ${createPropertyElement("Heat", d.heat === "ja", d.category)}
-            ${createPropertyElement("Laxative", d.laxative === "ja", d.category)}
-            ${createPropertyElement("Aftertaste", d.aftertaste === "ja", d.category)}
+        ${createPropertyElement("Nicht schädlich für die Zähne", d.tooth === "ja", d.category, d.tooth)}
+        ${createPropertyElement("Zum Backen geeignet", d.heat === "ja", d.category, d.heat)}
+        ${createPropertyElement("Wirkt nicht abführend", d.laxative === "ja", d.category)}
+        ${createPropertyElement("Kein unangenehmer Nachgeschmack", d.aftertaste === "ja", d.category)}
+        ${createPropertyElement("Geeignet bei Fruktoseunverträglichkeit", d.fructose === "ja", d.category, d.fructose)}
+
         </div><br>
 
         <span class="detail-headline">TYPISCHE PRODUKTE</span>
@@ -52,15 +49,26 @@ function showLightbox(index) {
         <span class="detail-value">${d.notes}</span>
     `);
 
+            //${createPropertyElement("Kalorienarm", d.calories < 11, d.category)}
+
+
     d3.select(".detail-category")
         .style('color', categoryColors[d.category])
         .style("font-weight", "bold");
 
-    function createPropertyElement(propertyName, condition, category) {
+    function createPropertyElement(propertyName, condition, category, value) {
+        console.log(value);
         const color = categoryColors[category];
-        const opacity = condition ? 1 : 0.25;
+        let opacity = 0.25; // Default opacity for conditions not met
+        if (condition) {
+            opacity = 1; // Condition met
+        } else if (value === "bedingt") {
+            opacity = 0.6; // Special case for "bedingt"
+        } else if (value === "gut") {
+            opacity = 1; // Special case for "gut"
+        }
         return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${propertyName}</span>`;
-    }
+    };
 
 
     const radarData = currentData.map(item => ({
@@ -157,7 +165,6 @@ function createPolarChart(data, highlightedIndex, previousData) {
                         if (interpolatedValue < 1) {
                             const linearScale = d3.scaleLinear().domain([0, 1]).range([0, scale(1)]);
                             return arc({ value: linearScale(interpolatedValue) });
-                            console.log(value)
                         } else {
                             return arc({ value: scale(interpolatedValue) });
                         }
@@ -369,10 +376,8 @@ function createPolarChart(data, highlightedIndex, previousData) {
 lightboxBody.on('scroll', () => {
     if (lightboxBody.node().scrollTop > 0) {
         lightboxHeader.classed('shadow', true);
-        console.log("on")
     } else {
         lightboxHeader.classed('shadow', false);
-        console.log("off")
     }
 });
 
