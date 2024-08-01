@@ -118,8 +118,7 @@ header {
 .filter-description {
     font-size: 18px;
     font-weight: 400;
-    letter-spacing: 0.1px;
-    line-height: 140%;
+    line-height: 150%;
     color: #000;
     margin-top: 95px;
     margin-left: 0px;
@@ -525,15 +524,17 @@ header {
 }
 
 .panel {
-    padding: 0 18px;
+    padding: 0;
     background-color: #f8cacb;
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+    letter-spacing: 0.02em;
+    line-height: 140%;
 }
 
 .panel.show {
-    padding: 18px 18px 0 18px;
+    padding: 0px 18px 18px 18px;
     max-height: 500px;
 }
 

@@ -183,7 +183,6 @@ function closePanel(panel) {
     d3.select(panel)
         .classed('show', false)
         .style('max-height', '0px')
-        .style('padding', '0px 18px');
     setTimeout(() => {
         d3.select(panel).style('display', 'none');
     }, 400); // Gleiche Zeit wie die Transition-Dauer
@@ -211,11 +210,10 @@ accordions.on('click', function(event, d) {
     // Wenn das geklickte Accordion nicht aktiv war, öffne es
     if (!isActive) {
         accordion.classed('active', true);
-        d3.select(panel).classed('show', true).style('display', 'block').style('max-height', panel.scrollHeight + 'px').style('padding', '18px').style('display', 'block');
+        d3.select(panel).classed('show', true).style('display', 'block').style('max-height', panel.scrollHeight + 'px').style('display', 'block');
         chevron.classed('rotate', true);
-        console.log(panel.scrollHeight);
     } else {
-        
+
     }
 });
 
@@ -223,7 +221,7 @@ accordions.on('click', function(event, d) {
 const firstAccordion = d3.select('.accordion').node();
 const firstPanel = firstAccordion.nextElementSibling;
 d3.select(firstAccordion).classed('active', true);
-d3.select(firstPanel).classed('show', true).style('max-height', firstPanel.scrollHeight + 'px').style('padding', '18px').style('display', 'block');
+d3.select(firstPanel).classed('show', true).style('max-height', firstPanel.scrollHeight + 'px').style('display', 'block');
 d3.select(firstAccordion).select('.chevron').classed('rotate', true);
 
 const headerColors = {
