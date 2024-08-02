@@ -128,12 +128,11 @@ function updateHeaderBackground(filterName) {
         "lowCalories": "media/low-calories.webp",
         "toothDecay": "media/tooth-decay.webp",
         "sweetness": "media/sweetness.webp",
-        "glycemicIndex": "media/glycemic-index.jpg",
-        "nutrients": "media/nutrients.jpg",
-        "heat": "media/heat.jpg",
-        "laxative": "media/laxative.jpg",
-        "aftertaste": "media/aftertaste.jpg",
-        "fructose": "media/fructose.jpg"
+        "glycemicIndex": "media/glycemic-index.webp",
+        "heat": "media/heat.webp",
+        "laxative": "media/laxative.webp",
+        "aftertaste": "media/aftertaste.webp",
+        "fructose": "media/fructose.webp"
     };
 
     const imageUrl = filterImages[filterName] || "media/all.jpg";
