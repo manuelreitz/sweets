@@ -35,7 +35,7 @@ function showLightbox(index) {
         <span class="detail-value detail-category">${d.category}</span>
         <span class="detail-headline">EIGENSCHAFTEN</span>
         <div class="properties">
-        ${createPropertyElement("Nicht schädlich für die Zähne", d.tooth === "ja", d.category, d.tooth)}
+        ${createPropertyElement("Zahnfreundlich", d.tooth === "ja", d.category, d.tooth)}
         ${createPropertyElement("Zum Backen geeignet", d.heat === "ja", d.category, d.heat)}
         ${createPropertyElement("Wirkt nicht abführend", d.laxative === "ja", d.category)}
         ${createPropertyElement("Kein unangenehmer Nachgeschmack", d.aftertaste === "ja", d.category)}
@@ -45,12 +45,9 @@ function showLightbox(index) {
 
         <span class="detail-headline">TYPISCHE PRODUKTE</span>
         <span class="detail-value">${d.containedin}</span>
-        <span class="detail-headline">BESCHREIBUNG</span>
+        <span class="detail-headline">HINWEISE</span>
         <span class="detail-value">${d.notes}</span>
     `);
-
-            //${createPropertyElement("Kalorienarm", d.calories < 11, d.category)}
-
 
     d3.select(".detail-category")
         .style('color', categoryColors[d.category])
@@ -67,7 +64,20 @@ function showLightbox(index) {
         } else if (value === "gut") {
             opacity = 1; // Special case for "gut"
         }
-        return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${propertyName}</span>`;
+
+        const filterIcons = {
+        "Zahnfreundlich": '<i class="fa-solid fa-tooth"></i>',
+        "Zum Backen geeignet": '<i class="fa-solid fa-fire"></i>',
+        "Wirkt nicht abführend": '<i class="fa-solid fa-restroom"></i>',
+        "Kein unangenehmer Nachgeschmack": '<i class="fa-regular fa-face-grin-tongue"></i>',
+        "Geeignet bei Fruktoseunverträglichkeit": '<i class="fa-regular fa-lemon"></i>',
+    };
+
+    // Get the icon for the given property name
+    const icon = filterIcons[propertyName] || '';
+    console.log(icon);
+
+        return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${icon} ${propertyName}</span>`;
     };
 
 

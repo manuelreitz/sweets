@@ -73,7 +73,7 @@ function toggleFilter(button, filterFn, filterName) {
 
 filterButtonLowCalories.on('click', function(event) {
     event.preventDefault(); // Verhindert das Standardverhalten
-    toggleFilter(d3.select(this), d => d.calories < 11, 'lowCalories');
+    toggleFilter(d3.select(this), d => d.calories < 21, 'lowCalories');
 });
 
 filterButtonToothDecay.on('click', function(event) {

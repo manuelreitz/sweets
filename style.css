@@ -324,7 +324,7 @@ header {
 .lightbox-header {
     top: 0;
     display: flex;
-    padding: 10px 15px;
+    padding: 10px 10px;
     height: 70px;
     transition: box-shadow 0.3s ease;
 
@@ -411,7 +411,7 @@ header {
     font-size: 30px;
     margin-right: 10px;
     font-family: "Vollkorn", serif;
-    border: 1px solid #000;
+    border: 2px solid #000;
 }
 
 .close {
@@ -436,6 +436,7 @@ header {
     display: block;
     font-size: 13px;
     color: #666;
+    letter-spacing: 1px;
 }
 
 .detail-value {
@@ -453,6 +454,10 @@ header {
     font-size: 14px;
 }
 
+.lightbox-details .property i {
+    color: #fff;
+    margin-right: 5px;
+}
 
 
 
@@ -506,7 +511,8 @@ header {
 }
 
 .accordion-number {
-    margin-right: 15px;
+    display: inline-block;
+    width: 15px;
 }
 
 .panel {
@@ -517,6 +523,7 @@ header {
     transition: max-height 0.4s ease-out, padding 0.4s ease-out;
     letter-spacing: 0.02em;
     line-height: 140%;
+    margin-left: 36px;
 }
 
 .panel.show {
@@ -544,4 +551,25 @@ header {
     font-size: 14px;
     letter-spacing: 0.02em;
     line-height: 160%;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #333;
+    font-size: 14px;
+}
+
+a:hover {
+    opacity: 0.7;
+}
+
+a:visited {
+    color: #666;
 }

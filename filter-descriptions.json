@@ -2,17 +2,17 @@
     {
         "id": "all",
         "title": "Welches Süßungsmittel darf es sein?",
-        "description": "Wer nach Alternativen für Zucker sucht, hat die Qual der Wahl. Welche Eigenschaften sind Ihnen wichtig? Wählen Sie ein Merkmal im Menü aus, und wir schlagen Ihnen die passenden Süßungsmittel vor – oder jene, die Sie meiden sollten."
+        "description": "Wer nach Alternativen für Zucker sucht, hat die Qual der Wahl. Welche Eigenschaften sollen sie haben? Wähle ein Merkmal im Menü aus, und wir schlagen die passenden Süßungsmittel vor."
     },
     {
         "id": "lowCalories",
         "title": "Kalorienarm",
-        "description": "Haushaltszucker hat einen hohen Brennwert – er versorgt den Körper mit viel Energie, macht aber nicht lange satt. Andere Süßungsmittel liefern deutlich weniger Kalorien, manche sogar gar keine."
+        "description": "Haushaltszucker hat einen hohen Brennwert (387 Kilokalorien pro 100 Gramm) – er versorgt den Körper mit viel Energie, macht aber nicht lange satt. Andere Süßungsmittel liefern deutlich weniger Kalorien, manche sogar gar keine."
     },
     {
         "id": "toothDecay",
-        "title": "Nicht schädlich für die Zähne",
-        "description": "Die meisten natürlichen Zucker fördern Karies, weil sie das Wachstum von säurebildenden Bakterien im Mund begünstigen. Manche Süßungsmittel tun dies nicht, einige wenige sollen sogar vor Zahnfäule schützen. "
+        "title": "Zahnfreundlich",
+        "description": "Die meisten natürlichen Zucker fördern Karies, weil sie das Wachstum von säurebildenden Bakterien im Mund begünstigen. Manche Süßungsmittel tun dies nicht, einige wenige sollen sogar vor Zahnfäule schützen."
     },
     {
         "id": "sweetness",
@@ -22,7 +22,7 @@
     {
         "id": "glycemicIndex",
         "title": "Niedriger glykämischer Index",
-        "description": "Kohlenhydrate wie Zucker lassen den Blutzuckerspiegel ansteigen. Wie schnell und weit er steigt, hängt vom glykämischen Index (GI) des Stoffs ab. Insbesondere Diabetiker sollten Süßungsmittel mit niedrigem GI wählen."
+        "description": "Kohlenhydrate wie Zucker lassen den Blutzuckerspiegel ansteigen. Wie schnell und weit er steigt, hängt vom glykämischen Index (GI) des Stoffs ab. Er ist in Prozent angegeben und orientiert sich am Wert von Glukose (= 100 Prozent). Insbesondere Diabetiker sollten Süßungsmittel mit niedrigem GI (unter 55) wählen."
     },
     {
         "id": "heat",
@@ -32,16 +32,16 @@
     {
         "id": "laxative",
         "title": "Wirkt nicht abführend",
-        "description": "Einige Zuckerersatzstoffe regen die Verdauung an. Wer zu viel von ihnen einnimmt, bekommt Durchfall. Deshalb steht auf vielen Packungen von Kaugummis und zuckerfreien Bonbons: »Kann bei übermäßigem Verzehr abführend wirken«."
+        "description": "Einige Zuckerersatzstoffe regen die Verdauung an. Wer zu viel von ihnen einnimmt, bekommt Durchfall. Deshalb steht auf vielen Packungen von Kaugummis und zuckerfreien Bonbons: »Kann bei übermäßigem Verzehr abführend wirken.«"
     },
     {
         "id": "aftertaste",
         "title": "Kein unangenehmer Nachgeschmack",
-        "description": "Viele Süßungsmittel schmecken vor allem süß und haben mitunter noch einen leichten Beigeschmack, etwa nach Karamell oder Lakritz. Bei einigen wenigen bleibt jedoch ein unangenehmer Nachgeschmack auf der Zunge. "
+        "description": "Viele Süßungsmittel schmecken vor allem süß und haben mitunter noch einen leichten Beigeschmack, etwa nach Karamell oder Lakritz. Bei einigen wenigen bleibt jedoch ein unangenehmer Nachgeschmack auf der Zunge."
     },
     {
         "id": "fructose",
         "title": "Geeignet bei Fruktoseunverträglichkeit",
-        "description": "Rund ein Drittel aller Erwachsenen können Fruktose (Fruchtzucker) über den Darm nicht richtig aufnehmen. Sie wandert weiter in den Dickdarm, wo Bakterien sie unter anderem zu Gasen verstoffwechseln. Die Folge sind Blähungen und Durchfall."
+        "description": "Rund ein Drittel aller Erwachsenen können Fruktose über den Darm nicht richtig aufnehmen. Bakterien verstoffwechseln sie unter anderem zu Gasen, was zu Blähungen und Durchfall führt. Da viele Süßungsmittel Fruktose enthalten, ist die Auswahl für die Betroffenen beschränkt."
     }
 ]

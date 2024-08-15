@@ -83,30 +83,6 @@ groupedData.forEach((values, key) => {
             .attr('class', 'box')
             .style('background-color', categoryColors[key]) // Hintergrundfarbe der Boxen
             .html(d => `<div class="symbol">${d.symbol}</div>`)
-        // .on('mouseover', (event, d) => {
-        //     tooltip.style('opacity', 1)
-        //         .html(`
-        //             <strong>${d.name}</strong><br>
-        //             Category: ${d.category}<br>
-        //             Sweetness: ${d.sweetnes}<br>
-        //             Calories: ${d.calories}<br>
-        //             GI: ${d.gi}<br>
-        //             Nutrients: ${d.nutrients}<br>
-        //             Prebiotic: ${d.prebiotic}<br>
-        //             Metabolic: ${d.metabolic}<br>
-        //             Tooth: ${d.tooth}<br>
-        //             Heat: ${d.heat}<br>
-        //             Laxative: ${d.laxative}<br>
-        //             Aftertaste: ${d.aftertaste}
-        //         `);
-        // })
-        // .on('mousemove', (event) => {
-        //     tooltip.style('left', (event.pageX + 10) + 'px')
-        //         .style('top', (event.pageY + 10) + 'px');
-        // })
-        // .on('mouseout', () => {
-        //     tooltip.style('opacity', 0);
-        // });
     }
 });
 
@@ -130,7 +106,7 @@ function adjustBoxContent() {
                         filterValue = d.calories;
                         break;
                     case 'toothDecay':
-                        filterValue = d.tooth;
+                        filterValue = d.tooth === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'sweetness':
                         filterValue = d.sweetness;
@@ -139,21 +115,21 @@ function adjustBoxContent() {
                         filterValue = d.gi;
                         break;
                     case 'heat':
-                        filterValue = d.heat;
+                        filterValue = d.heat === "ja" ? '<i class="fa-solid fa-check"></i>' : d.heat === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'laxative':
-                        filterValue = d.laxative;
+                        filterValue = d.laxative === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'aftertaste':
-                        filterValue = d.aftertaste;
+                        filterValue = d.aftertaste === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'fructose':
-                        filterValue = d.fructose;
+                        filterValue = d.fructose === "ja" ? '<i class="fa-solid fa-check"></i>' : d.fructose === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
                         break;
                     default:
                         filterValue = '';
                 }
-                box.append('span').attr('class', 'filter-value').text(filterValue);
+                box.append('span').attr('class', 'filter-value').html(filterValue); // Nutze .html() statt .text(), um HTML-Inhalt zu setzen
             }
         } else {
             // Andernfalls wird nur das Symbol angezeigt
@@ -165,7 +141,7 @@ function adjustBoxContent() {
                         filterValue = d.calories;
                         break;
                     case 'toothDecay':
-                        filterValue = d.tooth;
+                        filterValue = d.tooth === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'sweetness':
                         filterValue = d.sweetness;
@@ -174,21 +150,21 @@ function adjustBoxContent() {
                         filterValue = d.gi;
                         break;
                     case 'heat':
-                        filterValue = d.heat;
+                        filterValue = d.heat === "ja" ? '<i class="fa-solid fa-check"></i>' : d.heat === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'laxative':
-                        filterValue = d.laxative;
+                        filterValue = d.laxative === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'aftertaste':
-                        filterValue = d.aftertaste;
+                        filterValue = d.aftertaste === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
                         break;
                     case 'fructose':
-                        filterValue = d.fructose;
+                        filterValue = d.fructose === "ja" ? '<i class="fa-solid fa-check"></i>' : d.fructose === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
                         break;
                     default:
                         filterValue = '';
                 }
-                box.append('span').attr('class', 'filter-value').text(filterValue);
+                box.append('span').attr('class', 'filter-value').html(filterValue); // Nutze .html() statt .text(), um HTML-Inhalt zu setzen
             }
         }
 
@@ -199,6 +175,7 @@ function adjustBoxContent() {
         }
     });
 }
+
 
 
 
