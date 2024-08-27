@@ -216,7 +216,7 @@ accordions.on('click', function(event, d) {
         d3.select(panel).classed('show', true).style('display', 'block').style('max-height', panel.scrollHeight + 'px').style('display', 'block');
         chevron.classed('rotate', true);
     } else {
-
+        closePanel(panel);
     }
 });
 

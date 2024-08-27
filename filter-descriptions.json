@@ -7,7 +7,7 @@
     {
         "id": "lowCalories",
         "title": "Kalorienarm",
-        "description": "Haushaltszucker hat einen hohen Brennwert (387 Kilokalorien pro 100 Gramm) – er versorgt den Körper mit viel Energie, macht aber nicht lange satt. Andere Süßungsmittel liefern deutlich weniger Kalorien, manche sogar gar keine."
+        "description": "Haushaltszucker hat einen hohen Brennwert (387&nbsp;Kilokalorien pro 100&nbsp;Gramm) – er versorgt den Körper mit viel Energie, macht aber nicht lange satt. Andere Süßungsmittel liefern deutlich weniger Kalorien, manche sogar gar keine."
     },
     {
         "id": "toothDecay",
@@ -17,12 +17,12 @@
     {
         "id": "sweetness",
         "title": "Süßer als Zucker",
-        "description": "Die Süßkraft eines Zuckerersatzstoffs bemisst sich relativ zu jener von Haushaltszucker (Süßkraft = 1). Beträgt sie beispielsweise 2, ist der Stoff doppelt so süß wie Zucker."
+        "description": "Die Süßkraft eines Zuckerersatzstoffs bemisst sich relativ zu jener von Haushaltszucker (Süßkraft&nbsp;=&nbsp;1). Beträgt sie beispielsweise 2, ist der Stoff doppelt so süß wie Zucker."
     },
     {
         "id": "glycemicIndex",
         "title": "Niedriger glykämischer Index",
-        "description": "Kohlenhydrate wie Zucker lassen den Blutzuckerspiegel ansteigen. Wie schnell und weit er steigt, hängt vom glykämischen Index (GI) des Stoffs ab. Er ist in Prozent angegeben und orientiert sich am Wert von Glukose (= 100 Prozent). Insbesondere Diabetiker sollten Süßungsmittel mit niedrigem GI (unter 55) wählen."
+        "description": "Kohlenhydrate wie Zucker lassen den Blutzuckerspiegel ansteigen. Wie schnell und weit er steigt, hängt vom glykämischen Index (GI) des Stoffs ab. Er ist in Prozent angegeben und orientiert sich am Wert von Glukose (=&nbsp;100&nbsp;Prozent). Insbesondere Diabetiker sollten Süßungsmittel mit niedrigem GI (unter&nbsp;55) wählen."
     },
     {
         "id": "heat",

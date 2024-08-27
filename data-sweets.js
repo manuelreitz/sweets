@@ -33,7 +33,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "nein",
-    "notes": "Besteht wie Haushaltszucker aus Fruktose und Glukose, wobei der Anteil an Fruktose bis zu 90 Prozent betragen kann."
+    "notes": "Besteht wie Haushaltszucker aus Fruktose und Glukose, wobei der Anteil an Fruktose bis zu 90&nbsp;Prozent betragen kann."
   },
   {
     "name": "Invertzucker",
@@ -65,7 +65,7 @@ const data = [
     "calories": 374,
     "gi": 100,
     "tooth": "nein",
-    "heat": "nein",
+    "heat": "ja",
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "ja",
@@ -339,7 +339,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "nein",
     "fructose": "ja",
-    "notes": "Laut der Europäischen Behörde für Lebensmittelsicherheit (EFSA) sollte man täglich nicht mehr als vier Milligramm pro Kilogramm Körpergewicht aufnehmen. Kinder können den Wert schnell überschreiten."
+    "notes": "Laut der Europäischen Behörde für Lebensmittelsicherheit (EFSA) sollte man täglich nicht mehr als 4&nbsp;Milligramm pro Kilogramm Körpergewicht aufnehmen. Kinder können den Wert schnell überschreiten."
   },
   {
     "name": "Polyglycitolsirup",
@@ -501,7 +501,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "nein",
     "fructose": "ja",
-    "notes": "Ältester Süßstoff auf dem deutschen Markt. Wurde immer wieder auf kanzerogene Wirkung untersucht, ein Zusammenhang zu Krebserkrankungen konnte aber nie sicher nachgewiesen werden. Empfohlene Höchstmenge pro Tag: 5 Milligramm pro Kilogramm Körpergewicht."
+    "notes": "Ältester Süßstoff auf dem deutschen Markt. Wurde immer wieder auf kanzerogene Wirkung untersucht, ein Zusammenhang zu Krebserkrankungen konnte aber nie sicher nachgewiesen werden. Empfohlene Höchstmenge pro Tag: 5&nbsp;Milligramm pro Kilogramm Körpergewicht."
   },
   {
     "name": "Sucralose",
@@ -519,7 +519,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "ja",
-    "notes": "Bleibt in der Umwelt stabil und beeinflusst dort die Mikroflora. Beim Erhitzen über 120 °C entstehen gesundheitsschädliche Stoffe.  Empfohlene Höchstmenge pro Tag: 15 Milligramm pro Kilogramm Körpergewicht."
+    "notes": "Bleibt in der Umwelt stabil und beeinflusst dort die Mikroflora. Beim Erhitzen über 120 °C entstehen gesundheitsschädliche Stoffe. Empfohlene Höchstmenge pro Tag: 15&nbsp;Milligramm pro Kilogramm Körpergewicht."
   },
   {
     "name": "Aspartam",
@@ -537,7 +537,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "ja",
-    "notes": "Von der Krebsforschungsagentur IARC 2023 als \"möglicherweise krebserregend\" eingestuft.  Empfohlene Höchstmenge pro Tag: 40 Milligramm pro Kilogramm Körpergewicht. Nicht geeignet für Menschen mit der Stoffwechselkrankheit Phenylketonurie."
+    "notes": "Von der Krebsforschungsagentur IARC 2023 als &raquo;möglicherweise krebserregend&laquo; eingestuft. Empfohlene Höchstmenge pro Tag: 40&nbsp;Milligramm pro Kilogramm Körpergewicht. Nicht geeignet für Menschen mit der Stoffwechselkrankheit Phenylketonurie. Der hohe Brennwert ist im Gebrauch zu vernachlässigen, da man nur winzige Mengen benötigt."
   },
   {
     "name": "Acesulfam-Aspartam-Salz",
@@ -573,7 +573,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "ja",
-    "notes": "Aus Aspartam hergestellt. Verstärkt den Geschmack von Zitrus sowie Minze.  Empfohlene Höchstmenge pro Tag: 5 Milligramm pro Kilogramm Körpergewicht."
+    "notes": "Aus Aspartam hergestellt. Verstärkt den Geschmack von Zitrus sowie Minze. Empfohlene Höchstmenge pro Tag: 5&nbsp;Milligramm pro Kilogramm Körpergewicht."
   },
   {
     "name": "Neotam",
@@ -591,7 +591,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "ja",
-    "notes": "Aus Aspartam hergestellt. Verstärkt den Geschmack von Früchten wie Zitrone sowie Vanille, Minze und Schokolade.  Empfohlene Höchstmenge pro Tag: 2 Milligramm pro Kilogramm Körpergewicht."
+    "notes": "Aus Aspartam hergestellt. Verstärkt den Geschmack von Früchten wie Zitrone sowie Vanille, Minze und Schokolade. Empfohlene Höchstmenge pro Tag: 2&nbsp;Milligramm pro Kilogramm Körpergewicht."
   },
   {
     "name": "Acesulfam-Kalium",
@@ -609,7 +609,7 @@ const data = [
     "laxative": "ja",
     "aftertaste": "nein",
     "fructose": "ja",
-    "notes": "In Kombination mit anderen Süßstoffen steigt die Süßkraft um ein Vielfaches. Sehr stabil, damit gut zu lagern und hitzebeständig.  Empfohlene Höchstmenge pro Tag: 9 Milligramm pro Kilogramm Körpergewicht."
+    "notes": "In Kombination mit anderen Süßstoffen steigt die Süßkraft um ein Vielfaches. Sehr stabil, damit gut zu lagern und hitzebeständig. Empfohlene Höchstmenge pro Tag: 9&nbsp;Milligramm pro Kilogramm Körpergewicht."
   },
   {
     "name": "Cyclamat",
@@ -627,6 +627,6 @@ const data = [
     "laxative": "ja",
     "aftertaste": "ja",
     "fructose": "ja",
-    "notes": "Geringste Süßkraft unter den synthetischen Süßstoffen. Wird oft gemeinsam mit Saccharin eingesetzt, da die beiden ihre Süßkraft gegenseitig verstärken.  Empfohlene Höchstmenge pro Tag: 7 Milligramm pro Kilogramm Körpergewicht."
+    "notes": "Geringste Süßkraft unter den synthetischen Süßstoffen. Wird oft gemeinsam mit Saccharin eingesetzt, da die beiden ihre Süßkraft gegenseitig verstärken. Empfohlene Höchstmenge pro Tag: 7&nbsp;Milligramm pro Kilogramm Körpergewicht."
   }
 ]

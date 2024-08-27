@@ -43,8 +43,11 @@ function showLightbox(index) {
 
         </div><br>
 
+        ${d.containedin ? `
         <span class="detail-headline">TYPISCHE PRODUKTE</span>
         <span class="detail-value">${d.containedin}</span>
+    ` : ''}
+    
         <span class="detail-headline">HINWEISE</span>
         <span class="detail-value">${d.notes}</span>
     `);
@@ -66,16 +69,16 @@ function showLightbox(index) {
         }
 
         const filterIcons = {
-        "Zahnfreundlich": '<i class="fa-solid fa-tooth"></i>',
-        "Zum Backen geeignet": '<i class="fa-solid fa-fire"></i>',
-        "Wirkt nicht abführend": '<i class="fa-solid fa-restroom"></i>',
-        "Kein unangenehmer Nachgeschmack": '<i class="fa-regular fa-face-grin-tongue"></i>',
-        "Geeignet bei Fruktoseunverträglichkeit": '<i class="fa-regular fa-lemon"></i>',
-    };
+            "Zahnfreundlich": '<i class="fa-solid fa-tooth"></i>',
+            "Zum Backen geeignet": '<i class="fa-solid fa-fire"></i>',
+            "Wirkt nicht abführend": '<i class="fa-solid fa-restroom"></i>',
+            "Kein unangenehmer Nachgeschmack": '<i class="fa-regular fa-face-grin-tongue"></i>',
+            "Geeignet bei Fruktoseunverträglichkeit": '<i class="fa-regular fa-lemon"></i>',
+        };
 
-    // Get the icon for the given property name
-    const icon = filterIcons[propertyName] || '';
-    console.log(icon);
+        // Get the icon for the given property name
+        const icon = filterIcons[propertyName] || '';
+        console.log(icon);
 
         return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${icon} ${propertyName}</span>`;
     };
@@ -271,11 +274,11 @@ function createPolarChart(data, highlightedIndex, previousData) {
         function translateAttribute(attr) {
             switch (attr) {
                 case 'sweetness':
-                    return 'Süße';
+                    return 'Süßkraft';
                 case 'calories':
-                    return 'Kalorien';
+                    return 'Kilokalorien';
                 case 'gi':
-                    return 'Glykemischer Index';
+                    return 'Glykämischer Index';
                 default:
                     return attr;
             }

@@ -527,7 +527,6 @@ header {
 }
 
 .panel.show {
-    padding: 0px 18px 18px 18px;
     max-height: 500px;
 }
 

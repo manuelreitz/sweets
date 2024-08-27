@@ -31,7 +31,7 @@ function clearFilters() {
     d3.selectAll('.dropdown-content a').classed('active', false);
     activeFilter = null;
     selectedFilterDiv.text('');
-    filterDescriptionDiv.text(filterDescriptions["all"].description);
+    filterDescriptionDiv.html(filterDescriptions["all"].description);
     filterDropdownButton.html(`${filterDescriptions["all"].title} <i class="fas fa-chevron-down"></i>`); // Setze den Dropdown-Button-Text zurück
     adjustBoxContent();
     updateHeaderBackground('all');
@@ -63,7 +63,7 @@ function toggleFilter(button, filterFn, filterName) {
         button.classed('active', true);
         activeFilter = filterName;
         selectedFilterDiv.text(filterDescriptions[filterName].title);
-        filterDescriptionDiv.text(filterDescriptions[filterName].description);
+        filterDescriptionDiv.html(filterDescriptions[filterName].description);
         clearFilterButton.style('display', 'inline-block');
         filterDropdownButton.html(`${filterDescriptions[filterName].title} <i class="fas fa-chevron-down"></i>`); // Ändere den Dropdown-Button-Text
         adjustBoxContent();
