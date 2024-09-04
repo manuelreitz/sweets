@@ -69,7 +69,7 @@ header {
         height: 20rem;
     }
 
-    
+
     .filter-description,
     .dropdown-content a {
         font-size: 1.3rem !important;
@@ -101,7 +101,7 @@ header {
     border: 1.5px solid #000;
     z-index: 10;
     top: 1.875rem;
-/*    transform-origin: top left;*/
+    /*    transform-origin: top left;*/
 }
 
 #id1 {
@@ -181,16 +181,29 @@ header {
 }
 
 .box-key {
+    opacity: 0.7;
+}
+
+#box-key-large {
     position: absolute;
     width: 200px;
     right: 83px;
     top: 30px;
-    opacity: 0.7;
+}
+
+#box-key-small {
+    margin-left: 5.25rem;
+    margin-bottom: 2rem;
+    display: none;
 }
 
 @media (max-width: 999px) {
-    .box-key {
+    #box-key-large {
         display: none;
+    }
+
+    #box-key-small {
+        display: block;
     }
 }
 
@@ -573,7 +586,7 @@ header {
 
 @media (max-width: 599px) {
     .info-container {
-        padding: 1.5rem ;
+        padding: 1.5rem;
     }
 
     .panel {
