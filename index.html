@@ -16,27 +16,29 @@
 
 <body>
     <header></header>
-    <div class="filter-container">
-        <div class="dropdown">
-            <button id="filterDropdownButton" class="dropbtn">Welches Süßungsmittel darf es sein? <i class="fa-solid fa-chevron-down"></i></button>
-            <div class="dropdown-content">
-                <a href="#" id="filterAll"><i class="fa-solid fa-border-all"></i>Alle Süßungsmittel</a>
-                <a href="#" id="filterLowCalories"><i class="fa-brands fa-creative-commons-zero"></i>Kalorienarm</a>
-                <a href="#" id="filterToothDecay"><i class="fa-solid fa-tooth"></i>Zahnfreundlich</a>
-                <a href="#" id="filterSweetness"><i class="fa-solid fa-cubes-stacked"></i>Süßer als Zucker</a>
-                <a href="#" id="filterGI"><i class="fa-solid fa-syringe"></i>Niedriger glykämischer Index</a>
-                <a href="#" id="filterHeat"><i class="fa-solid fa-fire"></i>Zum Backen geeignet</a>
-                <a href="#" id="filterLaxative"><i class="fa-solid fa-restroom"></i>Wirkt nicht abführend</a>
-                <a href="#" id="filterAftertaste"><i class="fa-regular fa-face-grin-tongue"></i>Kein unangenehmer Nachgeschmack</a>
-                <a href="#" id="filterFructose"><i class="fa-regular fa-lemon"></i>Geeignet bei Fruktoseunverträglichkeit</a>
+    <div class="vizContainer">
+        <div class="filter-container">
+            <div class="dropdown">
+                <button id="filterDropdownButton" class="dropbtn">Welches Süßungsmittel darf es sein? <i class="fa-solid fa-chevron-down"></i></button>
+                <div class="dropdown-content">
+                    <a href="#" id="filterAll"><i class="fa-solid fa-border-all"></i>Alle Süßungsmittel</a>
+                    <a href="#" id="filterLowCalories"><i class="fa-brands fa-creative-commons-zero"></i>Kalorienarm</a>
+                    <a href="#" id="filterToothDecay"><i class="fa-solid fa-tooth"></i>Zahnfreundlich</a>
+                    <a href="#" id="filterSweetness"><i class="fa-solid fa-cubes-stacked"></i>Süßer als Zucker</a>
+                    <a href="#" id="filterGI"><i class="fa-solid fa-syringe"></i>Niedriger glykämischer Index</a>
+                    <a href="#" id="filterHeat"><i class="fa-solid fa-fire"></i>Zum Backen geeignet</a>
+                    <a href="#" id="filterLaxative"><i class="fa-solid fa-restroom"></i>Wirkt nicht abführend</a>
+                    <a href="#" id="filterAftertaste"><i class="fa-regular fa-face-grin-tongue"></i>Kein unangenehmer Nachgeschmack</a>
+                    <a href="#" id="filterFructose"><i class="fa-regular fa-lemon"></i>Geeignet bei Fruktoseunverträglichkeit</a>
+                </div>
             </div>
+            <div class="filter-content">
+                <div id="filterDescription" class="filter-description">Wer nach Alternativen für Zucker sucht, hat die Qual der Wahl. Welche Eigenschaften sollen sie haben? Wähle ein Merkmal im Menü aus, und wir schlagen die passenden Süßungsmittel vor.</div>
+            </div>
+            <div class="box-key"><img src="media/key.svg" alt="Legende"></div>
         </div>
-        <div class="filter-content">
-            <div id="filterDescription" class="filter-description">Wer nach Alternativen für Zucker sucht, hat die Qual der Wahl. Welche Eigenschaften sollen sie haben? Wähle ein Merkmal im Menü aus, und wir schlagen die passenden Süßungsmittel vor.</div>
-        </div>
-        <div class="box-key"><img src="media/key.svg" alt="Legende"></div>
+        <div id="tableContainer" class="table-container"></div>
     </div>
-    <div id="tableContainer" class="table-container"></div>
     <div id="lightbox" class="lightbox">
         <div class="lightbox-content">
             <div class="lightbox-header">
@@ -70,59 +72,72 @@
         </div>
     </div>
     <div class="info-container">
-        <button class="accordion" id="accordionI"><div><span class="accordion-number">I</span> <span id="headerI" class="accordion-header">Zucker (raffiniert)</span></div><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <button class="accordion" id="accordionI">
+            <div><span class="accordion-number">I</span> <span id="headerI" class="accordion-header">Zucker (raffiniert)</span></div><i class="fa-solid fa-chevron-down chevron"></i>
+        </button>
         <div class="panel" id="panelI">
             <p>Raffinierte Zucker sind chemisch aufgereinigt. Sie enthalten in der Regel keine Farbstoffe und Mikronährstoffe mehr. </p>
         </div>
-        <button class="accordion" id="accordionII"><div><span class="accordion-number">II</span> <span id="headerII" class="accordion-header">Naturstoff (roh)</span></div><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <button class="accordion" id="accordionII">
+            <div><span class="accordion-number">II</span> <span id="headerII" class="accordion-header">Naturstoff (roh)</span></div><i class="fa-solid fa-chevron-down chevron"></i>
+        </button>
         <div class="panel" id="panelII">
             <p>Manche Süßungsmittel kommen roh zum Einsatz. Honig ist beispielsweise direkt nach dem Schleudern verzehrfertig. Andere werden lediglich gemahlen oder klein gerieben.</p>
         </div>
-        <button class="accordion" id="accordionIII"><div><span class="accordion-number">III</span> <span id="headerIII" class="accordion-header">Naturstoff (verarbeitet)</span></div><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <button class="accordion" id="accordionIII">
+            <div><span class="accordion-number">III</span> <span id="headerIII" class="accordion-header">Naturstoff (verarbeitet)</span></div><i class="fa-solid fa-chevron-down chevron"></i>
+        </button>
         <div class="panel" id="panelIII">
             <p>Viele Süßungsmittel sind zwar nicht raffiniert, also vollständig aufgereinigt, aber trotzdem vorbehandelt. Sirupe entstehen zum Beispiel durch Einkochen von Pflanzensaft.</p>
         </div>
-        <button class="accordion" id="accordionIV"><div><span class="accordion-number">IV</span> <span id="headerIV" class="accordion-header">Zuckeralkohol</span></div><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <button class="accordion" id="accordionIV">
+            <div><span class="accordion-number">IV</span> <span id="headerIV" class="accordion-header">Zuckeralkohol</span></div><i class="fa-solid fa-chevron-down chevron"></i>
+        </button>
         <div class="panel" id="panelIV">
             <p>Zuckeralkohole nennt man auch Zuckeraustauschstoffe. Der Körper verstoffwechselt sie ohne Insulin, weshalb sie den Blutzuckerspiegel kaum ansteigen lassen. Sie kommen auch in der Natur vor, beispielsweise in Äpfeln und Birnen.</p>
         </div>
-        <button class="accordion" id="accordionV"><div><span class="accordion-number">V</span> <span id="headerV" class="accordion-header">Synthetischer Süßstoff</span></div><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <button class="accordion" id="accordionV">
+            <div><span class="accordion-number">V</span> <span id="headerV" class="accordion-header">Synthetischer Süßstoff</span></div><i class="fa-solid fa-chevron-down chevron"></i>
+        </button>
         <div class="panel" id="panelV">
             <p>Diese Stoffe kommen in der Natur nicht vor. Sie werden in einem chemischen Verfahren hergestellt.</p>
         </div>
-        <button class="accordion" id="accordionQ"><div><span class="accordion-number">Q</span> <span id="headerQ" class="accordion-header">Quellen</span></div><i class="fa-solid fa-chevron-down chevron"></i></button>
+        <button class="accordion" id="accordionQ">
+            <div><span class="accordion-number">Q</span> <span id="headerQ" class="accordion-header">Quellen</span></div><i class="fa-solid fa-chevron-down chevron"></i>
+        </button>
         <div class="panel" id="panelQ">
-            <ul>
-    <li><a href="https://www.openagrar.de/receive/openagrar_mods_00085592">Bundesinstitut für Risikobewertung: Führen Mischungen mehrerer Süßungsmittel zu gesundheitlichen Risiken für den Menschen?: Stellungnahme Nr. 005/2023 des BfR vom 07. Februar 2023. 10.17590/20230207-071341, 2023</a></li>
-    <li><a href="https://academicjournals.org/article/article1380720967_Abou-Arab%20et%20al.pdf">Esmat Abou-Arab, A. et al.: Physico-chemical assessment of natural sweeteners steviosides produced from Stevia rebaudiana bertoni plant. African Journal of Food Science 4, 2010</a></li>
-    <li><a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/glycyrrhizin">Fry, J.C.: Glycyrrhizin. In: Baines, R., Seal, D. (Hg.): Natural food additives, ingredients and flavourings. Woodhead, 2012</a></li>
-    <li><a href="https://www.cambridge.org/core/journals/nutrition-research-reviews/article/health-potential-of-polyols-as-sugar-replacers-with-emphasis-on-low-glycaemic-properties/51B0744C8573925A7A74FF2AD87429F9">Livesey, G.: Health potential of polyols as sugar replacers, with emphasis on low glycaemic properties. Nutrition Research Reviews 16, 2003</a></li>
-    <li><a href="https://www.sciencedirect.com/science/article/pii/S2405844023064241">Mohammed, F. et al.: Nutritional, pharmacological, and sensory properties of maple syrup: A comprehensive review. Heliyon 9, 2023</a></li>
-    <li><a href="https://www.sciencedirect.com/science/article/pii/S0023643821004138#:~:text=Stevioside%20(St)%20from%20stevia%20leaves,in%20food%20and%20drink%20products.">Sakr, E.A.E., Massoud, M.I.: Impact of prebiotic potential of stevia sweeteners-sugar used as synbiotic preparation on antimicrobial, antibiofilm, and antioxidant activities. LWT 144, 2021</a></li>
-    <li><a href="https://link.springer.com/article/10.1007/s10661-024-12610-5">Westmoreland, A.G. et al.: Sucralose (C12H19Cl3O8) impact on microbial activity in estuarine and freshwater marsh soils. Environ Monit Assess 196, 2024</a></li>
-    <li><a href="https://academic.oup.com/eurheartj/advance-article-abstract/doi/10.1093/eurheartj/ehae244/7683453?redirectedFrom=fulltext&login=false">Witkowski, M.: Xylitol is prothrombotic and associated with cardiovascular risk. European Heart Journal 45, 2024</a></li>
-    <li><a href="https://www.nature.com/articles/s41591-023-02223-9">Witkowski, M.: The artificial sweetener erythritol and cardiovascular event risk. Nature Medicine 29, 2023</a></li>
-    <li><a href="https://www.bmel.de/SharedDocs/Downloads/DE/_Ernaehrung/Reduktionsstrategie/Isoglucose-Bewertung.pdf?__blob=publicationFile&v=3">Ernährungsphysiologische Bewertung und Auswirkungen des Isoglukosekonsums auf die menschliche Gesundheit</a></li>
-    <li><a href="https://glycemic-index.net/">Glycemic Index Guide</a></li>
-    <li><a href="www.nzyacon.com/wp-content/uploads/GI%20Research%20Report%20NZFOSplus%20Yacon%20Concentrate.pdf">Glycemic Index Research Report</a></li>
-    <li><a href="https://www.bzfe.de/fileadmin/resources/import/pdf/eifonline_yacon-1.pdf">Yacon – Ein regionales Superfood?</a></li>
-    <li><a href="https://www.verbraucherzentrale.de/wissen/lebensmittel/nahrungsergaenzungsmittel/lucuma-gold-der-inkas-7796">Lucuma – Gold der Inkas | Verbraucherzentrale.de</a></li>
-    <li><a href="https://www.zahnmaennchen.de/verbraucher/zahngesundheit-fuer-erwachsene-verbraucher/ernaehrung-zahngesundheit-fuer-erwachsene-verbraucher/ernaehrung-zuckerersatzstoffe/">Zuckerersatzstoffe – Aktion Zahnfreundlich – Zahnmännchen</a></li>
-    <li><a href="https://www.sweeteners.org/de/efsa-bestatigt-das-vertrauen-in-thaumatin-erneut/">EFSA bestätigt das Vertrauen in Thaumatin erneut - International Sweeteners Association</a></li>
-    <li><a href="https://www.lebensmittelklarheit.de/informationen/kokosbluetenzucker-viele-versprechungen-wenige-beweise#:~:text=In%20der%20Zusammensetzung%20unterscheidet%20sich,haupts%C3%A4chlich%20weitere%20Kohlenhydrate%20sowie%20Wasser.">Kokosblütenzucker: Viele Versprechungen, wenige Beweise | Lebensmittelklarheit</a></li>
-    <li><a href="www.dkv.com/downloads/Tabelle-glykaemischer-Index.pdf">DKV: Glykemischer Index</a></li>
-    <li><a href="https://www.verbraucherzentrale.de/wissen/lebensmittel/gesund-ernaehren/stevia-zuckerfreie-suesse-mit-fraglichem-natuerlichem-image-51999">Stevia – zuckerfreie Süße mit fraglichem natürlichem Image</a></li>
-    <li><a href="https://www.dlg.org/de/lebensmittel/themen/publikationen/expertenwissen-foodchain/stevia">DLG-Expertenwissen 14/2015: Steviolglycoside</a></li>
-    <li><a href="https://www.bfarm.de/SharedDocs/Downloads/DE/Arzneimittel/Zulassung/amInformationen/Besonderheitenliste/Lactitol.pdf?__blob=publicationFile">Lactitol (E 966) Art der Anwendung: Oral</a></li>
-    <li><a href="https://www.bzfe.de/lebensmittel/lebensmittelkunde/suessungsmittel/">Süßungsmittel- BZfE</a></li>
-    <li><a href="https://mobil.bfr.bund.de/cm/343/suessstoff-sucralose-beim-erhitzen-von-lebensmitteln-koennen-gesundheitsschaedliche-verbindungen-entstehen.pdf">Süßstoff Sucralose: Beim Erhitzen von Lebensmitteln können gesundheitsschädliche Verbindungen entstehen</a></li>
-    <li><a href="https://www.verbraucherservice-bayern.de/themen/ernaehrung/suessstoffe-suessen-ohne-kalorien">Süßstoffe - süßen ohne Kalorien - Ernährung - VerbraucherService Bayern</a></li>
-    <li><a href="https://www.aerzteblatt.de/nachrichten/76974/Kuenstliche-Suessungsmittel-Bisherige-Studien-zeigen-eher-Nachteile-fuer-die-Gesundheit">Künstliche Süßungsmittel: Bisherige Studien zeigen eher Nachteile für die Gesundheit</a></li>
-</ul>
 
+            <div class="footer">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
+            <ul>
+                <li><a href="https://www.openagrar.de/receive/openagrar_mods_00085592">Bundesinstitut für Risikobewertung: Führen Mischungen mehrerer Süßungsmittel zu gesundheitlichen Risiken für den Menschen?: Stellungnahme Nr. 005/2023 des BfR vom 07. Februar 2023. 10.17590/20230207-071341, 2023</a></li>
+                <li><a href="https://academicjournals.org/article/article1380720967_Abou-Arab%20et%20al.pdf">Esmat Abou-Arab, A. et al.: Physico-chemical assessment of natural sweeteners steviosides produced from Stevia rebaudiana bertoni plant. African Journal of Food Science 4, 2010</a></li>
+                <li><a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/glycyrrhizin">Fry, J.C.: Glycyrrhizin. In: Baines, R., Seal, D. (Hg.): Natural food additives, ingredients and flavourings. Woodhead, 2012</a></li>
+                <li><a href="https://www.cambridge.org/core/journals/nutrition-research-reviews/article/health-potential-of-polyols-as-sugar-replacers-with-emphasis-on-low-glycaemic-properties/51B0744C8573925A7A74FF2AD87429F9">Livesey, G.: Health potential of polyols as sugar replacers, with emphasis on low glycaemic properties. Nutrition Research Reviews 16, 2003</a></li>
+                <li><a href="https://www.sciencedirect.com/science/article/pii/S2405844023064241">Mohammed, F. et al.: Nutritional, pharmacological, and sensory properties of maple syrup: A comprehensive review. Heliyon 9, 2023</a></li>
+                <li><a href="https://www.sciencedirect.com/science/article/pii/S0023643821004138#:~:text=Stevioside%20(St)%20from%20stevia%20leaves,in%20food%20and%20drink%20products.">Sakr, E.A.E., Massoud, M.I.: Impact of prebiotic potential of stevia sweeteners-sugar used as synbiotic preparation on antimicrobial, antibiofilm, and antioxidant activities. LWT 144, 2021</a></li>
+                <li><a href="https://link.springer.com/article/10.1007/s10661-024-12610-5">Westmoreland, A.G. et al.: Sucralose (C12H19Cl3O8) impact on microbial activity in estuarine and freshwater marsh soils. Environ Monit Assess 196, 2024</a></li>
+                <li><a href="https://academic.oup.com/eurheartj/advance-article-abstract/doi/10.1093/eurheartj/ehae244/7683453?redirectedFrom=fulltext&login=false">Witkowski, M.: Xylitol is prothrombotic and associated with cardiovascular risk. European Heart Journal 45, 2024</a></li>
+                <li><a href="https://www.nature.com/articles/s41591-023-02223-9">Witkowski, M.: The artificial sweetener erythritol and cardiovascular event risk. Nature Medicine 29, 2023</a></li>
+                <li><a href="https://www.bmel.de/SharedDocs/Downloads/DE/_Ernaehrung/Reduktionsstrategie/Isoglucose-Bewertung.pdf?__blob=publicationFile&v=3">Ernährungsphysiologische Bewertung und Auswirkungen des Isoglukosekonsums auf die menschliche Gesundheit</a></li>
+                <li><a href="https://glycemic-index.net/">Glycemic Index Guide</a></li>
+                <li><a href="www.nzyacon.com/wp-content/uploads/GI%20Research%20Report%20NZFOSplus%20Yacon%20Concentrate.pdf">Glycemic Index Research Report</a></li>
+                <li><a href="https://www.bzfe.de/fileadmin/resources/import/pdf/eifonline_yacon-1.pdf">Yacon – Ein regionales Superfood?</a></li>
+                <li><a href="https://www.verbraucherzentrale.de/wissen/lebensmittel/nahrungsergaenzungsmittel/lucuma-gold-der-inkas-7796">Lucuma – Gold der Inkas | Verbraucherzentrale.de</a></li>
+                <li><a href="https://www.zahnmaennchen.de/verbraucher/zahngesundheit-fuer-erwachsene-verbraucher/ernaehrung-zahngesundheit-fuer-erwachsene-verbraucher/ernaehrung-zuckerersatzstoffe/">Zuckerersatzstoffe – Aktion Zahnfreundlich – Zahnmännchen</a></li>
+                <li><a href="https://www.sweeteners.org/de/efsa-bestatigt-das-vertrauen-in-thaumatin-erneut/">EFSA bestätigt das Vertrauen in Thaumatin erneut - International Sweeteners Association</a></li>
+                <li><a href="https://www.lebensmittelklarheit.de/informationen/kokosbluetenzucker-viele-versprechungen-wenige-beweise#:~:text=In%20der%20Zusammensetzung%20unterscheidet%20sich,haupts%C3%A4chlich%20weitere%20Kohlenhydrate%20sowie%20Wasser.">Kokosblütenzucker: Viele Versprechungen, wenige Beweise | Lebensmittelklarheit</a></li>
+                <li><a href="www.dkv.com/downloads/Tabelle-glykaemischer-Index.pdf">DKV: Glykemischer Index</a></li>
+                <li><a href="https://www.verbraucherzentrale.de/wissen/lebensmittel/gesund-ernaehren/stevia-zuckerfreie-suesse-mit-fraglichem-natuerlichem-image-51999">Stevia – zuckerfreie Süße mit fraglichem natürlichem Image</a></li>
+                <li><a href="https://www.dlg.org/de/lebensmittel/themen/publikationen/expertenwissen-foodchain/stevia">DLG-Expertenwissen 14/2015: Steviolglycoside</a></li>
+                <li><a href="https://www.bfarm.de/SharedDocs/Downloads/DE/Arzneimittel/Zulassung/amInformationen/Besonderheitenliste/Lactitol.pdf?__blob=publicationFile">Lactitol (E 966) Art der Anwendung: Oral</a></li>
+                <li><a href="https://www.bzfe.de/lebensmittel/lebensmittelkunde/suessungsmittel/">Süßungsmittel- BZfE</a></li>
+                <li><a href="https://mobil.bfr.bund.de/cm/343/suessstoff-sucralose-beim-erhitzen-von-lebensmitteln-koennen-gesundheitsschaedliche-verbindungen-entstehen.pdf">Süßstoff Sucralose: Beim Erhitzen von Lebensmitteln können gesundheitsschädliche Verbindungen entstehen</a></li>
+                <li><a href="https://www.verbraucherservice-bayern.de/themen/ernaehrung/suessstoffe-suessen-ohne-kalorien">Süßstoffe - süßen ohne Kalorien - Ernährung - VerbraucherService Bayern</a></li>
+                <li><a href="https://www.aerzteblatt.de/nachrichten/76974/Kuenstliche-Suessungsmittel-Bisherige-Studien-zeigen-eher-Nachteile-fuer-die-Gesundheit">Künstliche Süßungsmittel: Bisherige Studien zeigen eher Nachteile für die Gesundheit</a></li>
+            </ul>
         </div>
+        <button class="accordion" id="accordionE"></button>
     </div>
-    <div class="footer">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</div>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="style.css" rel="stylesheet" />
     <script src="data-sweets.js"></script>

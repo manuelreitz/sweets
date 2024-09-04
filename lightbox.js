@@ -57,7 +57,6 @@ function showLightbox(index) {
         .style("font-weight", "bold");
 
     function createPropertyElement(propertyName, condition, category, value) {
-        console.log(value);
         const color = categoryColors[category];
         let opacity = 0.25; // Default opacity for conditions not met
         if (condition) {
@@ -78,7 +77,6 @@ function showLightbox(index) {
 
         // Get the icon for the given property name
         const icon = filterIcons[propertyName] || '';
-        console.log(icon);
 
         return `<span class="property" style="background-color: ${color}; opacity: ${opacity};">${icon} ${propertyName}</span>`;
     };
@@ -96,6 +94,8 @@ function showLightbox(index) {
     lightbox.style('display', 'block');
 
     previousIndex = index;
+
+    scaleLightboxContent();
 }
 
 
@@ -112,8 +112,8 @@ function createPolarChart(data, highlightedIndex, previousData) {
     const scales = {
         calories: d3.scaleLinear().domain([0, maxCalories]).range([0, radius]),
         // sweetness: d3.scaleLog().domain([1, maxSweetness]).range([0, radius]).clamp(true),
-        sweetness: d3.scaleLinear().domain([0, maxSweetness]).range([0, radius]).clamp(true),
-        gi: d3.scaleLinear().domain([0, maxGI]).range([0, radius]),
+        sweetness: d3.scaleLinear().domain([-0.5, maxSweetness]).range([0, radius]).clamp(true),
+        gi: d3.scaleLinear().domain([-3, maxGI]).range([0, radius]),
     };
 
     const angles = {
@@ -142,12 +142,29 @@ function createPolarChart(data, highlightedIndex, previousData) {
         .append("g")
         .attr("transform", `translate(${(width) / 2}, ${(height) / 2 -15})`);
 
-    polarChartSvg.append("text")
-        .attr("y", 180)
-        .attr("fill", "#000")
-        .style("font-size", "14px")
-        .attr("text-anchor", "middle")
-        .text("verglichen mit Haushaltszucker");
+// Füge das SVG-Icon hinzu
+polarChartSvg.append("image")
+    .attr("xlink:href", "media/arc.svg") // Link zum SVG-Icon
+    .attr("x", -103) // X-Position des Icons (kann angepasst werden)
+    .attr("y", 165) // Y-Position des Icons (angepasst für vertikales Zentrieren)
+    .attr("width", 20) // Breite des Icons
+    .attr("height", 20); // Höhe des Icons
+
+// Füge den Text hinzu
+polarChartSvg.append("text")
+    .attr("y", 180)
+    .attr("x", 10) // X-Position des Textes nach dem Icon
+    .attr("fill", "#000")
+    .style("font-size", "14px")
+    .attr("text-anchor", "middle")
+    .text("— verglichen mit Haushaltszucker");
+
+    // polarChartSvg.append("text")
+    //     .attr("y", 180)
+    //     .attr("fill", "#000")
+    //     .style("font-size", "14px")
+    //     .attr("text-anchor", "middle")
+    //     .text("verglichen mit Haushaltszucker");
 
     attributes.forEach(attr => {
         const scale = scales[attr];
@@ -379,8 +396,8 @@ function createPolarChart(data, highlightedIndex, previousData) {
             .attr("y1", 0)
             .attr("x2", x)
             .attr("y2", y)
-            .style("stroke", "#CCC")
-            .attr("opacity", 0.5);
+            .attr("stroke", color)
+            .attr("stroke-width", "5px");
     }
 }
 
@@ -445,3 +462,35 @@ d3.select('body').on('keydown', (event) => {
         hideLightbox()
     }
 });
+
+
+function scaleLightboxContent() {
+    const lightboxContent = document.querySelector('.lightbox-content');
+    const maxWidth = 370;
+    const maxHeight = 700;
+
+    // Berechne die verfügbare Breite und Höhe 
+    const availableWidth = window.innerWidth;
+    const availableHeight = window.innerHeight;
+
+    // Setze die initiale Größe des Elements
+    const width = Math.min(maxWidth, availableWidth);
+    const height = Math.min(maxHeight, availableHeight);
+    
+    //const height = lightboxContent.offsetHeight;
+
+    // Berechne den Skalierungsfaktor anhand der verfügbaren Breite und Höhe
+    const scaleWidth = availableWidth / maxWidth *0.9;
+    const scaleHeight = availableHeight / maxHeight  *0.9;
+    const scale = Math.min(scaleWidth, scaleHeight, 1.3);
+
+    console.log(scale);
+
+    lightboxContent.style.transform = `translate(-50%, -50%) scale(${scale}) `;
+    // lightboxContent.style.maxWidth = `${maxWidth}px`;
+}
+
+// Event Listener für die Skalierung bei der Fenstergrößenänderung
+window.addEventListener('resize', scaleLightboxContent);
+
+

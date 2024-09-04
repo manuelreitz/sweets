@@ -1,10 +1,11 @@
-const MAX_WIDTH = 930; // Maximale Breite für die erweiterte Ansicht
+const MAX_WIDTH = 1000; // Maximale Breite für die erweiterte Ansicht
 const MIN_OPACITY = 0.3; // Globale Variable für die minimale Deckkraft
 let activeFilter = null; // Variable, um den aktiven Filter zu verfolgen
 
 const groupedData = d3.group(data, d => d.category);
 
 const tableContainer = d3.select('#tableContainer');
+const dropdown = d3.select('#id1');
 
 const tooltip = d3.select('body').append('div')
     .attr('class', 'tooltip');
@@ -96,76 +97,38 @@ function adjustBoxContent() {
         box.selectAll('.symbol').remove();
         box.selectAll('.filter-value').remove();
 
-        // Füge den Namen und den Filterwert hinzu, wenn die Containerbreite größer als MAX_WIDTH ist
-        if (containerWidth > MAX_WIDTH) {
-            box.html(`<div class="symbol">${d.symbol}</div><span class="name">${d.name}</span><span class="e-number">${d.enumber}</span>`);
-            if (activeFilter) {
-                let filterValue = '';
-                switch (activeFilter) {
-                    case 'lowCalories':
-                        filterValue = d.calories;
-                        break;
-                    case 'toothDecay':
-                        filterValue = d.tooth === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'sweetness':
-                        filterValue = d.sweetness;
-                        break;
-                    case 'glycemicIndex':
-                        filterValue = d.gi;
-                        break;
-                    case 'heat':
-                        filterValue = d.heat === "ja" ? '<i class="fa-solid fa-check"></i>' : d.heat === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'laxative':
-                        filterValue = d.laxative === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'aftertaste':
-                        filterValue = d.aftertaste === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'fructose':
-                        filterValue = d.fructose === "ja" ? '<i class="fa-solid fa-check"></i>' : d.fructose === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    default:
-                        filterValue = '';
-                }
-                box.append('span').attr('class', 'filter-value').html(filterValue); // Nutze .html() statt .text(), um HTML-Inhalt zu setzen
+        box.html(`<div class="symbol">${d.symbol}</div><span class="name">${d.name}</span><span class="e-number">${d.enumber}</span>`);
+        if (activeFilter) {
+            let filterValue = '';
+            switch (activeFilter) {
+                case 'lowCalories':
+                    filterValue = d.calories;
+                    break;
+                case 'toothDecay':
+                    filterValue = d.tooth === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
+                    break;
+                case 'sweetness':
+                    filterValue = d.sweetness;
+                    break;
+                case 'glycemicIndex':
+                    filterValue = d.gi;
+                    break;
+                case 'heat':
+                    filterValue = d.heat === "ja" ? '<i class="fa-solid fa-check"></i>' : d.heat === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
+                    break;
+                case 'laxative':
+                    filterValue = d.laxative === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
+                    break;
+                case 'aftertaste':
+                    filterValue = d.aftertaste === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
+                    break;
+                case 'fructose':
+                    filterValue = d.fructose === "ja" ? '<i class="fa-solid fa-check"></i>' : d.fructose === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
+                    break;
+                default:
+                    filterValue = '';
             }
-        } else {
-            // Andernfalls wird nur das Symbol angezeigt
-            box.html(`<div class="symbol">${d.symbol}</div>`);
-            if (activeFilter) {
-                let filterValue = '';
-                switch (activeFilter) {
-                    case 'lowCalories':
-                        filterValue = d.calories;
-                        break;
-                    case 'toothDecay':
-                        filterValue = d.tooth === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'sweetness':
-                        filterValue = d.sweetness;
-                        break;
-                    case 'glycemicIndex':
-                        filterValue = d.gi;
-                        break;
-                    case 'heat':
-                        filterValue = d.heat === "ja" ? '<i class="fa-solid fa-check"></i>' : d.heat === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'laxative':
-                        filterValue = d.laxative === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'aftertaste':
-                        filterValue = d.aftertaste === "ja" ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    case 'fructose':
-                        filterValue = d.fructose === "ja" ? '<i class="fa-solid fa-check"></i>' : d.fructose === "bedingt" ? 'bedingt' : '<i class="fa-solid fa-times"></i>';
-                        break;
-                    default:
-                        filterValue = '';
-                }
-                box.append('span').attr('class', 'filter-value').html(filterValue); // Nutze .html() statt .text(), um HTML-Inhalt zu setzen
-            }
+            box.append('span').attr('class', 'filter-value').html(filterValue);
         }
 
         if (d.symbol === "Sa") {
@@ -251,14 +214,25 @@ for (const [key, value] of Object.entries(headerColors)) {
 // Initialer Aufruf der Funktion beim Laden der Seite
 adjustBoxContent();
 
-// Event-Listener für die Fenstergrößenänderung
-// window.addEventListener('resize', adjustBoxContent);
+function updateScaleFactor() {
+    const windowWidth = window.innerWidth;
+    if (windowWidth >= 600 && windowWidth <= 1000) {
+        const scaleFactorA = Math.min(1, (windowWidth / MAX_WIDTH) * 1.125);
+        tableContainer.style('transform', `scale(${scaleFactorA})`);
+        tableContainer.style('height', windowWidth*0.75 + "px");
 
-// function updateScaleFactor() {
-//     const windowWidth = window.innerWidth;
-//     const scaleFactor = Math.min(1, (windowWidth / MAX_WIDTH));
-//     tableContainer.style('transform', `scale(${scaleFactor})`);
-// }
+        // const scaleFactorB = Math.min(1, (windowWidth / MAX_WIDTH) * 1.3);
+        // dropdown.style('transform', `scale(${scaleFactorB})`);
 
-// updateScaleFactor();
-// window.addEventListener('resize', updateScaleFactor);
+    } else if (windowWidth < 600) {
+        const scaleFactorC = Math.min(1, (windowWidth / MAX_WIDTH) * 1.5);
+        tableContainer.style('transform', `scale(${scaleFactorC})`);
+        tableContainer.style('height', windowWidth*1.35 + "px");
+
+        // const scaleFactorD = Math.min(1, (windowWidth / MAX_WIDTH) * 1.8);
+        // dropdown.style('transform', `scale(${scaleFactorD})`);
+    }
+}
+
+updateScaleFactor();
+window.addEventListener('resize', updateScaleFactor);
