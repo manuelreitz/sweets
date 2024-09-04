@@ -14,6 +14,31 @@ const selectedFilterDiv = d3.select('#selectedFilter');
 const filterDescriptionDiv = d3.select('#filterDescription');
 const clearFilterButton = d3.select('#clearFilterButton');
 const filterDropdownButton = d3.select('#filterDropdownButton');
+const dropdownContent = d3.select('.dropdown-content');
+
+
+
+
+function toggleDropdown() {
+    if (dropdownContent.style('max-height') === '31.25rem') {
+        dropdownContent.style('max-height', '0');
+    } else {
+        dropdownContent.style('max-height', '31.25rem');
+    }
+}
+filterDropdownButton.on('click', function(event) {
+    event.stopPropagation(); // Verhindert, dass der Klick-Event-Listener des Dokuments ausgelöst wird
+    toggleDropdown();
+});
+dropdownContent.on('click', function(event) {
+    event.stopPropagation(); // Verhindert, dass der Klick-Event-Listener des Dokuments ausgelöst wird
+    toggleDropdown();
+});
+d3.select(document).on('click', function() {
+    dropdownContent.style('max-height', '0');
+});
+
+
 
 // Funktion zum Laden der Filterbeschreibungen aus der JSON-Datei
 function loadFilterDescriptions() {
@@ -46,14 +71,14 @@ function toggleFilter(button, filterFn, filterName) {
             .style('opacity', MIN_OPACITY)
             .filter(filterFn)
             .style('opacity', 1);
-        
+
         // Zusätzliche Bedingungen für "bedingt" und "gut"
         if (filterName === 'heat' || filterName === 'fructose') {
             tableContainer.selectAll('.box')
                 .filter(d => d[filterName] === "bedingt")
                 .style('opacity', 0.6);
         }
-        
+
         if (filterName === 'toothDecay') {
             tableContainer.selectAll('.box')
                 .filter(d => d.tooth === "gut")

@@ -477,14 +477,10 @@ function scaleLightboxContent() {
     const width = Math.min(maxWidth, availableWidth);
     const height = Math.min(maxHeight, availableHeight);
     
-    //const height = lightboxContent.offsetHeight;
-
     // Berechne den Skalierungsfaktor anhand der verfügbaren Breite und Höhe
     const scaleWidth = availableWidth / maxWidth *0.9;
     const scaleHeight = availableHeight / maxHeight  *0.9;
     const scale = Math.min(scaleWidth, scaleHeight, 1.3);
-
-    console.log(scale);
 
     lightboxContent.style.transform = `translate(-50%, -50%) scale(${scale}) `;
     // lightboxContent.style.maxWidth = `${maxWidth}px`;
