@@ -484,7 +484,7 @@ header {
 
 .lightbox-body {
     max-height: 500px;
-    overflow-y: auto;
+    overflow: auto;
     padding: 10px;
 }
 
