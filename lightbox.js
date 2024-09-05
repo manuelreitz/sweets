@@ -17,6 +17,8 @@ const maxGI = 105;
 let previousIndex = -1;
 
 function showLightbox(index) {
+    document.body.classList.add('no-scroll');
+
     const previousData = previousIndex >= 0 ? currentData[previousIndex] : null;
     currentIndex = index;
     const d = currentData[currentIndex];
@@ -142,22 +144,22 @@ function createPolarChart(data, highlightedIndex, previousData) {
         .append("g")
         .attr("transform", `translate(${(width) / 2}, ${(height) / 2 -15})`);
 
-// Füge das SVG-Icon hinzu
-polarChartSvg.append("image")
-    .attr("xlink:href", "media/arc.svg") // Link zum SVG-Icon
-    .attr("x", -103) // X-Position des Icons (kann angepasst werden)
-    .attr("y", 165) // Y-Position des Icons (angepasst für vertikales Zentrieren)
-    .attr("width", 20) // Breite des Icons
-    .attr("height", 20); // Höhe des Icons
+    // Füge das SVG-Icon hinzu
+    polarChartSvg.append("image")
+        .attr("xlink:href", "media/arc.svg") // Link zum SVG-Icon
+        .attr("x", -103) // X-Position des Icons (kann angepasst werden)
+        .attr("y", 165) // Y-Position des Icons (angepasst für vertikales Zentrieren)
+        .attr("width", 20) // Breite des Icons
+        .attr("height", 20); // Höhe des Icons
 
-// Füge den Text hinzu
-polarChartSvg.append("text")
-    .attr("y", 180)
-    .attr("x", 10) // X-Position des Textes nach dem Icon
-    .attr("fill", "#000")
-    .style("font-size", "14px")
-    .attr("text-anchor", "middle")
-    .text("— verglichen mit Haushaltszucker");
+    // Füge den Text hinzu
+    polarChartSvg.append("text")
+        .attr("y", 180)
+        .attr("x", 10) // X-Position des Textes nach dem Icon
+        .attr("fill", "#000")
+        .style("font-size", "14px")
+        .attr("text-anchor", "middle")
+        .text("— verglichen mit Haushaltszucker");
 
     // polarChartSvg.append("text")
     //     .attr("y", 180)
@@ -418,6 +420,8 @@ lightboxBody.on('scroll', () => {
 
 function hideLightbox() {
     lightbox.style('display', 'none');
+    document.body.classList.remove('no-scroll');
+
 }
 
 function showPrevious() {
@@ -476,10 +480,10 @@ function scaleLightboxContent() {
     // Setze die initiale Größe des Elements
     const width = Math.min(maxWidth, availableWidth);
     const height = Math.min(maxHeight, availableHeight);
-    
+
     // Berechne den Skalierungsfaktor anhand der verfügbaren Breite und Höhe
-    const scaleWidth = availableWidth / maxWidth *0.9;
-    const scaleHeight = availableHeight / maxHeight  *0.9;
+    const scaleWidth = availableWidth / maxWidth * 0.9;
+    const scaleHeight = availableHeight / maxHeight * 0.9;
     const scale = Math.min(scaleWidth, scaleHeight, 1.3);
 
     lightboxContent.style.transform = `translate(-50%, -50%) scale(${scale}) `;
@@ -488,5 +492,3 @@ function scaleLightboxContent() {
 
 // Event Listener für die Skalierung bei der Fenstergrößenänderung
 window.addEventListener('resize', scaleLightboxContent);
-
-

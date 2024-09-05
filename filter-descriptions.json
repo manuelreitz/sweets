@@ -2,7 +2,7 @@
     {
         "id": "all",
         "title": "Welches Süßungsmittel darf es sein?",
-        "description": "Wer nach Alternativen für Zucker sucht, hat die Qual der Wahl. Welche Eigenschaften sollen sie haben? Wähle ein Merkmal im Menü aus, und wir schlagen die passenden Süßungsmittel vor."
+        "description": "Wer nach Alternativen für Zucker sucht, hat die Qual der Wahl. Welche Eigenschaften sollen sie haben? <br><i>Wähle ein Merkmal im Menü aus, und wir schlagen die passenden Süßungsmittel vor. Ein Klick auf die Kachel verrät weitere Details über den jeweiligen Stoff.</i>"
     },
     {
         "id": "lowCalories",

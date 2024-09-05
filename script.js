@@ -215,12 +215,14 @@ for (const [key, value] of Object.entries(headerColors)) {
 adjustBoxContent();
 
 function updateScaleFactor() {
+    console.log("reload");
     const windowWidth = window.innerWidth;
     if (windowWidth >= 600 && windowWidth <= 1000) {
         const scaleFactorA = Math.min(1, (windowWidth / MAX_WIDTH) * 1.125);
         tableContainer.style('transform', `scale(${scaleFactorA})`);
         tableContainer.style('height', windowWidth*0.75 + "px");
 
+        console.log(scaleFactorA);
         // const scaleFactorB = Math.min(1, (windowWidth / MAX_WIDTH) * 1.3);
         // dropdown.style('transform', `scale(${scaleFactorB})`);
 
@@ -229,10 +231,16 @@ function updateScaleFactor() {
         tableContainer.style('transform', `scale(${scaleFactorC})`);
         tableContainer.style('height', windowWidth*1.35 + "px");
 
+        console.log(scaleFactorC);
         // const scaleFactorD = Math.min(1, (windowWidth / MAX_WIDTH) * 1.8);
         // dropdown.style('transform', `scale(${scaleFactorD})`);
     }
 }
 
 updateScaleFactor();
+
+window.addEventListener('load', () => {
+    setTimeout(updateScaleFactor, 1000);
+    
+});
 window.addEventListener('resize', updateScaleFactor);
