@@ -138,7 +138,7 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
     const polarChartSvg = radarChart.append("svg")
         .attr("width", width)
-        .attr("height", height)
+        .attr("height", height+30)
         .style("display", "block")
         .style("margin", "0 auto")
         .append("g")
@@ -146,27 +146,20 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
     // Füge das SVG-Icon hinzu
     polarChartSvg.append("image")
-        .attr("xlink:href", "media/arc.svg") // Link zum SVG-Icon
-        .attr("x", -103) // X-Position des Icons (kann angepasst werden)
-        .attr("y", 165) // Y-Position des Icons (angepasst für vertikales Zentrieren)
-        .attr("width", 20) // Breite des Icons
-        .attr("height", 20); // Höhe des Icons
+        .attr("xlink:href", "media/key3.svg") // Link zum SVG-Icon
+        .attr("x", -140) // X-Position des Icons (kann angepasst werden)
+        .attr("y", 175) // Y-Position des Icons (angepasst für vertikales Zentrieren)
+        .attr("width", 300) // Breite des Icons
+        .attr("height", 45); // Höhe des Icons
 
     // Füge den Text hinzu
-    polarChartSvg.append("text")
-        .attr("y", 180)
-        .attr("x", 10) // X-Position des Textes nach dem Icon
-        .attr("fill", "#000")
-        .style("font-size", "14px")
-        .attr("text-anchor", "middle")
-        .text("— verglichen mit Haushaltszucker");
-
     // polarChartSvg.append("text")
     //     .attr("y", 180)
+    //     .attr("x", 10) // X-Position des Textes nach dem Icon
     //     .attr("fill", "#000")
     //     .style("font-size", "14px")
     //     .attr("text-anchor", "middle")
-    //     .text("verglichen mit Haushaltszucker");
+    //     .text("— verglichen mit Haushaltszucker");
 
     attributes.forEach(attr => {
         const scale = scales[attr];

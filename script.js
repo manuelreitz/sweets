@@ -208,30 +208,20 @@ for (const [key, value] of Object.entries(headerColors)) {
         .style('color', value);
 }
 
-
-
-
-// Initialer Aufruf der Funktion beim Laden der Seite
 adjustBoxContent();
 
 function updateScaleFactor() {
-    console.log("reload");
     const windowWidth = window.innerWidth;
     if (windowWidth >= 600 && windowWidth <= 1000) {
         const scaleFactorA = Math.min(1, (windowWidth / MAX_WIDTH) * 1.125);
         tableContainer.style('transform', `scale(${scaleFactorA})`);
-        tableContainer.style('height', windowWidth*0.75 + "px");
+        tableContainer.style('height', windowWidth * 0.75 + "px");
     } else if (windowWidth < 600) {
         const scaleFactorB = Math.min(1, (windowWidth / MAX_WIDTH) * 1.5);
         tableContainer.style('transform', `scale(${scaleFactorB})`);
-        tableContainer.style('height', windowWidth*1.35 + "px");
+        tableContainer.style('height', windowWidth * 1.35 + "px");
     }
 }
 
 updateScaleFactor();
-
-window.addEventListener('load', () => {
-    setTimeout(updateScaleFactor, 1000);
-    
-});
 window.addEventListener('resize', updateScaleFactor);
