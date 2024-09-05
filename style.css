@@ -372,7 +372,7 @@ header {
     margin-bottom: 5px;
 }
 
-.tooltip {
+/*.tooltip {
     position: absolute;
     background-color: #333;
     color: #fff;
@@ -382,7 +382,7 @@ header {
     opacity: 0;
     transition: opacity 0.2s;
     font-size: 12px;
-}
+}*/
 
 
 
@@ -410,7 +410,7 @@ header {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fbe5e5;
-    border-radius: 5px;
+    border-radius: 13px;
     overflow: hidden;
     max-width: 370px;
     max-height: 700px;
@@ -596,7 +596,8 @@ header {
 
     .panel {
         font-size: 1.3rem !important;
-        margin: 10px !important;
+        margin-left: 10px !important;
+        box-sizing: border-box;
     }
 
     .accordion-header {

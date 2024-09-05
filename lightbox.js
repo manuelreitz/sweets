@@ -29,8 +29,9 @@ function showLightbox(index) {
         .text(d.symbol);
 
     d3.select('.lightbox-subtitle').html(`
-        ${d.enumber || ' '} ${d.othernames || ' '}
+        ${d.enumber && d.othernames ? `${d.enumber}, ${d.othernames}` : d.enumber || d.othernames || ' '}
     `);
+
 
     lightboxDetails.html(`
         <span class="detail-headline">KATEGORIE</span>
@@ -138,7 +139,7 @@ function createPolarChart(data, highlightedIndex, previousData) {
 
     const polarChartSvg = radarChart.append("svg")
         .attr("width", width)
-        .attr("height", height+30)
+        .attr("height", height + 30)
         .style("display", "block")
         .style("margin", "0 auto")
         .append("g")
@@ -147,7 +148,7 @@ function createPolarChart(data, highlightedIndex, previousData) {
     // Füge das SVG-Icon hinzu
     polarChartSvg.append("image")
         .attr("xlink:href", "media/key3.svg") // Link zum SVG-Icon
-        .attr("x", -140) // X-Position des Icons (kann angepasst werden)
+        .attr("x", -148) // X-Position des Icons (kann angepasst werden)
         .attr("y", 175) // Y-Position des Icons (angepasst für vertikales Zentrieren)
         .attr("width", 300) // Breite des Icons
         .attr("height", 45); // Höhe des Icons
