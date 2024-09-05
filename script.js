@@ -221,19 +221,10 @@ function updateScaleFactor() {
         const scaleFactorA = Math.min(1, (windowWidth / MAX_WIDTH) * 1.125);
         tableContainer.style('transform', `scale(${scaleFactorA})`);
         tableContainer.style('height', windowWidth*0.75 + "px");
-
-        console.log(scaleFactorA);
-        // const scaleFactorB = Math.min(1, (windowWidth / MAX_WIDTH) * 1.3);
-        // dropdown.style('transform', `scale(${scaleFactorB})`);
-
     } else if (windowWidth < 600) {
-        const scaleFactorC = Math.min(1, (windowWidth / MAX_WIDTH) * 1.5);
-        tableContainer.style('transform', `scale(${scaleFactorC})`);
+        const scaleFactorB = Math.min(1, (windowWidth / MAX_WIDTH) * 1.5);
+        tableContainer.style('transform', `scale(${scaleFactorB})`);
         tableContainer.style('height', windowWidth*1.35 + "px");
-
-        console.log(scaleFactorC);
-        // const scaleFactorD = Math.min(1, (windowWidth / MAX_WIDTH) * 1.8);
-        // dropdown.style('transform', `scale(${scaleFactorD})`);
     }
 }
 

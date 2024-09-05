@@ -473,6 +473,9 @@ function scaleLightboxContent() {
     const maxWidth = 370;
     const maxHeight = 700;
 
+    let scaleWidth = 1;
+    let scaleHeight = 1;
+
     // Berechne die verfügbare Breite und Höhe 
     const availableWidth = window.innerWidth;
     const availableHeight = window.innerHeight;
@@ -481,9 +484,13 @@ function scaleLightboxContent() {
     const width = Math.min(maxWidth, availableWidth);
     const height = Math.min(maxHeight, availableHeight);
 
-    // Berechne den Skalierungsfaktor anhand der verfügbaren Breite und Höhe
-    const scaleWidth = availableWidth / maxWidth * 0.9;
-    const scaleHeight = availableHeight / maxHeight * 0.9;
+    if (availableWidth < 600) {
+        scaleWidth = availableWidth / maxWidth * 0.95;
+        scaleHeight = availableHeight / maxHeight * 0.95;
+    } else {
+        scaleWidth = availableWidth / maxWidth * 0.9;
+        scaleHeight = availableHeight / maxHeight * 0.9;
+    }
     const scale = Math.min(scaleWidth, scaleHeight, 1.3);
 
     lightboxContent.style.transform = `translate(-50%, -50%) scale(${scale}) `;
