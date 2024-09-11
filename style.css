@@ -418,12 +418,17 @@ header {
 }
 
 .lightbox-body::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, und Edge */
+    display: none;
+    /* Chrome, Safari, und Edge */
 }
+
 .lightbox-body {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE und Edge */
-    overflow: -moz-scrollbars-none; /* Alte Versionen von Firefox */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE und Edge */
+    overflow: -moz-scrollbars-none;
+    /* Alte Versionen von Firefox */
 }
 
 .lightbox-header,
@@ -448,7 +453,7 @@ header {
 
 .lightbox-footer {
     height: 85px;
-/*    bottom: 0px;*/
+    /*    bottom: 0px;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -669,25 +674,18 @@ header {
     transform: rotate(180deg);
 }
 
-.footer {
-    font-size: 1.15rem;
-    letter-spacing: 0.01rem;
-    line-height: 130%;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-}
-
 ul {
     padding: 0;
 }
 
 li {
     margin-bottom: 10px;
+    font-size: 14px;
 }
 
 a {
     color: #333;
-    font-size: 14px;
+
 }
 
 a:hover {
