@@ -109,6 +109,7 @@
         <div class="panel" id="panelQ">
             <ul>
                 <li>Inspiriert von: <a href="https://www.washingtonpost.com/graphics/health/sweeteners-guide/">The Washington Post: A guide to sweeteners</a></li>
+                <li>Die Illustrationen der Filter wurden mit <a href="https://www.midjourney.com/home">Midjourney</a> erstellt.</li><br>
                 <li><a href="https://www.openagrar.de/receive/openagrar_mods_00085592">Bundesinstitut für Risikobewertung: Führen Mischungen mehrerer Süßungsmittel zu gesundheitlichen Risiken für den Menschen?: Stellungnahme Nr. 005/2023 des BfR vom 07. Februar 2023. 10.17590/20230207-071341, 2023</a></li>
                 <li><a href="https://academicjournals.org/article/article1380720967_Abou-Arab%20et%20al.pdf">Esmat Abou-Arab, A. et al.: Physico-chemical assessment of natural sweeteners steviosides produced from Stevia rebaudiana bertoni plant. African Journal of Food Science 4, 2010</a></li>
                 <li><a href="https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/glycyrrhizin">Fry, J.C.: Glycyrrhizin. In: Baines, R., Seal, D. (Hg.): Natural food additives, ingredients and flavourings. Woodhead, 2012</a></li>
@@ -138,6 +139,14 @@
         </div>
         <button class="accordion" id="accordionE"></button>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            link.setAttribute('target', '_blank');
+        });
+    });
+    </script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="style.css" rel="stylesheet" />
     <script src="data-sweets.js"></script>
