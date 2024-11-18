@@ -144,7 +144,7 @@ const data = [
     "notes": "Nicht wasserlöslich. Mögliche Langzeitrisiken und die Wirkung auf den Stoffwechsel sind bislang wissenschaftlich kaum untersucht."
   },
   {
-    "name": "Mönchsfrucht-Extrakt",
+    "name": "Mönchsfruchtextrakt",
     "symbol": "Mf",
     "othernames": "Lu Han Guo",
     "enumber": "",
@@ -324,7 +324,7 @@ const data = [
     "notes": "Kann im Übermaß Bluthochdruck auslösen. Wird bei Infekten der oberen Luftwege eingesetzt."
   },
   {
-    "name": "Steviaglycoside",
+    "name": "Steviolglycoside",
     "symbol": "St",
     "othernames": "Stevia",
     "enumber": "E 960",
@@ -540,7 +540,7 @@ const data = [
     "notes": "Von der Krebsforschungsagentur IARC 2023 als &raquo;möglicherweise krebserregend&laquo; eingestuft. Empfohlene Höchstmenge pro Tag: 40&nbsp;Milligramm pro Kilogramm Körpergewicht. Nicht geeignet für Menschen mit der Stoffwechselkrankheit Phenylketonurie. Der hohe Brennwert ist im Gebrauch zu vernachlässigen, da man nur winzige Mengen benötigt."
   },
   {
-    "name": "Acesulfam-Aspartam-Salz",
+    "name": "Aspartam-Acesulfam-Salz",
     "symbol": "Aa",
     "othernames": "Twinsweet",
     "enumber": "E 962",
