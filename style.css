@@ -372,23 +372,6 @@ header {
     margin-bottom: 5px;
 }
 
-/*.tooltip {
-    position: absolute;
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    border-radius: 3px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s;
-    font-size: 12px;
-}*/
-
-
-
-
-
-
 
 
 
@@ -458,7 +441,12 @@ header {
     justify-content: space-between;
     align-items: center;
     font-size: 26px;
+    transition: box-shadow 0.7s ease;
     box-shadow: rgba(0, 0, 0, 0.25) 0px -10px 8px -8px;
+}
+
+.lightbox-footer.shadow {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px -10px 8px -8px, 0px -30px 30px 5px #fbe5e5;
 }
 
 .lightbox-nav {
@@ -575,6 +563,16 @@ header {
 .lightbox-details .property i {
     color: #fff;
     margin-right: 5px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    transition: opacity .3s ease;
+    cursor: pointer;
 }
 
 

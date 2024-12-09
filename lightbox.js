@@ -3,6 +3,8 @@ const lightboxContent = d3.select('.lightbox-content');
 const lightboxBody = d3.select('.lightbox-body');
 const lightboxDetails = d3.select('.lightbox-details');
 const lightboxHeader = d3.select('.lightbox-header');
+const lightboxFooter = d3.select('.lightbox-footer');
+const scrollIndicator = d3.select('.scroll-indicator');
 const radarChart = d3.select('#radarChart');
 const closeButton = lightbox.select('.close');
 const leftNav = lightbox.select('.left');
@@ -398,13 +400,25 @@ function createPolarChart(data, highlightedIndex, previousData) {
 }
 
 
-// Hinzufügen von Scroll-Ereignis für den Header-Schatten
+// Hinzufügen von Scroll-Ereignissen
 lightboxBody.on('scroll', () => {
     if (lightboxBody.node().scrollTop > 0) {
         lightboxHeader.classed('shadow', true);
+        lightboxFooter.classed('shadow', false);
+        scrollIndicator.style('opacity', 0); // Icon einblenden
     } else {
         lightboxHeader.classed('shadow', false);
+        lightboxFooter.classed('shadow', true);
+        scrollIndicator.style('opacity', 1); // Icon ausblenden
     }
+});
+
+// Klick-Event für das Scroll-Icon
+scrollIndicator.on('click', () => {
+    lightboxBody.node().scrollTo({
+        top: lightboxBody.node().scrollHeight,
+        behavior: 'smooth'
+    });
 });
 
 
